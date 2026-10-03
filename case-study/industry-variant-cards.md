@@ -1,7 +1,7 @@
 # Industry Variant Cards
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*Each learner picks one variant in Session 1 and uses it for every in-session exercise and homework (Canvas v1–v2).*
+*Each learner picks one variant in Session 1 and uses it for every in-session exercise (including Canvas v1–v2).*
 *Each capstone team picks one variant for its capstone (Canvas v3 and the 31 Oct presentation).*
 
 ---

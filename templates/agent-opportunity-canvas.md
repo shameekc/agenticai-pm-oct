@@ -2,15 +2,15 @@
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
 *This canvas is a living document, updated three times. v1 and v2 are yours alone; v3 belongs to your capstone team.*
-- **v1** — Session 1 homework (due Sat 17 Oct): after the PRD + pipeline builds
-- **v2** — Session 2 homework (due Sat 24 Oct): after MCP, planning and multi-agent
+- **v1** — in Session 1 (Sat 3 Oct, 8:38 PM): after the PRD + pipeline builds
+- **v2** — in Session 2 (Sat 17 Oct, 8:45 PM): after MCP, planning and multi-agent
 - **v3** — drafted and approved in Session 3 (Sat 24 Oct): your capstone brief
 
 *v1–v2: one canvas per learner, on your own industry variant. v3: one canvas per capstone team, merged from members' v2s.*
 
 ---
 
-## CANVAS v1 · Session 1 homework
+## CANVAS v1 · Session 1, in class
 *Due before Session 2 (Sat 17 Oct).*
 
 ---
@@ -61,7 +61,7 @@
 
 ---
 
-## CANVAS v2 · Session 2 homework
+## CANVAS v2 · Session 2, in class
 *Update after MCP + PM Workflows. Add the connectivity and workflow layer.*
 
 ---

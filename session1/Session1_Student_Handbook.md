@@ -13,7 +13,7 @@
 | 3 | Sat 24 Oct | Measure and ship: eval harness, guardrails, token economics, HITL, capstone scoping |
 | 4 | Sat 31 Oct | Capstone presentations |
 
-**How you'll work:** sessions and homework are individual, on one industry variant you pick tonight. Teams form only for the capstone.
+**How you'll work:** in sessions you work on your own, on one industry variant you pick tonight. There's no homework. Teams form only for the capstone, which is the one piece of take-home work.
 
 **The contract:** by 31 October your capstone team presents a working agent for its industry, backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
 
@@ -23,14 +23,19 @@
 
 | Time | Block |
 |---|---|
-| 6:00 – 6:10 | Orientation: the course, your industry variant, your toolkit |
-| 6:10 – 6:40 | The agentic moment: what an agent is (and isn't), the architecture loop |
-| 6:40 – 6:50 | Sprint: classify real products on the agent spectrum |
-| 6:50 – 7:20 | AI product archetypes, the AI-native PRD, the Wren CX case |
-| 7:20 – 7:30 | Break |
-| 7:30 – 8:15 | **Build 1:** a 3-step ticket pipeline |
-| 8:15 – 8:45 | **Build 2:** add reflection and tool use |
-| 8:45 – 9:00 | Agent Opportunity Canvas v1 + homework |
+| 6:00 – 6:08 | Orientation: the course, your industry variant, your toolkit |
+| 6:08 – 6:32 | The agentic moment: what an agent is (and isn't), the architecture loop |
+| 6:32 – 6:40 | Sprint: classify real products on the agent spectrum |
+| 6:40 – 7:08 | AI product archetypes, the AI-native PRD, the Wren CX case |
+| 7:08 – 7:18 | **Workshop:** your quality criteria + 2 failure modes |
+| 7:18 – 7:28 | Break |
+| 7:28 – 8:03 | **Build 1:** a 3-step ticket pipeline |
+| 8:03 – 8:28 | **Build 2:** add reflection and tool use |
+| 8:28 – 8:38 | **PRD Review Board:** pressure-test your criteria |
+| 8:38 – 8:55 | **Agent Opportunity Canvas v1** |
+| 8:55 – 9:00 | Close |
+
+**No homework.** Everything is done in the session. The only take-home work in the course is the capstone.
 
 ---
 
@@ -52,7 +57,7 @@
 - `case-study/industry-variant-cards.md` — pick your industry variant
 - `sample_data/wren_tickets.json` — 20 tickets (A–D are the core four)
 - `sample_data/crm_orders.json` — simulated CRM for the tool-use build
-- `templates/agent-opportunity-canvas.md` — homework
+- `templates/agent-opportunity-canvas.md` — you fill in v1 tonight
 
 ---
 
@@ -108,7 +113,7 @@ Wren CX on Ticket C (the ₹45,000 laptop complaint):
 
 ---
 
-## 2. Sprint — Where on the Spectrum? (10 min)
+## 2. Sprint — Where on the Spectrum? (8 min)
 
 Classify each as LLM Workflow / RAG / AI Agent / Agentic AI, and name which of the 4 properties it uses:
 
@@ -178,9 +183,22 @@ Use these in every prompt so your builds, evals and guardrails agree:
 - **Drafts:** ≤ 75 words, end with an offer of further help
 - **HITL:** any claim > ₹10,000
 
+### Workshop — your quality criteria (10 min)
+
+Use your industry variant (`case-study/industry-variant-cards.md`). Numbers only, no adjectives. You'll pressure-test these at 8:28.
+
+```
+1. Classification accuracy target: ____% on [ticket type: ________]
+2. ESCALATE recall target: ≥ ____% (we miss no more than ____% of high-stakes cases)
+3. Auto-resolve rate target: ____% of tickets resolved without a human
+4. Two failure modes we will not ship with, each with its fallback:
+   ① ____________________  → fallback: ____________________
+   ② ____________________  → fallback: ____________________
+```
+
 ---
 
-## 6. Build 1 — A 3-Step Ticket Pipeline (45 min)
+## 6. Build 1 — A 3-Step Ticket Pipeline (35 min)
 
 ### Single call vs. pipeline vs. tool use
 
@@ -277,7 +295,7 @@ Write a customer-facing response that:
 
 ---
 
-## 7. Build 2 — Reflection + Tool Use (30 min)
+## 7. Build 2 — Reflection + Tool Use (25 min)
 
 ### Step 4 — Reflection (a reviewer checks the draft)
 
@@ -338,24 +356,44 @@ Now feed that context into Step 3. **Compare the draft with and without CRM data
 
 ---
 
-## 8. Homework — Due Before Session 2 (Sat 17 Oct)
+## 8. PRD Review Board (10 min)
 
-You have two weeks. Work on your own, on your industry variant (see `case-study/industry-variant-cards.md`).
+Pressure-test the quality criteria you wrote at 7:08. Paste them into Antigravity (or any LLM chat):
 
-1. **Agent Opportunity Canvas v1** (`templates/agent-opportunity-canvas.md`, sections 1–4): the problem, the agent's job (perceive / decide / act), one measurable quality bar, the biggest risk.
-2. **Quality Criteria + 2 failure modes** for your variant — the PRD section, with numbers.
-3. **PRD Review Board.** Paste your quality criteria + failure modes into Antigravity with the prompt below. Bring the one concern you hadn't thought of.
-   ```
-   You are running a PRD Review Board. I will give you a partial AI-native PRD.
-   Review it from 5 perspectives in sequence. For each, give 2 specific questions
-   the stakeholder would ask and 1 concern they would raise.
+```
+You are running a PRD Review Board. I will give you a partial AI-native PRD.
+Review it from 5 perspectives in sequence. For each, give 2 specific questions
+the stakeholder would ask and 1 concern they would raise.
 
-   Perspectives: CTO | Data Science | Legal/Compliance | GTM | CEO
+Perspectives: CTO | Data Science | Legal/Compliance | GTM | CEO
 
-   PRD excerpt: [paste your quality criteria + failure modes]
-   ```
-4. **One failure mode that would not show up in a demo.** Write it down. Session 2 opens with it.
-5. **Setup:** have Antigravity working, and confirm you can open a terminal inside it. Session 2 connects it to an MCP server.
+PRD excerpt: [paste your quality criteria + failure modes]
+```
+
+Read it and mark **the one concern you hadn't thought of**. Fix your criteria now. We'll take 2–3 in the chat.
+
+*This is a PM workflow you can run on Monday, not a toy. It's how you pressure-test a spec before engineering starts.*
+
+---
+
+## 9. Agent Opportunity Canvas v1 (17 min)
+
+Open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for your industry variant:
+
+1. **The problem:** which manual or rule-based process the agent replaces
+2. **The agent's job:** what it perceives, decides and acts on (one sentence each)
+3. **Quality bar v1:** one measurable threshold, taken from your criteria above
+4. **Biggest risk:** one failure mode that would stop it shipping. **Make it one you'd never see in a demo.**
+
+Rough is fine. Wrong is fine. Blank is not. This canvas is the seed of your capstone.
+
+---
+
+## 10. Before Session 2 (Sat 17 Oct)
+
+**No homework.** One setup check, about 5 minutes: make sure Google Antigravity opens and you can open a terminal inside it. Session 2 connects it to a live (simulated) ticket system over MCP.
+
+Keep your Canvas v1. You'll extend it to v2 in Session 2.
 
 ---
 
