@@ -27,10 +27,9 @@
 | 6:08 – 6:32 | The agentic moment: what an agent is (and isn't), the architecture loop |
 | 6:32 – 6:40 | Sprint: classify real products on the agent spectrum |
 | 6:40 – 7:08 | AI product archetypes, the AI-native PRD, the Wren CX case |
-| 7:08 – 7:18 | **Workshop:** your quality criteria + 2 failure modes |
-| 7:18 – 7:28 | Break |
-| 7:28 – 8:03 | **Build 1:** a 3-step ticket pipeline |
-| 8:03 – 8:28 | **Build 2:** add reflection and tool use |
+| 7:08 – 7:18 | Break |
+| 7:18 – 7:58 | **Build 1:** a 3-step ticket pipeline |
+| 7:58 – 8:28 | **Build 2:** add reflection and tool use |
 | 8:28 – 8:38 | **PRD Review Board:** pressure-test your criteria |
 | 8:38 – 8:55 | **Agent Opportunity Canvas v1** |
 | 8:55 – 9:00 | Close |
@@ -183,22 +182,9 @@ Use these in every prompt so your builds, evals and guardrails agree:
 - **Drafts:** ≤ 75 words, end with an offer of further help
 - **HITL:** any claim > ₹10,000
 
-### Workshop — your quality criteria (10 min)
-
-Write these for Wren CX. Numbers only, no adjectives. You'll pressure-test these at 8:28.
-
-```
-1. Classification accuracy target: ____% on [ticket type: ________]
-2. ESCALATE recall target: ≥ ____% (we miss no more than ____% of high-stakes cases)
-3. Auto-resolve rate target: ____% of tickets resolved without a human
-4. Two failure modes we will not ship with, each with its fallback:
-   ① ____________________  → fallback: ____________________
-   ② ____________________  → fallback: ____________________
-```
-
 ---
 
-## 6. Build 1 — A 3-Step Ticket Pipeline (35 min)
+## 6. Build 1 — A 3-Step Ticket Pipeline (40 min)
 
 ### Single call vs. pipeline vs. tool use
 
@@ -295,7 +281,7 @@ Write a customer-facing response that:
 
 ---
 
-## 7. Build 2 — Reflection + Tool Use (25 min)
+## 7. Build 2 — Reflection + Tool Use (30 min)
 
 ### Step 4 — Reflection (a reviewer checks the draft)
 
@@ -358,7 +344,7 @@ Now feed that context into Step 3. **Compare the draft with and without CRM data
 
 ## 8. PRD Review Board (10 min)
 
-Pressure-test the quality criteria you wrote at 7:08. Paste them into Antigravity (or any LLM chat):
+Pressure-test a real AI-native PRD excerpt: Wren's quality criteria and failure modes. Paste the prompt and the excerpt into Antigravity (or any LLM chat):
 
 ```
 You are running a PRD Review Board. I will give you a partial AI-native PRD.
@@ -367,10 +353,26 @@ the stakeholder would ask and 1 concern they would raise.
 
 Perspectives: CTO | Data Science | Legal/Compliance | GTM | CEO
 
-PRD excerpt: [paste your quality criteria + failure modes]
+PRD excerpt: [paste the Wren excerpt below]
 ```
 
-Read it and mark **the one concern you hadn't thought of**. Fix your criteria now. We'll take 2–3 in the chat.
+**Wren CX — PRD excerpt (quality criteria + failure modes)**
+```
+Quality criteria
+- Classification accuracy ≥ 92% on ORDER_ISSUE and RETURNS tickets
+- ESCALATE recall ≥ 95% (we miss no more than 1 in 20 high-stakes tickets)
+- False escalation rate < 8%
+- First-contact resolution ≥ 70% on auto-resolved categories
+- AUTO_RESOLVE only at confidence ≥ 0.80; drafts ≤ 75 words
+
+Failure modes + fallbacks
+- Confidence < 0.80 → route to the human review queue
+- Prompt injection detected → reject, log, do not draft a reply
+- CRM lookup times out → use last known order data and flag for follow-up
+- Ticket has no order ID or registered email → ask the customer for it
+```
+
+Read it and mark **the one concern you hadn't thought of**. Then add or rewrite one line of the excerpt to answer it. We'll take 2–3 in the chat.
 
 *This is a PM workflow you can run on Monday, not a toy. It's how you pressure-test a spec before engineering starts.*
 
@@ -382,7 +384,7 @@ Open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for Wren
 
 1. **The problem:** which manual or rule-based process the agent replaces
 2. **The agent's job:** what it perceives, decides and acts on (one sentence each)
-3. **Quality bar v1:** one measurable threshold, taken from your criteria above
+3. **Quality bar v1:** one measurable threshold (a number you'd defend, not an adjective)
 4. **Biggest risk:** one failure mode that would stop it shipping. **Make it one you'd never see in a demo.**
 
 Rough is fine. Wrong is fine. Blank is not. This is practice: in Session 3 your capstone team fills the same canvas for its own problem.
