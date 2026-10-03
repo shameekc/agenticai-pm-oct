@@ -11,7 +11,7 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
+**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **Homework only in the two-week gap after Session 1** (see below); everything else happens in the session, and the capstone is the only other take-home work.
 
 ## Start Here
 
@@ -25,7 +25,7 @@ New materials are added to this repo before each session. Pull (or re-download) 
 |---|---|
 | `case-study/` | The Wren CX case + optional industry variant cards |
 | `sample_data/` | Support tickets (`wren_tickets.json`) and the simulated CRM (`crm_orders.json`) used in the builds |
-| `templates/` | The Agent Opportunity Canvas. You fill in v1 in Session 1 |
+| `templates/` | The Agent Opportunity Canvas (blank) and a filled example for Wren CX |
 | `session1/` | The Session 1 handbook |
 
 ## Tools
@@ -33,6 +33,15 @@ New materials are added to this repo before each session. Pull (or re-download) 
 - **Google Antigravity** is the main build tool for the course. If it isn't working tonight, run the Session 1 prompts in any LLM chat (Claude, ChatGPT, Gemini). **Have Antigravity working before Session 2.**
 - **Agentic AI Lab:** https://agentic-ai-lab-rho.vercel.app. Browser simulations of each concept on the same Wren case. The handbook links to the right lab at the right point. No login needed.
 
+## Homework 1 — due Sat 10 Oct, end of day
+
+1. Form your capstone team and freeze it.
+2. Pick your capstone problem: from the sample list you'll receive or, better, your own. Not Wren.
+3. Fill the full Agent Opportunity Canvas ([`templates/agent-opportunity-canvas.md`](templates/agent-opportunity-canvas.md)) for it, as a team. Model: [`templates/agent-opportunity-canvas-wren-sample.md`](templates/agent-opportunity-canvas-wren-sample.md).
+4. Submit the team list, problem statement and canvas by Saturday 10 October, end of day.
+
+Details: section 10 of the Session 1 handbook.
+
 ## Before Session 2 (Sat 17 Oct)
 
-No homework. One 5-minute setup check: make sure Google Antigravity opens and you can open its terminal. Session 2 connects it to a simulated ticket system over MCP.
+One 5-minute setup check: make sure Google Antigravity opens and you can open its terminal. Session 2 connects it to a simulated ticket system over MCP.

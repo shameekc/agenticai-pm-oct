@@ -1,214 +1,210 @@
 # Agent Opportunity Canvas
-## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
+**Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F**
 
-*You use this canvas twice: first to practise on Wren CX (v1 in Session 1, v2 in Session 2, on your own), then for real on your capstone team's problem statement (Session 3 onwards).*
-- **v1** — in Session 1 (Sat 3 Oct, 8:38 PM): after the PRD + pipeline builds
-- **v2** — in Session 2 (Sat 17 Oct, 8:45 PM): after MCP, planning and multi-agent
-- **Capstone canvas** — started and approved in Session 3 (Sat 24 Oct): your team's capstone brief, on its own problem statement
+*A one-page brief for deciding whether an agent is worth building, and what it must do to be trusted. Fill it before anyone writes a prompt. A blank box means a decision hasn't been made yet.*
 
-*Wren practice: one canvas per learner. Capstone: one fresh canvas per team, on the team's problem statement.*
+**See a worked example:** `templates/agent-opportunity-canvas-wren-sample.md` (the Wren CX support agent).
 
 ---
 
-## CANVAS v1 · Session 1, in class
-*Due before Session 2 (Sat 17 Oct).*
+## The canvas at a glance
+
+| A · WHY: the opportunity | B · WHAT: the agent | C · HOW SAFE: trust | D · HOW WE KNOW: proof and cost |
+|---|---|---|---|
+| 1. Agent name, owner, posture | 7. Triggers and channels | 12. Human-in-the-loop design | 14. Evaluation and quality bar |
+| 2. Users and context | 8. Inputs, knowledge and data | 13. Risks, failure modes and guardrails | 15. Cost and feasibility |
+| 3. The problem, reframed | 9. Tools and actions (allowed / forbidden) | | 16. Rollout, kill criteria, open questions |
+| 4. Job to be done | 10. Decision loop and architecture | | |
+| 5. Outcomes, value and non-goals | 11. Outputs and the I/O contract | | |
+| 6. Why agentic? (and why not) | | | |
+
+**How to fill it:** work left to right. Bands A and B are the opportunity and the design; C and D are what make it shippable. Write numbers, not adjectives. Keep each box to a few lines; if it needs a page, the idea isn't clear yet.
 
 ---
 
-### 1. The Problem
-*What manual, rule-based, or predictive process are we replacing or augmenting?*
+## A · WHY: the opportunity
 
-**The current process:**
-
-
-**Who does it today:**
-
-
-**How often:**
-
-
-**What breaks / what takes too long:**
-
-
----
-
-### 2. The Agent's Job
-*What does the agent Perceive, Decide, and Act on?*
-
-**Perceive** *(what inputs does the agent read?)*
-
-
-**Decide** *(what reasoning does it apply?)*
-
-
-**Act** *(what does it do in the world?)*
-
-
----
-
-### 3. Quality Bar v1
-*One measurable threshold that defines "working."*
-
-> The agent is working when: ___________________________________________
-
-*Must be measurable. Not "it gives good responses." Example: "classification accuracy > 85% on standard tickets."*
-
----
-
-### 4. Biggest Risk
-*One failure mode that would cause this not to ship.*
-
-
----
-
-## CANVAS v2 · Session 2, in class
-*Update after MCP + PM Workflows. Add the connectivity and workflow layer.*
-
----
-
-### 5. Tool Access (MCP Layer)
-*What MCP tools does the agent need?*
-
-| Tool | What it reads/writes | Who approves access |
-|---|---|---|
-| | | |
-| | | |
-| | | |
-
-*What does the agent do if a tool is unavailable?*
-
-
----
-
-### 6. PM Workflow Integration
-*Which of the 4 PM workflows applies to your work? How does it connect to your agent?*
-
-☐ Research Synthesis Agent  
-☐ Beta Feedback → PRD Brief  
-☐ Competitive Intelligence Snapshot  
-☐ Sprint Synthesis + Standup Generator
-
-*How you would use this on Monday:*
-
-
----
-
-### 7. Single vs. Multi-Agent Decision
-*Is this a single agent or a multi-agent system? Why?*
-
-☐ Single agent — because:
-
-☐ Multi-agent — because:
-
-*If multi-agent: what are the specialized roles?*
-
-
----
-
-## CAPSTONE CANVAS · your team's problem statement (Session 3 onwards)
-*Your capstone team's brief, on its own problem statement (not Wren). For the capstone, fill sections 1–7 above for your problem too. You build and present it together on Sat 31 Oct.*
-
----
-
-### 8. Problem + Opportunity (1 paragraph)
-*The manual process being automated, the business metric being moved.*
-
-
----
-
-### 9. Agent Architecture
-*Patterns used (check all that apply):*
-
-☐ Pipeline / Prompt Chaining  
-☐ Routing  
-☐ Parallelization  
-☐ Reflection  
-☐ Tool Use  
-☐ MCP  
-☐ Planning  
-☐ Multi-Agent Collaboration
-
-*Architecture diagram:* *(paste Mermaid code or screenshot here)*
-
----
-
-### 10. AI-Native PRD Summary
-
-**I/O Contract (what goes in, what comes out):**
-
-
-**Quality Criteria (measurable thresholds — minimum 2):**
-
-| Metric | Threshold | Why this number |
-|---|---|---|
-| | | |
-| | | |
-
-**Top 3 Failure Modes + Fallbacks:**
-
-| Failure Mode | Fallback Behavior |
+### 1. Agent name, owner and posture
+| | |
 |---|---|
+| **Agent name** | |
+| **Business owner** (accountable for outcomes) | |
+| **Product owner** (owns the spec and the quality bar) | |
+| **Posture, in one line** *(e.g. "a triage agent, not a resolution agent"; "a guide, not a salesperson")* | |
+
+### 2. Users and context
 | | |
+|---|---|
+| **Primary user** (who the agent serves) | |
+| **Secondary users** (who works alongside it, receives handoffs, or is affected) | |
+| **Context signals** (what's true about their situation when the agent shows up) | |
+| **Key reality** (the one fact about these users that the design must respect) | |
+
+### 3. The problem, reframed
 | | |
-| | |
+|---|---|
+| **Surface framing** (how people describe it today, often wrong) | |
+| **Actual problem** (the precise problem the agent solves) | |
+| **Today's process** (who does it, how, how often, how long) | |
+| **What breaks today** (cost, delay, errors, at what volume) | |
 
-**Eval Plan (3 lines):**
+### 4. Job to be done
+**As a** __________ **I need to** __________ **so that** __________.
 
-*Test type:*
-*Golden dataset:*
-*LLM-as-judge criteria:*
+**The agent's job, in one sentence:** *"Given ______, the agent ______, without ______."*
 
----
+### 5. Outcomes, value and non-goals
+| Metric | Baseline today | Target | Measured how |
+|---|---|---|---|
+| **Primary metric** | | | |
+| Secondary metric | | | |
+| Secondary metric | | | |
 
-### 11. Governance
+**Value type** (tick all that apply): ☐ time saved ☐ quality improved ☐ risk reduced ☐ new capability ☐ cost reduced
 
-**HITL scope** *(when does a human review this?)*
+**Explicit non-goals** (what the agent will *not* do or optimise for):
+-
+-
 
+### 6. Why agentic? (and why not)
+Tick what this use case genuinely needs. If you can't tick at least three, it's probably a workflow, a rules engine or a single LLM call.
 
-**Guardrails** *(at minimum: 1 input + 1 output)*
-
-Input guardrail:
-
-Output guardrail:
-
-**Regulatory layer** *(any DPDP / Consumer Protection / sector-specific requirements?)*
-
-
----
-
-### 12. Token Economics
-
-| Component | Est. tokens | Notes |
+| Needs | ☐ / ✗ | Evidence |
 |---|---|---|
-| System prompt | | |
-| Input (per run) | | |
-| Output (per run) | | |
-| **Total per run** | | |
+| Multi-step reasoning: the path depends on what it finds | | |
+| Tool use: it must read or change real systems | | |
+| Persistent context: memory across steps, sessions or days | | |
+| Variable inputs: unstructured, messy, multilingual | | |
+| Volume: enough repetitions to justify the build | | |
+| Bounded autonomy: it can act alone within a playbook | | |
 
-**Expected runs/day:**
+**Why not a simpler solution?**
 
-**Model tier:**  ☐ Haiku  ☐ Sonnet  ☐ Opus  (and why)
-
-**Rough monthly API cost:**
-
----
-
-### 13. Capstone Build Plan
-
-*What you will demo on 31 Oct:*
-
-
-*Definition of done:*
-
-
-*Who on your team is the technical owner?*
-
-
-*Biggest open question:*
-
+**Where autonomy must stop** (decisions that stay human, always):
 
 ---
 
-*Canvas approved by instructor: _______________________ Date: ______________*
+## B · WHAT: the agent
 
-*One revision suggestion: _______________________________________________*
+### 7. Triggers and channels
+| | |
+|---|---|
+| **Triggers** (event, schedule, or user action that starts the agent) | |
+| **Channels** (where it meets users: chat, email, WhatsApp, in-app, internal tool) | |
+| **Channel constraints** (turn-taking, latency, languages, formats) | |
+
+### 8. Inputs, knowledge and data
+| Source | What the agent uses it for | Owner | Freshness | Sensitivity (PII / regulated?) |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+| | | | | |
+
+**Consent and minimisation:** what consent covers this processing, and what data must *not* reach the model?
+
+**Partial observability:** what will the agent often *not* know, and what does it do then?
+
+### 9. Tools and actions
+| Tool / action | Read or write | Via (MCP / API / UI) | Who approves access | Fallback if it fails |
+|---|---|---|---|---|
+| | | | | |
+| | | | | |
+| | | | | |
+
+**Allowed to do on its own:**
+-
+
+**Explicitly forbidden** (non-negotiable):
+-
+
+### 10. Decision loop and architecture
+**Perceive → Decide → Act → Learn**, in this agent:
+- **Perceive:**
+- **Decide:**
+- **Act:**
+- **Learn:**
+
+**Patterns used** (tick): ☐ pipeline ☐ routing ☐ parallelisation ☐ reflection ☐ tool use ☐ MCP ☐ planning ☐ multi-agent
+
+**Single or multi-agent?** ________ **Why:** ________
+*(For each extra agent: what does it know that no other agent can, what breaks if it fails, and why isn't it a tool call?)*
+
+**Loop limits:** max steps ____ · max tool calls per run ____ · done when ____
+
+**Architecture sketch** (Mermaid code or a link to a diagram):
+
+### 11. Outputs and the I/O contract
+```
+Input:  { ... }
+Output: { ... }
+```
+Which output fields are governance requirements (audit, reasoning, flags), not engineering preferences?
+
+---
+
+## C · HOW SAFE: trust
+
+### 12. Human-in-the-loop design
+| | |
+|---|---|
+| **Pattern** (review before output / review after / review on exception) | |
+| **Triggers that bring in a human** | |
+| **What the human sees** (the handoff package) | |
+| **Human SLA, and what happens if it's missed** | |
+| **How human decisions feed back** into the agent | |
+
+### 13. Risks, failure modes and guardrails
+| Risk or failure mode | Likelihood (H/M/L) | Impact (H/M/L) | Guardrail or fallback |
+|---|---|---|---|
+| | | | |
+| | | | |
+| | | | |
+
+**Input guardrail(s):**
+
+**Output guardrail(s):**
+
+**Regulation and policy** (DPDP, Consumer Protection, RBI, sector rules) **and what each requires of the product:**
+
+**Accountability:** who is on the hook when the agent is wrong?
+
+---
+
+## D · HOW WE KNOW: proof and cost
+
+### 14. Evaluation and quality bar
+| Quality criterion | Threshold | Why this number (cost of a false positive vs. false negative) |
+|---|---|---|
+| | | |
+| | | |
+| | | |
+
+| | |
+|---|---|
+| **Golden dataset** (size, source, who labels it, edge cases included) | |
+| **LLM-as-judge criteria** | |
+| **Eval cadence** (build time, before each release, in production) | |
+| **Production monitoring and alerts** | |
+
+### 15. Cost and feasibility
+| | |
+|---|---|
+| **Volume** (runs per day at steady state) | |
+| **Tokens per run** (system + input + context + output) | |
+| **Model per step** (and why) | |
+| **Monthly cost** (with ×3 overhead for retries, reflection, guardrails) | |
+| **Cost today without the agent** | |
+| **Feasibility:** data ready? tools exist? biggest technical risk? | |
+
+### 16. Rollout, kill criteria and open questions
+| | |
+|---|---|
+| **Pilot scope** (who, what, how long) | |
+| **Scale-up criteria** (what must be true to expand) | |
+| **Kill / rollback criteria** (what makes us stop) | |
+| **Biggest assumption to test first** | |
+| **Open questions** | |
+
+---
+
+*This canvas draws on the Agentic Automation Canvas (Lobentanzer, 2026), Microsoft's agent design framework (Copilot Studio guidance), Abundly's Agent Design Canvas and the AI-native PRD taught in this course.*

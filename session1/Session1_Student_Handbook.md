@@ -16,7 +16,7 @@
 | 7:18 – 7:58 | [6. Build 1: A 3-Step Ticket Pipeline](#6-build-1-a-3-step-ticket-pipeline-718--758) |
 | 7:58 – 8:28 | [7. Build 2: Reflection + Tool Use](#7-build-2-reflection--tool-use-758--828) |
 | 8:28 – 8:38 | [8. PRD Review Board](#8-prd-review-board-828--838) |
-| 8:38 – 8:55 | [9. Agent Opportunity Canvas v1](#9-agent-opportunity-canvas-v1-838--855) |
+| 8:38 – 8:55 | [9. The Agent Opportunity Canvas](#9-the-agent-opportunity-canvas-838--855) |
 | 8:55 – 9:00 | [10. Close](#10-close-855--900) |
 
 ---
@@ -35,7 +35,7 @@
 ### How you'll work
 - **One case, every session: Wren CX**, a D2C customer-support platform. Same tickets, same CRM, same numbers for everyone, so we can compare answers.
 - **On your own** in sessions. Teams form only for the capstone.
-- **No homework.** Everything happens in the session. The only take-home work in the course is the capstone.
+- **Homework only between Sessions 1 and 2** (there's a two-week gap). Everything else happens in the session, and the capstone is the only other take-home work. Details in §10.
 
 ### The capstone (31 Oct)
 Your team presents a working agent for **a problem statement it chooses**: from a sample list you'll receive or, better, one of your own. Nothing to do with Wren; Wren is where you practise. You'll present:
@@ -57,7 +57,8 @@ Grading: 90 marks for the capstone + 10 for attendance. The rubric comes in Sess
   - `case-study/wren-cx-case-study.md`: the case
   - `sample_data/wren_tickets.json`: 20 tickets (A–D are the core four)
   - `sample_data/crm_orders.json`: the simulated CRM
-  - `templates/agent-opportunity-canvas.md`: you fill in v1 tonight
+  - `templates/agent-opportunity-canvas.md`: the blank Agent Opportunity Canvas (your capstone team fills it as Homework 1)
+  - `templates/agent-opportunity-canvas-wren-sample.md`: the same canvas, filled in for Wren CX
   - `case-study/industry-variant-cards.md`: optional, the same case in five other industries, for after class
 
 ---
@@ -485,16 +486,23 @@ Failure modes + fallbacks
 
 ---
 
-## 9. Agent Opportunity Canvas v1 (8:38 – 8:55)
+## 9. The Agent Opportunity Canvas (8:38 – 8:55)
 
-> **Do now (15 min):** open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for Wren CX's support agent.
+Everything you did tonight (users, problem, PRD criteria, tools, failure modes, human review) fits on one page: the **Agent Opportunity Canvas**. It's how you decide whether an agent is worth building before anyone writes a prompt, and it's the first thing your capstone team produces.
 
-1. **The problem:** which manual or rule-based process does the agent replace? Who does it today, how long does it take, what breaks at 10× volume?
-2. **The agent's job:** what it perceives, decides and acts on. One sentence each.
-3. **Quality bar v1:** one measurable threshold. A number you'd defend, not an adjective.
-4. **Biggest risk:** one failure mode that would stop it shipping. **Make it one you'd never see in a demo.** What does "wrong" look like to the customer, and who gets hurt?
+It has 16 boxes in four bands:
 
-Rough is fine. Wrong is fine. Blank is not. This is practice: in Session 3 your capstone team fills the same canvas for its own problem.
+| A · WHY | B · WHAT | C · HOW SAFE | D · HOW WE KNOW |
+|---|---|---|---|
+| Name, owner, posture · users · the problem reframed · job to be done · outcomes and non-goals · why agentic | Triggers and channels · inputs and data · tools (allowed / forbidden) · decision loop and architecture · I/O contract | Human-in-the-loop design · risks, failure modes and guardrails | Evaluation and quality bar · cost and feasibility · rollout and kill criteria |
+
+> **Do now (8 min):** open `templates/agent-opportunity-canvas-wren-sample.md`, the canvas filled in for tonight's case. Read band A (boxes 1–6) and box 13 (risks).
+>
+> **Discuss:** which box would *you* have got wrong if you'd filled it yourself? (Usually box 3, the problem reframed: "we need a chatbot" vs. "routine tickets wait behind hard ones"; or box 6, "where autonomy must stop".)
+
+> **Do now (8 min):** think of a problem from your own work that an agent could solve, a candidate for your capstone. In the blank `templates/agent-opportunity-canvas.md`, draft boxes **1–6** for it. Rough is fine. You'll bring it to your team for Homework 1.
+
+*A blank box means a decision hasn't been made. That's useful to know before you build, not after.*
 
 ---
 
@@ -503,13 +511,19 @@ Rough is fine. Wrong is fine. Blank is not. This is practice: in Session 3 your 
 **You built tonight:**
 - a 3-step pipeline with a reflection reviewer and a tool call
 - a PRD excerpt pressure-tested by a five-stakeholder Review Board
-- Canvas v1 for Wren CX
+- a first draft of an Agent Opportunity Canvas for a problem of your own
 
 > **Discuss:** in the chat, one line: *one thing an agent does that a workflow can't.*
 
-**Before Session 2 (Sat 17 Oct):** no homework. One 5-minute setup check: make sure Google Antigravity opens and you can open a terminal inside it. Session 2 connects it to a simulated ticket system over MCP. Keep your Canvas v1; you'll extend it to v2.
+### Homework 1 — Capstone problem, team and canvas (due Sat 10 Oct, end of day)
+1. **Form your capstone team and freeze it.** Team size and the submission channel are as IPL specifies.
+2. **Pick your capstone problem statement:** one from the sample list you'll receive or, better, one from your own work. It must not be Wren.
+3. **Fill the full Agent Opportunity Canvas** (`templates/agent-opportunity-canvas.md`, all 16 boxes) for that problem, as a team. Use the Wren sample as your model for depth. Numbers, not adjectives; blank boxes are allowed only where you genuinely don't know yet, and then the box should say what you'd need to find out.
+4. **Submit** the team list, the problem statement and the canvas by **Saturday 10 October, end of day.**
 
-**Next session:** MCP, planning, multi-agent systems, and why "it looked good" is not an eval.
+**Setup check before Session 2 (5 minutes):** make sure Google Antigravity opens and you can open a terminal inside it. Session 2 connects it to a simulated ticket system over MCP.
+
+**Next session (Sat 17 Oct):** MCP, planning, multi-agent systems, and why "it looked good" is not an eval.
 
 ---
 
