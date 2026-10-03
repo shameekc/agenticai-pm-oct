@@ -15,9 +15,9 @@ New materials are added to this repo before each session. Pull (or re-download) 
 
 ## Start Here
 
-1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for all four sessions.
+1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for Sessions 1–3.
 2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around. Not needed for any session.
-3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). Every prompt you'll run tonight is in it, ready to paste.
+3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). There are no slides: we work through the handbook together in class, and every prompt is in it, ready to paste.
 
 ## What's Here
 
@@ -26,11 +26,7 @@ New materials are added to this repo before each session. Pull (or re-download) 
 | `case-study/` | The Wren CX case + optional industry variant cards |
 | `sample_data/` | Support tickets (`wren_tickets.json`) and the simulated CRM (`crm_orders.json`) used in the builds |
 | `templates/` | The Agent Opportunity Canvas. You fill in v1 in Session 1 |
-| `session1/` | Handbook + slides |
-
-## Viewing the Slides
-
-The slides are self-contained HTML files. Download one (open it on GitHub → **Download raw file**), then open it in any browser. Use the arrow keys or space to move between slides.
+| `session1/` | The Session 1 handbook |
 
 ## Tools
 

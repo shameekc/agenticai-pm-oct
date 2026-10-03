@@ -191,7 +191,7 @@ Wren's customer base sends tickets in English, Hinglish, and regional-language-i
 
 ## Course Standard Numbers (use these everywhere)
 
-Every prompt, eval, guardrail and slide in this course uses the same numbers. If you change one, change it everywhere.
+Every prompt, eval and guardrail in this course uses the same numbers. If you change one, change it everywhere.
 
 | Rule | Standard value |
 |---|---|
