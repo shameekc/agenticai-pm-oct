@@ -1,0 +1,34 @@
+{
+  "_note": "Simulated Wren CX CRM / order system. Used by the tool-use build (Session 1) and the mock MCP server (Session 2). Names are fictional. 'Today' in the case is 2026-10-03.",
+  "customers": {
+    "CUST-4821": {"name": "Rahul", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-1177": {"name": "Meera", "tier": "gold", "consent_ai_processing": true, "open_tickets_72h_plus": 5},
+    "CUST-9921": {"name": "Anil", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-2290": {"name": "Vikram", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-4410": {"name": "Sana", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-5120": {"name": "Deepak", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-6034": {"name": "Farah", "tier": "silver", "consent_ai_processing": true, "open_tickets_72h_plus": 2},
+    "CUST-7001": {"name": "Kiran", "tier": "silver", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-8123": {"name": "Neel", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-8456": {"name": "Ishita", "tier": "standard", "consent_ai_processing": false, "open_tickets_72h_plus": 0},
+    "CUST-9002": {"name": "Arjun", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-9455": {"name": "Pooja", "tier": "gold", "consent_ai_processing": true, "open_tickets_72h_plus": 1},
+    "CUST-9601": {"name": "Tara", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0},
+    "CUST-9777": {"name": "Joseph", "tier": "standard", "consent_ai_processing": true, "open_tickets_72h_plus": 0}
+  },
+  "orders": {
+    "WR-84221": {"customer_id": "CUST-4821", "item": "Kids' party dress set", "value_inr": 2199, "status": "in_transit", "carrier": "Delhivery", "tracking_number": "DL-8821-MUM", "estimated_delivery": "2026-10-06", "last_update": "2026-10-02 14:32 IST — Arrived at Mumbai hub"},
+    "WR-84390": {"customer_id": "CUST-2290", "item": "Bluetooth speaker", "value_inr": 3499, "status": "in_transit", "carrier": "Ekart", "tracking_number": "EK-55102-DEL", "estimated_delivery": "2026-10-05", "last_update": "2026-09-29 08:10 IST — Departed Delhi sort centre"},
+    "WR-84502": {"customer_id": "CUST-4410", "item": "Running shoes, size 9", "value_inr": 4299, "status": "delivered", "carrier": "Blue Dart", "delivered_on": "2026-09-30", "return_window_open_until": "2026-10-14"},
+    "WR-84611": {"customer_id": "CUST-5120", "item": "Cotton bedsheet set", "value_inr": 2499, "status": "delivered", "payment_note": "Two UPI debits of ₹2,499 recorded; one auto-reversal pending from bank"},
+    "WR-84288": {"customer_id": "CUST-6034", "item": "Ceramic dinner set", "value_inr": 6899, "status": "return_requested", "return_pickup_attempts": 3, "refund_status": "not_initiated"},
+    "WR-84719": {"customer_id": "CUST-7001", "item": "Zentro 55-inch TV", "value_inr": 52990, "status": "delivered", "emi_tenure_months_invoice": 12, "emi_tenure_months_bank": 9},
+    "WR-84802": {"customer_id": "CUST-8123", "item": "Cushion cover set (2)", "value_inr": 1299, "status": "delivered", "delivered_on": "2026-10-01"},
+    "WR-84870": {"customer_id": "CUST-8456", "item": "Yoga mat", "value_inr": 1499, "status": "packed", "estimated_delivery": "2026-10-07"},
+    "WR-84933": {"customer_id": "CUST-9002", "item": "Smart kettle", "value_inr": 2799, "status": "delivered", "delivered_on": "2026-09-16", "warranty_months": 12},
+    "WR-84150": {"customer_id": "CUST-9455", "item": "Robot vacuum", "value_inr": 18500, "status": "returned", "refund_status": "pending", "refund_initiated_on": "2026-09-18"},
+    "WR-85011": {"customer_id": "CUST-9601", "item": "Scented candle set", "value_inr": 999, "status": "delivered", "delivered_on": "2026-10-02", "gst_invoice_available": true},
+    "WR-85060": {"customer_id": "CUST-9777", "item": "Mixer grinder 750W", "value_inr": 3899, "status": "delivered", "delivered_on": "2026-09-27"},
+    "WR-79001": {"customer_id": "CUST-1177", "item": "Laptop 14-inch", "value_inr": 45000, "status": "delivered", "delivered_on": "2026-08-20", "defect_reported_on": "2026-09-11", "prior_ticket_count": 5}
+  }
+}

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1 · Agentic Foundations</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:#1e293b;height:100vh;overflow:hidden}
+.deck{width:100%;height:100vh;position:relative}
+.slide{position:absolute;top:0;left:0;width:100%;height:100%;padding:64px 80px;display:flex;flex-direction:column;justify-content:center;opacity:0;transition:opacity .3s;pointer-events:none}
+.slide.active{opacity:1;pointer-events:all}
+.tag{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6366f1;margin-bottom:14px}
+.slide h1{font-size:52px;font-weight:800;line-height:1.1;color:#0f172a;margin-bottom:20px}
+.slide h2{font-size:38px;font-weight:700;color:#0f172a;margin-bottom:18px}
+.slide h3{font-size:20px;font-weight:600;color:#6366f1;margin-bottom:10px;margin-top:20px}
+.slide p{font-size:20px;line-height:1.65;color:#334155;margin-bottom:14px;max-width:860px}
+.slide ul{list-style:none;margin-bottom:18px}
+.slide ul li{font-size:19px;line-height:1.6;color:#334155;padding-left:22px;margin-bottom:9px;position:relative}
+.slide ul li::before{content:"→";position:absolute;left:0;color:#6366f1;font-weight:700}
+.slide table{width:100%;border-collapse:collapse;margin:14px 0;font-size:16px}
+.slide th{background:#f1f5f9;color:#6366f1;padding:11px 16px;text-align:left;font-size:12px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #e2e8f0}
+.slide td{padding:11px 16px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.slide code{background:#f1f5f9;color:#6366f1;padding:2px 8px;border-radius:4px;font-size:15px}
+.slide pre{background:#0f172a;color:#94a3b8;border-left:4px solid #6366f1;padding:18px 22px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:14px;line-height:1.7}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:16px}
+.card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:22px}
+.card h3{margin-top:0;font-size:18px}
+.highlight{color:#6366f1;font-weight:700}
+.badge{display:inline-block;background:#ede9fe;color:#6366f1;padding:4px 12px;border-radius:20px;font-size:13px;font-weight:600;margin:3px}
+.exercise{background:#f0f9ff;border-left:4px solid #0ea5e9;padding:18px 22px;border-radius:0 10px 10px 0;margin:14px 0}
+.exercise h3{color:#0369a1;margin-top:0;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.callout{background:#faf5ff;border-left:4px solid #6366f1;padding:18px 22px;border-radius:0 10px 10px 0;margin:14px 0}
+.callout p{color:#4c1d95;font-size:22px;font-style:italic;font-weight:500}
+.warn{background:#fff7ed;border-left:4px solid #f97316;padding:14px 18px;border-radius:0 8px 8px 0;margin:10px 0}
+.warn p{color:#9a3412;font-size:17px}
+.yes-no{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:16px 0}
+.yes-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:18px 20px}
+.no-box{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:18px 20px}
+.yes-box h3{color:#166534;margin-top:0}
+.no-box h3{color:#991b1b;margin-top:0}
+.arrow-chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0}
+.chain-item{background:#ede9fe;color:#4c1d95;padding:10px 18px;border-radius:8px;font-size:17px;font-weight:600}
+.chain-arrow{color:#6366f1;font-size:22px;font-weight:700}
+.nav{position:fixed;bottom:28px;right:36px;display:flex;gap:10px;z-index:100}
+.nav button{background:#f1f5f9;border:1px solid #e2e8f0;color:#6366f1;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:17px;transition:all .2s}
+.nav button:hover{background:#ede9fe}
+.counter{position:fixed;bottom:34px;left:40px;font-size:12px;color:#94a3b8;letter-spacing:1px}
+.logo{position:fixed;top:22px;left:40px;font-size:11px;font-weight:700;letter-spacing:2px;color:#cbd5e1;text-transform:uppercase}
+.time{position:fixed;top:22px;right:40px;font-size:11px;color:#94a3b8;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div class="logo">IPL · Agent-driven Automation in Products</div>
+<div class="time">Session 1 · 6:10–6:50 PM</div>
+<div class="deck" id="deck">
+
+<!-- SLIDE 1: MODULE 2 TITLE -->
+<div class="slide">
+  <div class="tag">Session 1 · 6:10 PM · Foundations</div>
+  <h1>Part 1</h1>
+  <h2>The Agentic Moment</h2>
+  <p>Why right now is different — and why every PM needs to understand it.</p>
+</div>
+
+<!-- SLIDE 2: ICEBREAKER -->
+<div class="slide">
+  <div class="tag">Icebreaker · 2 min</div>
+  <h2>What do you think an AI agent is?</h2>
+  <div class="exercise">
+    <h3>Do This Now</h3>
+    <p>Write it down. One sentence. Your honest first instinct.</p>
+    <p><strong>Don't google it.</strong></p>
+  </div>
+  <p>We'll come back to your answers.</p>
+  <p><span class="highlight">There are no wrong answers — only revealing ones.</span></p>
+</div>
+
+<!-- SLIDE 3: KEY DISTINCTION TABLE -->
+<div class="slide">
+  <div class="tag">Session 1 · Core Concept</div>
+  <h2>Agency ≠ Chatbots ≠ Workflows ≠ Prediction</h2>
+  <p>Each one is a fundamentally different system.</p>
+  <table>
+    <tr>
+      <th>System</th>
+      <th>What it does</th>
+      <th>Who acts</th>
+      <th>Example</th>
+    </tr>
+    <tr>
+      <td><strong>Chatbot</strong></td>
+      <td>Responds to input — no persistent state, no action taken</td>
+      <td>Human reads, then decides</td>
+      <td>GPT answering a product question</td>
+    </tr>
+    <tr>
+      <td><strong>Workflow</strong></td>
+      <td>Fixed sequence, deterministic, no reasoning</td>
+      <td>System executes a script</td>
+      <td>Zapier automation, approval chain</td>
+    </tr>
+    <tr>
+      <td><strong>Predictive AI</strong></td>
+      <td>Scores or classifies — outputs a number, doesn't act</td>
+      <td>Human interprets, then decides</td>
+      <td>Churn model, fraud score</td>
+    </tr>
+    <tr>
+      <td><strong class="highlight">Agentic AI</strong></td>
+      <td>Perceives, reasons, acts, learns — across multiple steps, with memory and tools</td>
+      <td><strong>System owns the outcome</strong></td>
+      <td>Autonomous CX resolution bot</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 4: EVOLUTION OF AUTOMATION -->
+<div class="slide">
+  <div class="tag">Session 1 · Evolution</div>
+  <h2>Five Stages of Automation</h2>
+  <div class="arrow-chain">
+    <div class="chain-item">Manual</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Rules</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Predictive</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Generative</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Agentic</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:8px">
+    <div class="card">
+      <h3>Manual</h3>
+      <p style="font-size:15px;margin-bottom:0">Humans do it all — every decision, every action</p>
+    </div>
+    <div class="card">
+      <h3>Rules</h3>
+      <p style="font-size:15px;margin-bottom:0">If/then logic — deterministic, no reasoning required</p>
+    </div>
+    <div class="card">
+      <h3>Predictive</h3>
+      <p style="font-size:15px;margin-bottom:0">Models score probability — human still decides what to do</p>
+    </div>
+    <div class="card">
+      <h3>Generative</h3>
+      <p style="font-size:15px;margin-bottom:0">Models produce content — human still acts on it</p>
+    </div>
+    <div class="card" style="border-color:#6366f1;background:#faf5ff">
+      <h3>Agentic</h3>
+      <p style="font-size:15px;margin-bottom:0">Systems own outcomes — the loop closes itself</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5: WHAT CHANGED? -->
+<div class="slide">
+  <div class="tag">Session 1 · Inflection Point</div>
+  <h2>What Changed?</h2>
+  <div class="callout">
+    <p>Each stage shifted where human judgment was required. Agentic AI is the first stage where the system can substitute for judgment — not just amplify it.</p>
+  </div>
+  <p>In every previous stage, a human still owned the outcome. Prediction gave you a score. Generative AI gave you a draft. You still had to decide what to do with it.</p>
+  <p>Agentic AI is different. <span class="highlight">The loop closes without you.</span></p>
+</div>
+
+<!-- SLIDE 6: UBER SURGE PRICING CASE -->
+<div class="slide">
+  <div class="tag">Session 1 · Case Study</div>
+  <h2>Uber Surge Pricing</h2>
+  <div class="arrow-chain">
+    <div class="chain-item">Prediction</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Action</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Feedback</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Adjustment</div>
+  </div>
+  <p>The system <strong>perceives</strong> demand signals, <strong>decides</strong> a multiplier, <strong>acts</strong> by changing the displayed price, <strong>observes</strong> the demand response, and <strong>adjusts</strong>. No human approves each step. This isn't a model outputting a price recommendation — it's a loop that owns an outcome.</p>
+  <div class="exercise">
+    <h3>Discussion Question</h3>
+    <p>Where does the human sit in this loop? What would break — or what risks would emerge — without any human oversight?</p>
+  </div>
+</div>
+
+<!-- SLIDE 7: DEFINITION -->
+<div class="slide">
+  <div class="tag">Session 1 · Definition</div>
+  <h2>Agentic AI — Defined</h2>
+  <div class="callout">
+    <p>"Agentic AI is a paradigm where AI systems don't just answer queries but act autonomously with goals, memory, reasoning, and the ability to take actions across tools, APIs, and workflows."</p>
+  </div>
+  <div class="two-col" style="margin-top:20px">
+    <div class="card">
+      <h3>Reasoning</h3>
+      <p style="font-size:17px;margin-bottom:0">Multi-step thinking to decide "what to do next" — not just pattern matching on the input</p>
+    </div>
+    <div class="card">
+      <h3>Memory</h3>
+      <p style="font-size:17px;margin-bottom:0">Context retention beyond a single conversation — state that persists across interactions</p>
+    </div>
+    <div class="card">
+      <h3>Autonomy</h3>
+      <p style="font-size:17px;margin-bottom:0">Call tools and APIs without constant user intervention or approval at each step</p>
+    </div>
+    <div class="card">
+      <h3>Coordination</h3>
+      <p style="font-size:17px;margin-bottom:0">Single agent or multi-agent systems that collaborate to complete a shared goal</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: IS / ISN'T -->
+<div class="slide">
+  <div class="tag">Session 1 · Clarity</div>
+  <h2>What Agentic AI Is — And Isn't</h2>
+  <div class="yes-no">
+    <div class="yes-box">
+      <h3>✓ IS</h3>
+      <ul>
+        <li>Autonomous — runs without constant human input</li>
+        <li>Goal-driven — aligns actions to an objective</li>
+        <li>Persistent — maintains state across steps</li>
+        <li>Adaptive — adjusts based on what it observes</li>
+      </ul>
+    </div>
+    <div class="no-box">
+      <h3>✗ IS NOT</h3>
+      <ul>
+        <li>A faster chatbot</li>
+        <li>A workflow with an LLM bolted on</li>
+        <li>A prediction model that outputs a score</li>
+        <li>Magic — it fails in specific, predictable ways</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 9: COPILOT VS. REFACTORING BOT -->
+<div class="slide">
+  <div class="tag">Session 1 · Case Study</div>
+  <h2>Copilot vs. Refactoring Bot</h2>
+  <p><span class="highlight">Same LLM underneath. What changed?</span></p>
+  <div class="two-col">
+    <div class="card">
+      <h3>GitHub Copilot</h3>
+      <p style="font-size:17px">Suggests code — the <strong>developer owns the outcome</strong>. Accept, reject, or ignore. Human is in the loop at every keypress.</p>
+    </div>
+    <div class="card">
+      <h3>Refactoring Bot</h3>
+      <p style="font-size:17px">Reads your repo, writes changes, opens PRs, merges them — the <strong>bot owns the outcome</strong>. You review after the fact, not before.</p>
+    </div>
+  </div>
+  <p style="margin-top:8px"><span class="highlight">What changed:</span> Autonomy + tool access + feedback loop.</p>
+  <div class="callout">
+    <p>The PM's job changes completely when the system owns outcomes rather than assists with them.</p>
+  </div>
+</div>
+
+<!-- SLIDE 10: HOW AGENTS FAIL (EXTRA) -->
+<div class="slide">
+  <div class="tag">Session 1 · Critical Thinking</div>
+  <h2>Agents Fail in Specific, Predictable Ways</h2>
+  <div class="three-col">
+    <div class="card">
+      <h3>Goal Misalignment</h3>
+      <p style="font-size:16px">The agent optimizes for the proxy metric, not the real goal. Goodhart's Law at scale — when a measure becomes a target, it ceases to be a good measure.</p>
+    </div>
+    <div class="card">
+      <h3>Incomplete Observation</h3>
+      <p style="font-size:16px">The agent acts on partial information and doesn't know what it doesn't know. No error message — just a wrong action taken confidently.</p>
+    </div>
+    <div class="card">
+      <h3>Cascading Actions</h3>
+      <p style="font-size:16px">One wrong step compounds across the pipeline. In multi-agent systems, errors amplify before any human sees them.</p>
+    </div>
+  </div>
+  <div class="warn">
+    <p>PMs who don't spec failure modes are building systems that fail silently at scale.</p>
+  </div>
+</div>
+
+<!-- SLIDE 11: MODULE 3 TITLE -->
+<div class="slide">
+  <div class="tag">Session 1 · 6:25 PM</div>
+  <h1>Part 2</h1>
+  <h2>AI Agent vs. Agentic System</h2>
+  <p>Architecture, loops, and where the PM's leverage actually lives.</p>
+</div>
+
+<!-- SLIDE 12: AI AGENT VS. AGENTIC SYSTEM TABLE -->
+<div class="slide">
+  <div class="tag">Session 1 · Core Concept</div>
+  <h2>AI Agent vs. Agentic System</h2>
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th>AI Agent</th>
+      <th>Agentic System</th>
+    </tr>
+    <tr>
+      <td><strong>Definition</strong></td>
+      <td>Single-purpose system that follows rules or executes specific tasks</td>
+      <td>Broader ecosystem where agents are autonomous, reasoning, adaptive, and capable of collaboration</td>
+    </tr>
+    <tr>
+      <td><strong>Scope</strong></td>
+      <td>Narrow — booking a meeting, classifying a ticket</td>
+      <td>Wide — unstructured goals, chained reasoning, multiple tools</td>
+    </tr>
+    <tr>
+      <td><strong>Autonomy</strong></td>
+      <td>Limited — executes instructions as given</td>
+      <td>High — decides next best action itself</td>
+    </tr>
+    <tr>
+      <td><strong>Adaptability</strong></td>
+      <td>Rule-based or scripted</td>
+      <td>Dynamic — learns from feedback</td>
+    </tr>
+    <tr>
+      <td><strong>Example</strong></td>
+      <td>Chatbot answering FAQs</td>
+      <td>Multi-agent system that ingests data, drafts a report, compares options, and alerts a manager</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 13: THE ARCHITECTURE LOOP -->
+<div class="slide">
+  <div class="tag">Session 1 · Architecture</div>
+  <h2>The Architecture Loop</h2>
+  <div class="arrow-chain">
+    <div class="chain-item">Perceive</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Decide</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Act</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Learn</div>
+    <div class="chain-arrow">→</div>
+    <div class="chain-item">Perceive again</div>
+  </div>
+  <p style="font-size:17px;color:#64748b;margin-top:4px"><em>Or: Get the Mission → Scan the Scene → Think It Through → Take Action → Learn &amp; Get Better</em></p>
+  <div class="two-col" style="margin-top:16px">
+    <div>
+      <h3 style="margin-top:0">Perceive</h3>
+      <p style="font-size:17px">Reads signals from the environment — tickets, APIs, databases, user input, prior state</p>
+      <h3>Decide</h3>
+      <p style="font-size:17px">Reasons over context — what does this signal mean, and what's the right next action?</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Act</h3>
+      <p style="font-size:17px">Executes — creates a record, calls an API, drafts a message, escalates to a human</p>
+      <h3>Learn</h3>
+      <p style="font-size:17px">Logs outcome — was the human's decision different from the AI's draft? That delta is a training signal</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: WREN CX AGENT WALKTHROUGH (EXTRA) -->
+<div class="slide">
+  <div class="tag">Session 1 · Case Study</div>
+  <h2>Walk-Through: Wren CX Agent</h2>
+  <p style="font-size:17px;color:#64748b;margin-bottom:8px"><em>Ticket: "My order arrived damaged and I've been waiting three weeks. No one is responding."</em></p>
+  <table>
+    <tr>
+      <th>Loop Stage</th>
+      <th>What the Agent Does</th>
+      <th>PM Decision Behind It</th>
+    </tr>
+    <tr>
+      <td><strong>Perceive</strong></td>
+      <td>Reads ticket — detects damage + delay + no-response signals, pulls order history</td>
+      <td>Which signals trigger which classification tier?</td>
+    </tr>
+    <tr>
+      <td><strong>Decide</strong></td>
+      <td>SLA breach detected → HITL required; agent drafts escalation summary</td>
+      <td>What is the HITL threshold? Who approved that number?</td>
+    </tr>
+    <tr>
+      <td><strong>Act</strong></td>
+      <td>Creates escalation record, drafts handoff note, assigns to human agent queue</td>
+      <td>What must the draft include? What can the bot do vs. only a human?</td>
+    </tr>
+    <tr>
+      <td><strong>Learn</strong></td>
+      <td>Human overrides — different tier or resolution path than the AI drafted</td>
+      <td>How is that delta captured? Who reviews it? When does it become a model update?</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 15: THE FOUR ARCHITECTURES -->
+<div class="slide">
+  <div class="tag">Session 1 · Architecture</div>
+  <h2>The Four Architectures</h2>
+  <table>
+    <tr>
+      <th>Architecture</th>
+      <th>How it works</th>
+      <th>Who acts</th>
+      <th>PM's role</th>
+    </tr>
+    <tr>
+      <td><strong>LLM Workflow</strong></td>
+      <td>User → prompt → rules trigger → LLM → output</td>
+      <td>LLM responds</td>
+      <td>Prompt quality, guardrails</td>
+    </tr>
+    <tr>
+      <td><strong>RAG</strong></td>
+      <td>Retrieval layer before LLM — pulls relevant docs, then generates</td>
+      <td>LLM over retrieved context</td>
+      <td>Source selection, freshness, scope</td>
+    </tr>
+    <tr>
+      <td><strong>AI Agent</strong></td>
+      <td>LLM with memory + tools + reasoning loop</td>
+      <td>Agent</td>
+      <td>Tool permissions, quality bar, failure handling</td>
+    </tr>
+    <tr>
+      <td><strong class="highlight">Agentic AI</strong></td>
+      <td>Agent 1 ↔ Agent 2, shared tools, HITL loops, orchestrator</td>
+      <td>Multi-agent system</td>
+      <td>Architecture, evals, governance, accountability</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 16: PM QUESTION FOR EACH ARCHITECTURE -->
+<div class="slide">
+  <div class="tag">Session 1 · PM Implications</div>
+  <h2>Where Does the PM's Job Sit?</h2>
+  <p style="font-size:17px;color:#64748b;margin-bottom:4px"><em>For each architecture: where does human judgment sit? What does the PM own?</em></p>
+  <div class="two-col">
+    <div class="card">
+      <h3>LLM Workflow</h3>
+      <p style="font-size:16px">PM owns the prompt design and guardrails. Quality comes from how well you constrain the input. The LLM is a black box.</p>
+    </div>
+    <div class="card">
+      <h3>RAG</h3>
+      <p style="font-size:16px">PM owns which sources the system retrieves from — and how fresh, curated, and scoped they are. Garbage in, garbage out at LLM scale.</p>
+    </div>
+    <div class="card">
+      <h3>AI Agent</h3>
+      <p style="font-size:16px">PM owns tool permissions and the quality bar for autonomous action. What can the agent do without asking? Where must it stop and ask?</p>
+    </div>
+    <div class="card">
+      <h3>Agentic AI</h3>
+      <p style="font-size:16px">PM owns the architecture: how agents communicate, where HITL sits, how the system is evaluated, and who is accountable when it goes wrong.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 17: AGENT ENVIRONMENTS -->
+<div class="slide">
+  <div class="tag">Session 1 · Environment Design</div>
+  <h2>Agent Environments</h2>
+  <p class="highlight">Fully Observable vs. Partially Observable</p>
+  <div class="two-col">
+    <div class="card">
+      <h3>Fully Observable</h3>
+      <p style="font-size:17px">Agent can see everything it needs. Every field is present, every signal is available, no ambiguity about state.</p>
+      <p style="font-size:15px;color:#6366f1;margin-bottom:0">Example: a structured database where all required fields are populated</p>
+    </div>
+    <div class="card">
+      <h3>Partially Observable</h3>
+      <p style="font-size:17px">Agent works with incomplete information. Critical fields may be missing, ambiguous, or contradictory.</p>
+      <p style="font-size:15px;color:#6366f1;margin-bottom:0">Example: a customer ticket with no order ID, vague product description</p>
+    </div>
+  </div>
+  <div class="callout">
+    <p>When the environment is partially observable, the PM must spec what the agent does when it can't see what it needs — that's a product decision, not an engineering one.</p>
+  </div>
+  <div class="exercise">
+    <h3>Wren Ticket B</h3>
+    <p>Customer received the wrong product but has no order number. What should the agent do? This is a product spec question.</p>
+  </div>
+</div>
+
+<!-- SLIDE 18: HITL PATTERNS (EXTRA) -->
+<div class="slide">
+  <div class="tag">Session 1 · Human-in-the-Loop</div>
+  <h2>HITL — Not Optional, Not an Afterthought</h2>
+  <div class="three-col">
+    <div class="card">
+      <h3>HITL-Always</h3>
+      <p style="font-size:16px">Human approves every action before it executes. Safest — slowest. Right for high-stakes, low-volume decisions.</p>
+      <p><span class="badge">Medical triage</span><span class="badge">Legal drafts</span></p>
+    </div>
+    <div class="card">
+      <h3>HITL-on-Threshold</h3>
+      <p style="font-size:16px">Agent acts autonomously until confidence drops or risk exceeds a defined limit. Human steps in only at the boundary.</p>
+      <p><span class="badge">Fraud blocking</span><span class="badge">CX escalation</span></p>
+    </div>
+    <div class="card">
+      <h3>HITL-Review</h3>
+      <p style="font-size:16px">Agent acts fully autonomously. Human reviews audit logs after the fact. Fast — but highest trust in the system required.</p>
+      <p><span class="badge">Content tagging</span><span class="badge">Low-risk routing</span></p>
+    </div>
+  </div>
+  <div class="warn">
+    <p>The PM chooses the HITL pattern. Engineering can implement any of the three — but only the PM knows which risk profile the business accepts.</p>
+  </div>
+</div>
+
+<!-- SLIDE 19: MODULE 4 TITLE + BRIEF -->
+<div class="slide">
+  <div class="tag">Session 1 · 6:40 PM · Breakout</div>
+  <h1>Part 3</h1>
+  <h2>Pattern Recognition Sprint</h2>
+  <div class="exercise">
+    <h3>Team Exercise · 8 Minutes</h3>
+    <p><strong>Step 1 —</strong> Classify 6 real-world AI features against the 4 architectures:</p>
+    <p><span class="badge">LLM Workflow</span><span class="badge">RAG</span><span class="badge">AI Agent</span><span class="badge">Agentic AI</span></p>
+    <p><strong>Step 2 —</strong> For each feature, identify which properties it uses:</p>
+    <p><span class="badge">Reasoning</span><span class="badge">Memory</span><span class="badge">Autonomy</span><span class="badge">Coordination</span></p>
+    <p><strong>Step 3 —</strong> Note where your team disagreed — bring the edge cases to plenary.</p>
+  </div>
+  <p style="font-size:17px">3-minute plenary debrief follows.</p>
+</div>
+
+<!-- SLIDE 20: FEATURES TO CLASSIFY -->
+<div class="slide">
+  <div class="tag">Session 1 · Sprint</div>
+  <h2>Classify These Six Features</h2>
+  <ul>
+    <li><strong>1 —</strong> Google Maps rerouting around traffic in real time</li>
+    <li><strong>2 —</strong> ChatGPT writing a cover letter when asked</li>
+    <li><strong>3 —</strong> Notion AI summarizing a page</li>
+    <li><strong>4 —</strong> A fraud detection system that flags a transaction and auto-blocks the card</li>
+    <li><strong>5 —</strong> Amazon Alexa ordering a restock when supplies run low</li>
+    <li><strong>6 —</strong> Spotify creating a weekly playlist based on listening history</li>
+  </ul>
+  <p style="font-size:16px;color:#6366f1">For each: Architecture? + Which agent properties (Reasoning / Memory / Autonomy / Coordination)?</p>
+  <div class="warn">
+    <p>Timer: 8 minutes. One shared column per team. Bring your disagreements — they're the lesson.</p>
+  </div>
+</div>
+
+<!-- SLIDE 21: PLENARY DEBRIEF -->
+<div class="slide">
+  <div class="tag">Session 1 · Debrief</div>
+  <h2>Bring This Back to Plenary</h2>
+  <div class="callout">
+    <p>Where were the edge cases? Which ones did your team disagree on?</p>
+  </div>
+  <p>The interesting ones are always the borderline cases. They reveal how the definitions are fuzzy in practice — which is exactly what PMs need to navigate.</p>
+  <div class="warn">
+    <p>If your team agreed on everything: you didn't push hard enough on the edge. The ambiguity <em>is</em> the lesson.</p>
+  </div>
+  <p style="font-size:17px"><span class="highlight">Hint worth surfacing:</span> #1 and #4 are the most contested. #2 and #3 are the baseline. #5 is the trap.</p>
+</div>
+
+<!-- SLIDE 22: LEARNING OUTCOMES CHECK -->
+<div class="slide">
+  <div class="tag">Foundations · Outcomes Check</div>
+  <h2>What You Should Be Able to Answer Now</h2>
+  <div class="exercise">
+    <h3>Three Outcomes</h3>
+    <p><strong>1.</strong> What makes a system "agentic" rather than just AI-powered?</p>
+    <p><strong>2.</strong> What's the difference between an AI agent and an agentic system?</p>
+    <p><strong>3.</strong> Where does the PM's job change when a system owns outcomes rather than assists with them?</p>
+  </div>
+  <p>If any of these feel unclear, flag it now — the PRD block builds on all of them.</p>
+  <p style="font-size:17px;color:#64748b">Next: the AI-native PRD.</p>
+</div>
+
+
+</div><!-- end deck -->
+<div class="counter" id="counter"></div>
+<div class="nav"><button onclick="prev()">←</button><button onclick="next()">→</button></div>
+<script>
+let cur=0;const slides=document.querySelectorAll('.slide');const ctr=document.getElementById('counter');
+function show(n){slides[cur].classList.remove('active');cur=(n+slides.length)%slides.length;slides[cur].classList.add('active');ctr.textContent=(cur+1)+' / '+slides.length}
+function next(){show(cur+1)}function prev(){show(cur-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')next();if(e.key==='ArrowLeft')prev()});
+slides[0].classList.add('active');ctr.textContent='1 / '+slides.length;
+</script>
+</body>
+</html>
