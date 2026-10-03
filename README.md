@@ -11,7 +11,7 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: a new problem statement for your team, announced before Session 3. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
+**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
 
 ## Start Here
 

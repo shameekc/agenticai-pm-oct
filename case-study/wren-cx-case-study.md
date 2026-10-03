@@ -257,4 +257,4 @@ When Wren Support scales to 50 brands with 200,000 tickets/month:
 
 **In guardrails build:** The governance layer above defines your guardrail scope. Input validator (DPDP + injection) and output validator (Consumer Protection commitments) are both in scope.
 
-**The capstone is not Wren.** Each capstone team gets a new problem statement. Wren is where you practise every skill the capstone needs.
+**The capstone is not Wren.** Each capstone team picks its own problem (from a sample list, or its own). Wren is where you practise every skill the capstone needs.

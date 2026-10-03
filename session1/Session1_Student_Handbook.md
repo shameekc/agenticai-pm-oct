@@ -15,7 +15,7 @@
 
 **How you'll work:** in sessions you work on your own. **Tonight everything runs on one case: Wren CX, a D2C support platform.** There's no homework. Teams form only for the capstone, which is the one piece of take-home work.
 
-**The contract:** Sessions 1–3 teach every skill on one case, Wren CX. The capstone is different: by 31 October your team presents a working agent for **a new problem statement** (announced before Session 3, nothing to do with Wren), backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
+**The contract:** Sessions 1–3 teach every skill on one case, Wren CX. The capstone is different: by 31 October your team presents a working agent for **a problem statement your team chooses** (from a sample list, or your own — encouraged; nothing to do with Wren), backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
 
 ---
 
