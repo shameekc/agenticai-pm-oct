@@ -11,7 +11,7 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **Homework only in the two-week gap after Session 1** (see below); everything else happens in the session, and the capstone is the only other take-home work.
+**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **Two pieces of homework, only in the two-week gap after Session 1** (see below); everything else happens in the session, and the capstone is the only other take-home work.
 
 ## Start Here
 
@@ -40,7 +40,11 @@ New materials are added to this repo before each session. Pull (or re-download) 
 3. Fill the full Agent Opportunity Canvas ([`templates/agent-opportunity-canvas.md`](templates/agent-opportunity-canvas.md)) for it, as a team. Model: [`templates/agent-opportunity-canvas-wren-sample.md`](templates/agent-opportunity-canvas-wren-sample.md).
 4. Submit the team list, problem statement and canvas by Saturday 10 October, end of day.
 
-Details: section 10 of the Session 1 handbook.
+## Homework 2 — Agent Teardown (individual), due Fri 16 Oct, end of day
+
+Test one live AI assistant or agent five ways (happy path, missing information, ambiguous, high-stakes, a harmless "ignore your instructions" probe), map it onto canvas boxes 1, 6, 9, 12 and 13, diagnose where it breaks, and write three spec lines you'd add to its PRD. One page with screenshots; no real account changes or personal data.
+
+Details for both: section 10 of the Session 1 handbook.
 
 ## Before Session 2 (Sat 17 Oct)
 
