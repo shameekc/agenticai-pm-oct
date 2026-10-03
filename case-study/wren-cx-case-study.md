@@ -218,7 +218,7 @@ Every prompt, eval, guardrail and slide in this course uses the same numbers. If
 
 ## Industry Variants
 
-Each learner adapts the Wren case to one industry variant (see `industry-variant-cards.md`). The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
+Optional: the same agent in five other industries (see `industry-variant-cards.md`). Session 1 runs everything on core Wren CX. The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
 
 | Variant | Industry | Agent type | Key compliance layer |
 |---|---|---|---|
@@ -229,7 +229,7 @@ Each learner adapts the Wren case to one industry variant (see `industry-variant
 | 5 | Logistics | Shipment tracking + delay escalation agent | Carrier API integration; POD disputes |
 | 6 | Consumer / D2C | Returns + exchange + complaint resolution | Standard DPDP + Consumer Protection apply |
 
-**Exercise:** Your in-session exercises and Canvas v1–v2 use your industry variant, not Wren CX directly; your capstone team's brief uses the variant the team picks. The Wren Support case is the teaching anchor; the industry variant is the PM's own work.
+**How they're used:** Session 1 runs every exercise on core Wren CX, so everyone's answers are comparable. The variants are there to explore the same design in another domain.
 
 ---
 

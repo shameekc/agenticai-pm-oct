@@ -13,7 +13,7 @@
 | 3 | Sat 24 Oct | Measure and ship: eval harness, guardrails, token economics, HITL, capstone scoping |
 | 4 | Sat 31 Oct | Capstone presentations |
 
-**How you'll work:** in sessions you work on your own, on one industry variant you pick tonight. There's no homework. Teams form only for the capstone, which is the one piece of take-home work.
+**How you'll work:** in sessions you work on your own. **Tonight everything runs on one case: Wren CX, a D2C support platform.** There's no homework. Teams form only for the capstone, which is the one piece of take-home work.
 
 **The contract:** by 31 October your capstone team presents a working agent for its industry, backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
 
@@ -23,7 +23,7 @@
 
 | Time | Block |
 |---|---|
-| 6:00 – 6:08 | Orientation: the course, your industry variant, your toolkit |
+| 6:00 – 6:08 | Orientation: the course, the Wren CX case, your toolkit |
 | 6:08 – 6:32 | The agentic moment: what an agent is (and isn't), the architecture loop |
 | 6:32 – 6:40 | Sprint: classify real products on the agent spectrum |
 | 6:40 – 7:08 | AI product archetypes, the AI-native PRD, the Wren CX case |
@@ -54,7 +54,7 @@
 
 **Course materials you'll use tonight:**
 - `case-study/wren-cx-case-study.md` — the running case
-- `case-study/industry-variant-cards.md` — pick your industry variant
+- `case-study/industry-variant-cards.md` — optional: the same case in five other industries, if you want to play around after class
 - `sample_data/wren_tickets.json` — 20 tickets (A–D are the core four)
 - `sample_data/crm_orders.json` — simulated CRM for the tool-use build
 - `templates/agent-opportunity-canvas.md` — you fill in v1 tonight
@@ -185,7 +185,7 @@ Use these in every prompt so your builds, evals and guardrails agree:
 
 ### Workshop — your quality criteria (10 min)
 
-Use your industry variant (`case-study/industry-variant-cards.md`). Numbers only, no adjectives. You'll pressure-test these at 8:28.
+Write these for Wren CX. Numbers only, no adjectives. You'll pressure-test these at 8:28.
 
 ```
 1. Classification accuracy target: ____% on [ticket type: ________]
@@ -378,7 +378,7 @@ Read it and mark **the one concern you hadn't thought of**. Fix your criteria no
 
 ## 9. Agent Opportunity Canvas v1 (17 min)
 
-Open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for your industry variant:
+Open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for Wren CX's support agent:
 
 1. **The problem:** which manual or rule-based process the agent replaces
 2. **The agent's job:** what it perceives, decides and acts on (one sentence each)

@@ -1,8 +1,7 @@
 # Industry Variant Cards
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*Each learner picks one variant in Session 1 and uses it for every in-session exercise (including Canvas v1–v2).*
-*Each capstone team picks one variant for its capstone (Canvas v3 and the 31 Oct presentation).*
+*Optional playground. Session 1 runs everything on the core Wren CX case (Variant 6, D2C). These cards show the same agent in five other industries, if you want to try the exercises in a different domain.*
 
 ---
 
@@ -156,7 +155,7 @@
 ## How to Use These Cards
 
 1. **Keep your card open** in every session — you'll reference it in every exercise.
-2. **When the exercise says "your industry variant"** — it means the ticket type, business metric, and governance layer on your card.
+2. **Trying a variant?** Swap in the ticket types, business metric and governance layer on its card; keep the prompts the same.
 3. **The agent architecture is always the same** — classify, route, act, learn. Only the domain changes.
 4. **Your capstone team's Canvas v3 must use one variant** — not the generic Wren CX framing.
 5. **No match for your work?** Pick the closest variant, or adapt Variant 6 (core Wren CX) to your own product and note the changes.

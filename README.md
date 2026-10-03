@@ -11,19 +11,19 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** in sessions you work on your own, on your industry variant. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
+**How you'll work:** in sessions you work on your own, on the Wren CX case. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
 
 ## Start Here
 
 1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for all four sessions.
-2. **Pick your industry variant:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md). You'll use it for every exercise.
+2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around.
 3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). Every prompt you'll run tonight is in it, ready to paste.
 
 ## What's Here
 
 | Folder | Contents |
 |---|---|
-| `case-study/` | The Wren CX case + the six industry variant cards |
+| `case-study/` | The Wren CX case + optional industry variant cards |
 | `sample_data/` | Support tickets (`wren_tickets.json`) and the simulated CRM (`crm_orders.json`) used in the builds |
 | `templates/` | The Agent Opportunity Canvas. You fill in v1 in Session 1 |
 | `session1/` | Handbook + slides |
