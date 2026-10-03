@@ -191,7 +191,7 @@ Wren's customer base sends tickets in English, Hinglish, and regional-language-i
 
 ## Course Standard Numbers (use these everywhere)
 
-Every prompt, eval, guardrail and slide in this course uses the same numbers. If you change one in your variant, change it everywhere.
+Every prompt, eval, guardrail and slide in this course uses the same numbers. If you change one, change it everywhere.
 
 | Rule | Standard value |
 |---|---|
@@ -218,7 +218,7 @@ Every prompt, eval, guardrail and slide in this course uses the same numbers. If
 
 ## Industry Variants
 
-Optional: the same agent in five other industries (see `industry-variant-cards.md`). Session 1 runs everything on core Wren CX. The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
+Optional: the same agent in five other industries (see `industry-variant-cards.md`). Every session runs on core Wren CX. The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
 
 | Variant | Industry | Agent type | Key compliance layer |
 |---|---|---|---|
@@ -229,7 +229,7 @@ Optional: the same agent in five other industries (see `industry-variant-cards.m
 | 5 | Logistics | Shipment tracking + delay escalation agent | Carrier API integration; POD disputes |
 | 6 | Consumer / D2C | Returns + exchange + complaint resolution | Standard DPDP + Consumer Protection apply |
 
-**How they're used:** Session 1 runs every exercise on core Wren CX, so everyone's answers are comparable. The variants are there to explore the same design in another domain.
+**How they're used:** every session runs every exercise on core Wren CX, so everyone's answers are comparable. The variants are there to explore the same design in another domain.
 
 ---
 
@@ -253,8 +253,8 @@ When Wren Support scales to 50 brands with 200,000 tickets/month:
 
 **In PRD workshop:** The I/O contract above is your specification target. Your Quality Criteria section should produce measurable thresholds against the business metrics table.
 
-**In evals:** The golden dataset starts with T001–T004 (Tickets A–D). You add at least one edge case from your own industry variant.
+**In evals:** The golden dataset is T001–T010. In Session 2 you label six more (T011–T016), including one you invent.
 
 **In guardrails build:** The governance layer above defines your guardrail scope. Input validator (DPDP + injection) and output validator (Consumer Protection commitments) are both in scope.
 
-**In the capstone:** Adapt this case to your industry variant. The token economics, HITL design, and eval plan you draft in the exercises become your capstone deliverables.
+**The capstone is not Wren.** Each capstone team gets a new problem statement. Wren is where you practise every skill the capstone needs.

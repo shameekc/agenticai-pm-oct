@@ -1,7 +1,7 @@
 # Industry Variant Cards
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*Optional playground. Session 1 runs everything on the core Wren CX case (Variant 6, D2C). These cards show the same agent in five other industries, if you want to try the exercises in a different domain.*
+*Optional playground. Every session runs on the core Wren CX case (Variant 6, D2C), and the capstone is a separate problem statement. These cards show the same agent in five other industries, if you want to try the exercises in a different domain.*
 
 ---
 
@@ -148,7 +148,7 @@
 
 **Your governance layer:** See Wren CX Case Study document — DPDP Act, Consumer Protection Act, HITL thresholds.
 
-**Your unique angle:** Because you're running the reference case, your Canvas v3 should be the most detailed. Use it as the benchmark when comparing variants in the capstone briefing.
+**Note:** this is the case every session uses.
 
 ---
 
@@ -157,5 +157,4 @@
 1. **Keep your card open** in every session — you'll reference it in every exercise.
 2. **Trying a variant?** Swap in the ticket types, business metric and governance layer on its card; keep the prompts the same.
 3. **The agent architecture is always the same** — classify, route, act, learn. Only the domain changes.
-4. **Your capstone team's Canvas v3 must use one variant** — not the generic Wren CX framing.
 5. **No match for your work?** Pick the closest variant, or adapt Variant 6 (core Wren CX) to your own product and note the changes.

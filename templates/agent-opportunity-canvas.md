@@ -1,12 +1,12 @@
 # Agent Opportunity Canvas
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*This canvas is a living document, updated three times. v1 and v2 are yours alone; v3 belongs to your capstone team.*
+*You use this canvas twice: first to practise on Wren CX (v1 in Session 1, v2 in Session 2, on your own), then for real on your capstone team's problem statement (Session 3 onwards).*
 - **v1** — in Session 1 (Sat 3 Oct, 8:38 PM): after the PRD + pipeline builds
 - **v2** — in Session 2 (Sat 17 Oct, 8:45 PM): after MCP, planning and multi-agent
-- **v3** — drafted and approved in Session 3 (Sat 24 Oct): your capstone brief
+- **Capstone canvas** — started and approved in Session 3 (Sat 24 Oct): your team's capstone brief, on its own problem statement
 
-*v1–v2: one canvas per learner, on your own industry variant. v3: one canvas per capstone team, merged from members' v2s.*
+*Wren practice: one canvas per learner. Capstone: one fresh canvas per team, on the team's problem statement.*
 
 ---
 
@@ -105,8 +105,8 @@
 
 ---
 
-## CANVAS v3 · Session 3 (approved in class)
-*Your capstone team's brief, merged from members' v2 canvases. You build and present it together on Sat 31 Oct.*
+## CAPSTONE CANVAS · your team's problem statement (Session 3 onwards)
+*Your capstone team's brief, on its own problem statement (not Wren). For the capstone, fill sections 1–7 above for your problem too. You build and present it together on Sat 31 Oct.*
 
 ---
 

@@ -11,12 +11,12 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** in sessions you work on your own, on the Wren CX case. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
+**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: a new problem statement for your team, announced before Session 3. **There's no homework:** everything happens in the session. The only take-home work is the capstone, done in teams announced after Session 2.
 
 ## Start Here
 
 1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for all four sessions.
-2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around.
+2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around. Not needed for any session.
 3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). Every prompt you'll run tonight is in it, ready to paste.
 
 ## What's Here

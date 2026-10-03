@@ -15,7 +15,7 @@
 
 **How you'll work:** in sessions you work on your own. **Tonight everything runs on one case: Wren CX, a D2C support platform.** There's no homework. Teams form only for the capstone, which is the one piece of take-home work.
 
-**The contract:** by 31 October your capstone team presents a working agent for its industry, backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
+**The contract:** Sessions 1–3 teach every skill on one case, Wren CX. The capstone is different: by 31 October your team presents a working agent for **a new problem statement** (announced before Session 3, nothing to do with Wren), backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
 
 ---
 
@@ -385,7 +385,7 @@ Open `templates/agent-opportunity-canvas.md` and fill in sections 1–4 for Wren
 3. **Quality bar v1:** one measurable threshold, taken from your criteria above
 4. **Biggest risk:** one failure mode that would stop it shipping. **Make it one you'd never see in a demo.**
 
-Rough is fine. Wrong is fine. Blank is not. This canvas is the seed of your capstone.
+Rough is fine. Wrong is fine. Blank is not. This is practice: in Session 3 your capstone team fills the same canvas for its own problem.
 
 ---
 
