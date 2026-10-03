@@ -218,18 +218,18 @@ Every prompt, eval, guardrail and slide in this course uses the same numbers. If
 
 ## Industry Variants
 
-Teams adapt the Wren case to their own domain. The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
+Each learner adapts the Wren case to one industry variant (see `industry-variant-cards.md`). The agent architecture is identical; the domain, ticket taxonomy, and governance layer change.
 
-| Team | Industry | Agent type | Key compliance layer |
+| Variant | Industry | Agent type | Key compliance layer |
 |---|---|---|---|
-| Team 1 | Fintech / BNPL | Loan query + repayment routing agent | RBI guidelines; no automated credit decisions |
-| Team 2 | Healthcare | Appointment + prescription triage agent | Health data sensitivity; doctor referral protocols |
-| Team 3 | Edtech | Course support + refund handling agent | Consumer protection; course completion data |
-| Team 4 | SaaS / B2B | Onboarding + technical support escalation | SLA contracts; enterprise escalation protocols |
-| Team 5 | Logistics | Shipment tracking + delay escalation agent | Carrier API integration; POD disputes |
-| Team 6 | Consumer / D2C | Returns + exchange + complaint resolution | Standard DPDP + Consumer Protection apply |
+| 1 | Fintech / BNPL | Loan query + repayment routing agent | RBI guidelines; no automated credit decisions |
+| 2 | Healthcare | Appointment + prescription triage agent | Health data sensitivity; doctor referral protocols |
+| 3 | Edtech | Course support + refund handling agent | Consumer protection; course completion data |
+| 4 | SaaS / B2B | Onboarding + technical support escalation | SLA contracts; enterprise escalation protocols |
+| 5 | Logistics | Shipment tracking + delay escalation agent | Carrier API integration; POD disputes |
+| 6 | Consumer / D2C | Returns + exchange + complaint resolution | Standard DPDP + Consumer Protection apply |
 
-**Exercise:** Each team's PRD workshop, Canvas v1, and capstone brief use their industry variant, not Wren CX directly. The Wren Support case is the teaching anchor; the industry variant is the PM's own work.
+**Exercise:** Your in-session exercises and Canvas v1–v2 use your industry variant, not Wren CX directly; your capstone team's brief uses the variant the team picks. The Wren Support case is the teaching anchor; the industry variant is the PM's own work.
 
 ---
 
@@ -253,7 +253,7 @@ When Wren Support scales to 50 brands with 200,000 tickets/month:
 
 **In PRD workshop:** The I/O contract above is your specification target. Your Quality Criteria section should produce measurable thresholds against the business metrics table.
 
-**In evals:** The golden dataset starts with T001–T004 (Tickets A–D). Your team adds at least one industry-variant edge case of its own.
+**In evals:** The golden dataset starts with T001–T004 (Tickets A–D). You add at least one edge case from your own industry variant.
 
 **In guardrails build:** The governance layer above defines your guardrail scope. Input validator (DPDP + injection) and output validator (Consumer Protection commitments) are both in scope.
 

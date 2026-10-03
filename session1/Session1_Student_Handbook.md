@@ -13,7 +13,9 @@
 | 3 | Sat 24 Oct | Measure and ship: eval harness, guardrails, token economics, HITL, capstone scoping |
 | 4 | Sat 31 Oct | Capstone presentations |
 
-**The contract:** by 31 October your team presents a working agent for its industry, backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
+**How you'll work:** sessions and homework are individual, on one industry variant you pick tonight. Teams form only for the capstone.
+
+**The contract:** by 31 October your capstone team presents a working agent for its industry, backed by an AI-native PRD, an eval harness, guardrails, and a cost model.
 
 ---
 
@@ -21,9 +23,9 @@
 
 | Time | Block |
 |---|---|
-| 6:00 – 6:10 | Orientation: the course, your team, your toolkit |
+| 6:00 – 6:10 | Orientation: the course, your industry variant, your toolkit |
 | 6:10 – 6:40 | The agentic moment: what an agent is (and isn't), the architecture loop |
-| 6:40 – 6:50 | Team sprint: classify real products on the agent spectrum |
+| 6:40 – 6:50 | Sprint: classify real products on the agent spectrum |
 | 6:50 – 7:20 | AI product archetypes, the AI-native PRD, the Wren CX case |
 | 7:20 – 7:30 | Break |
 | 7:30 – 8:15 | **Build 1:** a 3-step ticket pipeline |
@@ -47,7 +49,7 @@
 
 **Course materials you'll use tonight:**
 - `case-study/wren-cx-case-study.md` — the running case
-- `case-study/team-variant-cards.md` — your team's industry
+- `case-study/industry-variant-cards.md` — pick your industry variant
 - `sample_data/wren_tickets.json` — 20 tickets (A–D are the core four)
 - `sample_data/crm_orders.json` — simulated CRM for the tool-use build
 - `templates/agent-opportunity-canvas.md` — homework
@@ -106,7 +108,7 @@ Wren CX on Ticket C (the ₹45,000 laptop complaint):
 
 ---
 
-## 2. Team Sprint — Where on the Spectrum? (10 min)
+## 2. Sprint — Where on the Spectrum? (10 min)
 
 Classify each as LLM Workflow / RAG / AI Agent / Agentic AI, and name which of the 4 properties it uses:
 
@@ -119,7 +121,7 @@ Classify each as LLM Workflow / RAG / AI Agent / Agentic AI, and name which of t
 
 Be ready to defend one edge case.
 
-> **In the Agentic AI Lab:** [Lab 3 · "Is it an Agent?" Game](https://agentic-ai-lab-rho.vercel.app/labs/classifier-game). Play it as your team sprint: classify real features, then debate the edge cases you got wrong.
+> **In the Agentic AI Lab:** [Lab 3 · "Is it an Agent?" Game](https://agentic-ai-lab-rho.vercel.app/labs/classifier-game). Play it as tonight's sprint: classify real features, then bring the edge cases you got wrong to the debrief.
 
 
 ---
@@ -338,11 +340,11 @@ Now feed that context into Step 3. **Compare the draft with and without CRM data
 
 ## 8. Homework — Due Before Session 2 (Sat 17 Oct)
 
-You have two weeks. Work as a team on your industry variant (see `case-study/team-variant-cards.md`).
+You have two weeks. Work on your own, on your industry variant (see `case-study/industry-variant-cards.md`).
 
 1. **Agent Opportunity Canvas v1** (`templates/agent-opportunity-canvas.md`, sections 1–4): the problem, the agent's job (perceive / decide / act), one measurable quality bar, the biggest risk.
 2. **Quality Criteria + 2 failure modes** for your variant — the PRD section, with numbers.
-3. **PRD Review Board.** Paste your quality criteria + failure modes into Antigravity with the prompt below. Bring the one concern your team hadn't thought of.
+3. **PRD Review Board.** Paste your quality criteria + failure modes into Antigravity with the prompt below. Bring the one concern you hadn't thought of.
    ```
    You are running a PRD Review Board. I will give you a partial AI-native PRD.
    Review it from 5 perspectives in sequence. For each, give 2 specific questions

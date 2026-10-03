@@ -11,10 +11,12 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
+**How you'll work:** sessions and homework are individual, on your own industry variant. Teams form only for the capstone (announced after Session 2).
+
 ## Start Here
 
 1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for all four sessions.
-2. **Find your team's industry:** [`case-study/team-variant-cards.md`](case-study/team-variant-cards.md)
+2. **Pick your industry variant:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md). You'll use it for every exercise and homework.
 3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). Every prompt you'll run tonight is in it, ready to paste.
 
 ## What's Here

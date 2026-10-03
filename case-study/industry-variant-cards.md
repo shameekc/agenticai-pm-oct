@@ -1,12 +1,12 @@
-# Team Industry Variant Cards
+# Industry Variant Cards
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*Print one card per team. Assign in Session 1, before the Pattern Recognition Sprint.*
-*Teams use their variant for all exercises, Canvas versions, and the capstone brief.*
+*Each learner picks one variant in Session 1 and uses it for every in-session exercise and homework (Canvas v1–v2).*
+*Each capstone team picks one variant for its capstone (Canvas v3 and the 31 Oct presentation).*
 
 ---
 
-## TEAM 1 — Fintech / BNPL
+## VARIANT 1 — Fintech / BNPL
 
 **Your agent:** Loan query + repayment routing agent for a mid-market BNPL lender.
 
@@ -32,7 +32,7 @@
 
 ---
 
-## TEAM 2 — Healthcare / Healthtech
+## VARIANT 2 — Healthcare / Healthtech
 
 **Your agent:** Appointment + prescription query triage agent for a digital health platform.
 
@@ -59,7 +59,7 @@
 
 ---
 
-## TEAM 3 — Edtech
+## VARIANT 3 — Edtech
 
 **Your agent:** Course support + refund handling agent for an online learning platform.
 
@@ -85,7 +85,7 @@
 
 ---
 
-## TEAM 4 — SaaS / B2B
+## VARIANT 4 — SaaS / B2B
 
 **Your agent:** Onboarding + technical support escalation agent for a B2B SaaS product.
 
@@ -111,7 +111,7 @@
 
 ---
 
-## TEAM 5 — Logistics / Supply Chain
+## VARIANT 5 — Logistics / Supply Chain
 
 **Your agent:** Shipment tracking + delay escalation agent for a 3PL or last-mile logistics platform.
 
@@ -137,11 +137,11 @@
 
 ---
 
-## TEAM 6 — Consumer / D2C (Core Wren CX)
+## VARIANT 6 — Consumer / D2C (Core Wren CX)
 
 **Your agent:** Returns + exchange + complaint resolution agent — the core Wren CX case study.
 
-*Team 6 works with the original Wren CX case without adaptation. Your advantage: you have the most detailed case material to work from.*
+*Variant 6 is the original Wren CX case without adaptation. Your advantage: you have the most detailed case material to work from.*
 
 **Your 4 test tickets:** Use Tickets A, B, C, D as defined in the Wren CX Case Study document.
 
@@ -149,14 +149,14 @@
 
 **Your governance layer:** See Wren CX Case Study document — DPDP Act, Consumer Protection Act, HITL thresholds.
 
-**Your unique angle:** Because you're running the reference case, your Canvas v3 should be the most detailed. Use it as the benchmark for cross-team comparison in the capstone briefing.
+**Your unique angle:** Because you're running the reference case, your Canvas v3 should be the most detailed. Use it as the benchmark when comparing variants in the capstone briefing.
 
 ---
 
 ## How to Use These Cards
 
-1. **Keep the card open** throughout both days — you'll reference it for every team exercise.
+1. **Keep your card open** in every session — you'll reference it in every exercise.
 2. **When the exercise says "your industry variant"** — it means the ticket type, business metric, and governance layer on your card.
 3. **The agent architecture is always the same** — classify, route, act, learn. Only the domain changes.
-4. **Your Canvas v3 must use your variant** — not the generic Wren CX framing.
-5. **Zoom participants:** Your buddy will share the card on screen. The shared Antigravity doc is your team workspace.
+4. **Your capstone team's Canvas v3 must use one variant** — not the generic Wren CX framing.
+5. **No match for your work?** Pick the closest variant, or adapt Variant 6 (core Wren CX) to your own product and note the changes.

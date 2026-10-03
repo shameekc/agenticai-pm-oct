@@ -1,12 +1,12 @@
 # Agent Opportunity Canvas
 ## Agent-driven Automation in Products · IPL · Cohort ICAIPM2026F (Oct 2026)
 
-*This canvas is a living document. Your team updates it three times:*
+*This canvas is a living document, updated three times. v1 and v2 are yours alone; v3 belongs to your capstone team.*
 - **v1** — Session 1 homework (due Sat 17 Oct): after the PRD + pipeline builds
 - **v2** — Session 2 homework (due Sat 24 Oct): after MCP, planning and multi-agent
 - **v3** — drafted and approved in Session 3 (Sat 24 Oct): your capstone brief
 
-*One canvas per team. Keep it in your Antigravity shared doc.*
+*v1–v2: one canvas per learner, on your own industry variant. v3: one canvas per capstone team, merged from members' v2s.*
 
 ---
 
@@ -81,14 +81,14 @@
 ---
 
 ### 6. PM Workflow Integration
-*Which of the 4 PM workflows applies to your team's work? How does it connect to your agent?*
+*Which of the 4 PM workflows applies to your work? How does it connect to your agent?*
 
 ☐ Research Synthesis Agent  
 ☐ Beta Feedback → PRD Brief  
 ☐ Competitive Intelligence Snapshot  
 ☐ Sprint Synthesis + Standup Generator
 
-*How your team would use this on Monday:*
+*How you would use this on Monday:*
 
 
 ---
@@ -106,7 +106,7 @@
 ---
 
 ## CANVAS v3 · Session 3 (approved in class)
-*Your capstone brief. You build and present it on Sat 31 Oct.*
+*Your capstone team's brief, merged from members' v2 canvases. You build and present it together on Sat 31 Oct.*
 
 ---
 
