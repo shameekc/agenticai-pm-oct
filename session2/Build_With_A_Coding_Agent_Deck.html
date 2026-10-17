@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build a Multi-Agent System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f7f9; --fg: #111111; --fg2: #555555;
+  --accent: #2563eb; --accent-soft: #eaf1fe; --warn: #b45309; --warn-soft: #fef3e2;
+  --good: #047857; --good-soft: #e7f6f0; --line: #e4e6ea;
+  --font-body: 'Inter', system-ui, sans-serif; --font-heading: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+#deck { height: 100vh; width: 100vw; overflow: hidden; cursor: pointer; }
+.slide {
+  display: none; height: 100vh; width: 100vw; padding: 7vh 8vw;
+  flex-direction: column; justify-content: center; gap: 3vh;
+  animation: fadein 0.25s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.kicker { font-size: clamp(12px, 1.3vw, 18px); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(36px, 5.6vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+p.lead { font-size: clamp(18px, 1.9vw, 28px); color: var(--fg2); line-height: 1.45; max-width: 60ch; }
+.sub { font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); }
+
+/* Title */
+.slide[data-layout="title"] { background: var(--bg2); align-items: flex-start; }
+.slide[data-layout="title"] h1 span { color: var(--accent); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; }
+.stat { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; }
+.stat .n { font-size: clamp(40px, 6vw, 92px); font-weight: 800; line-height: 1; color: var(--accent); }
+.stat .l { margin-top: 1.2vh; font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); line-height: 1.35; }
+.stat.warn .n { color: var(--warn); }
+
+/* Code */
+pre { font-family: var(--mono); font-size: clamp(13px, 1.35vw, 20px); line-height: 1.6; background: #0f1117; color: #e8eaf0; padding: 3vh 2.4vw; border-radius: 14px; white-space: pre-wrap; }
+pre .comment { color: #8892a4; }
+pre .err { color: #fca5a5; }
+pre .key { color: #93c5fd; }
+
+/* Two column */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; align-items: stretch; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 3vh 2vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.card h3 { font-size: clamp(18px, 2vw, 30px); font-weight: 700; }
+.card p, .card li { font-size: clamp(15px, 1.55vw, 23px); color: var(--fg2); line-height: 1.45; }
+.card ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 1vh; }
+.card.good { background: var(--good-soft); border-color: transparent; }
+.card.good h3 { color: var(--good); }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card.warn h3 { color: var(--warn); }
+.tag { display: inline-block; font-size: clamp(11px, 1.1vw, 15px); font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); align-self: flex-start; }
+
+/* Flow (chat transcript) */
+.flow { display: flex; flex-direction: column; gap: 1.6vh; max-width: 70ch; }
+.msg { font-size: clamp(16px, 1.7vw, 25px); line-height: 1.4; padding: 1.4vh 1.4vw; border-radius: 12px; max-width: 85%; }
+.msg.user { background: var(--accent); color: #fff; align-self: flex-end; }
+.msg.bot { background: var(--bg2); color: var(--fg); align-self: flex-start; }
+.msg.bad { border-left: 4px solid var(--warn); }
+
+/* Quote */
+.slide[data-layout="quote"] blockquote { font-size: clamp(26px, 3.4vw, 50px); font-weight: 700; line-height: 1.2; max-width: 26ch; letter-spacing: -0.01em; }
+.slide[data-layout="quote"] blockquote::before { content: "“"; color: var(--accent); }
+.slide[data-layout="quote"] blockquote::after { content: "”"; color: var(--accent); }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+.q { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.q .t { font-size: clamp(16px, 1.75vw, 26px); font-weight: 600; line-height: 1.35; }
+.q .w { font-size: clamp(13px, 1.25vw, 18px); color: var(--fg2); }
+.q .w b { color: var(--accent); }
+
+.shot { margin:0; display:flex; flex-direction:column; gap:1vh; }
+.shot img { max-height: 60vh; max-width: 38vw; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.shot figcaption { font-size: clamp(12px,1.1vw,15px); color: var(--fg2); }
+.venn-row { display:grid; grid-template-columns: 1.35fr 1fr; gap: 3vw; align-items:center; }
+.venn-wrap { display:flex; flex-direction:column; gap:1vh; }
+.venn { width:100%; max-height:58vh; }
+.venn .c1 { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; }
+.venn .c2 { fill: rgba(217,119,6,.12); stroke: #d97706; stroke-width: 2; }
+.venn .vn { font: 500 20px var(--font-body); fill: var(--fg); }
+.venn .vh { font: 700 18px var(--font-body); fill: var(--fg2); letter-spacing: .02em; }
+.venn .vh1 { fill: var(--accent); } .venn .vh2 { fill: #b45309; }
+.venn .vc { font: 800 30px var(--font-body); fill: var(--fg2); opacity: .55; }
+.stats2 { grid-template-columns: 1fr 1fr; gap: 1.2vw; }
+.stats2 .stat { padding: 2vh 1.2vw; }
+.stats2 .stat .n { font-size: clamp(30px, 3.6vw, 56px); }
+.stats2 .stat .l { font-size: clamp(12px, 1.1vw, 16px); }
+@media (max-width: 800px) { .venn-row { grid-template-columns: 1fr; } }
+/* Bullets */
+ol.big, ul.big { font-size: clamp(20px, 2.3vw, 34px); line-height: 1.4; padding-left: 1.3em; display: flex; flex-direction: column; gap: 2vh; }
+ol.big li::marker { color: var(--accent); font-weight: 800; }
+
+.presenter { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(14px, 1.4vw, 20px); font-weight: 600; background: var(--accent-soft); color: var(--accent); padding: 8px 16px; border-radius: 999px; align-self: flex-start; }
+.presenter::before { content: "🎤"; }
+
+#counter { position: fixed; bottom: 18px; right: 24px; font-size: 13px; color: var(--fg2); opacity: .6; font-variant-numeric: tabular-nums; }
+#nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; opacity: .25; transition: opacity .2s; }
+#nav:hover { opacity: 1; }
+#nav button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 40px; height: 32px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .stats, .quotes { grid-template-columns: 1fr 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .slide { padding: 5vh 6vw; overflow-y: auto; justify-content: flex-start; }
+}
+
+.prompt { font-family: var(--mono); font-size: clamp(12px, 1.12vw, 17px); line-height: 1.55; background: #0f1117; color: #e8eaf0; padding: 2.4vh 2vw; border-radius: 14px; white-space: pre-wrap; }
+.prompt .ph { color: #fcd34d; }
+.prompt .lbl { color: #8892a4; }
+.check { display:flex; gap: 10px; align-items:flex-start; font-size: clamp(14px,1.35vw,20px); color: var(--fg2); line-height:1.45; }
+.check b { color: var(--good); white-space: nowrap; }
+.tip { font-size: clamp(13px,1.2vw,17px); color: var(--fg2); }
+.steps { display:flex; flex-wrap:wrap; gap:8px; }
+.steps span { font-size: clamp(12px,1.1vw,15px); padding: 6px 12px; border-radius: 999px; background: var(--bg2); color: var(--fg2); }
+.cols.tight { gap: 2vw; }
+</style>
+</head>
+<body>
+<div id="deck" aria-live="polite">
+
+  <div class="slide active" data-layout="title" data-index="0" role="region" aria-label="Slide 1 of 11" aria-current="true">
+    <div class="kicker">Capstone build · Antigravity, Claude Code or any coding agent</div>
+    <h1>Build a multi-agent system<br><span>in 9 prompts</span></h1>
+    <div class="cols" style="width:100%">
+      <div class="card" style="background:var(--bg)"><h3>Three rules</h3><ul>
+        <li><b>One step per prompt.</b> Never “build the whole system”.</li>
+        <li><b>Every agent earns its box.</b> Three-sentence test, or it's a tool call.</li>
+        <li><b>The state object is the contract.</b> Agents talk only through it.</li></ul></div>
+      <div class="card" style="background:var(--bg)"><h3>Running example: Wren's reference design</h3>
+        <p><b>Supervisor</b> routes and coordinates · <b>Triage</b> classifies, sets urgency · <b>Resolution</b> drafts using the CRM · <b>QA</b> checks the draft, independently · <b>Escalation</b> hands off to a human.</p>
+        <p class="tip">Swap in your own capstone's agents. Fill every <span style="font-family:var(--mono);color:var(--warn)">[bracket]</span> from canvas v2.</p></div>
+    </div>
+    <div class="steps"><span>1 Spec</span><span>2 Agent roster</span><span>3 Schemas</span><span>4 Fake world</span><span>5 State + agents</span><span>6 Guardrails at handoffs</span><span>7 Evals per agent</span><span>8 Red-team</span><span>9 Cost + demo</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="1" role="region" aria-label="Slide 2 of 11">
+    <div class="kicker">Prompt 1 · Load the spec</div>
+    <h2>Give it your canvas, not a wish</h2>
+<pre class="prompt">Read canvas.md (our Agent Opportunity Canvas). Don&#x27;t write any code yet.
+Create AGENTS.md (CLAUDE.md if you&#x27;re Claude Code) with:
+- the goal in one sentence, and the system&#x27;s input and final output (JSON)
+- the agents we think we need: <span class="ph">[supervisor, specialist 1, 2, 3]</span>
+- a first draft of the input and the final output (we formalise them in step 3)
+- tools each agent MAY use (read or write), and tools NO agent may have
+- routing rules and HITL triggers, with our numbers: <span class="ph">[confidence gate]</span>, <span class="ph">[₹ limit]</span>
+- our quality bar: <span class="ph">[criterion + number + why that number]</span>
+Then list everything in the canvas that&#x27;s ambiguous, as questions for us.</pre>
+    <div class="check"><b>✓ Before you move on:</b><span>answer its questions. Every number in AGENTS.md has a reason. Keep it short: it's re-read on every prompt.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="2" role="region" aria-label="Slide 3 of 11">
+    <div class="kicker">Prompt 2 · The agent roster</div>
+    <h2>Make every agent argue for its box</h2>
+<pre class="prompt">Using AGENTS.md, first describe the single-agent version of this system.
+Then propose the multi-agent version as a roster table, one row per agent:
+  name | what it knows that no other agent knows | tools (read / write)
+  | state fields it reads | state fields it writes | if it fails, what catches it
+For each specialist, say why it can&#x27;t be a tool call of the supervisor.
+Merge any agent that fails that test. Draw it as a Mermaid diagram.
+Wait for my OK.</pre>
+    <p class="tip">Claude Code: plan mode (Shift+Tab). Antigravity: ask for an implementation plan and review it first.</p>
+    <div class="check"><b>✓ Before you move on:</b><span>every agent has a reason, and only one agent owns the customer-facing words. Three to five agents is plenty for a capstone.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="3" role="region" aria-label="Slide 4 of 11">
+    <div class="kicker">Prompt 3 · Contracts before code</div>
+    <h2>Define the input and output schemas first</h2>
+    <div class="cols tight" style="grid-template-columns: minmax(0,1fr) minmax(0,1fr)">
+      <div><pre class="prompt">Before any agent exists, write JSON Schemas
+in schemas/:
+1. input.schema.json: what enters the system;
+   required vs optional, types, allowed values
+2. output.schema.json: the final answer; an
+   enum for every decision, confidence 0-1,
+   required reasoning, injection_detected
+3. one schema per tool: arguments, result,
+   and error shape
+4. state.schema.json: every shared field, its
+   type, and the agent that owns it
+Write 3 valid and 3 invalid payloads per schema
+and a validate.py. Show me what it rejects.</pre></div>
+      <div><p class="tip"><b>Wren's output contract</b>, as a schema (simplified)</p><pre class="prompt" style="font-size:clamp(9px,.82vw,12.5px);white-space:pre;overflow:hidden;line-height:1.5">{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;required&quot;: [&quot;classification&quot;, &quot;confidence&quot;, &quot;action&quot;,
+               &quot;injection_detected&quot;, &quot;reasoning&quot;],
+  &quot;properties&quot;: {
+    &quot;classification&quot;: { &quot;enum&quot;: [&quot;ORDER_ISSUE&quot;, &quot;PRODUCT_QUERY&quot;,
+        &quot;RETURNS&quot;, &quot;COMPLAINT&quot;, &quot;BILLING&quot;, &quot;UNKNOWN&quot;] },
+    &quot;confidence&quot;: { &quot;type&quot;: &quot;number&quot;, &quot;minimum&quot;: 0, &quot;maximum&quot;: 1 },
+    &quot;action&quot;: { &quot;enum&quot;: [&quot;AUTO_RESOLVE&quot;, &quot;GATHER_INFO&quot;,
+        &quot;ESCALATE&quot;, &quot;REJECT&quot;] },
+    &quot;draft_response&quot;: { &quot;type&quot;: &quot;string&quot; },
+    &quot;injection_detected&quot;: { &quot;type&quot;: &quot;boolean&quot; },
+    &quot;reasoning&quot;: { &quot;type&quot;: &quot;string&quot;, &quot;minLength&quot;: 1 }
+  },
+  &quot;additionalProperties&quot;: false
+}</pre><p class="tip">“≤ 75 words” can't be expressed in JSON Schema, so it's a code check in validate.py.</p></div>
+    </div>
+    <div class="check"><b>✓ Before you move on:</b><span>you sign off the output schema. It's what the agent can commit to on your brand's behalf. Enums, not free text, for every decision; a missing required field must fail loudly.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="4" role="region" aria-label="Slide 5 of 11">
+    <div class="kicker">Prompt 4 · Fake the world first</div>
+    <h2>Mock data and a mock MCP server</h2>
+<pre class="prompt">Create sample_data/ with 15 realistic <span class="ph">[inputs]</span>: 10 normal, 3 edge cases,
+2 adversarial (one with instructions hidden in the text). No real customer data.
+Build a mock MCP server, Python standard library only, implementing the tool
+schemas in schemas/: <span class="ph">[read_tool(args)]</span>, <span class="ph">[write_tool(args)]</span>. Validate every argument,
+refuse data the caller isn&#x27;t allowed to see, return clear error messages.
+Model it on mcp-server/wren_mcp_server.py, including a --check flag.</pre>
+    <div class="check"><b>✓ Before you move on:</b><span><code>--check</code> passes and the coding agent can list your tools. Every agent will act on this fake world, not a real one.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="5" role="region" aria-label="Slide 6 of 11">
+    <div class="kicker">Prompt 5 · State object, supervisor, specialists</div>
+    <h2>Agents talk only through the state</h2>
+    <div class="cols tight">
+      <div><p class="tip"><b>No API key</b>: the coding agent runs each agent</p><pre class="prompt">Use schemas/state.schema.json, plus step_count
+and handoff_log. Every agent validates its input
+and output against the schemas before handing off.
+Make each specialist a sub-agent with its own
+prompt and ONLY its tools (Claude Code:
+.claude/agents/<span class="ph">[name]</span>.md). If your tool has no
+sub-agents, run each specialist&#x27;s prompt in turn,
+passing state.json between them.
+Run input 1 end to end and show me state.json
+after every handoff.</pre></div>
+      <div><p class="tip"><b>With an API key</b>: an orchestrator script</p><pre class="prompt">Load the schemas in schemas/.
+Write orchestrator.py: the supervisor reads
+state, picks the next specialist, calls it with
+its own system prompt and only its own tools,
+validates the fields it wrote against the
+schema, then loops. Stop when the supervisor
+says done or step_count hits 7.
+Log every handoff to traces/<span class="ph">[task_id]</span>.jsonl.</pre></div>
+    </div>
+    <div class="check"><b>✓ Before you move on:</b><span>you can point at one handoff and say who wrote which field. A missing field is a silent failure between agents, so the schema check matters.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="6" role="region" aria-label="Slide 7 of 11">
+    <div class="kicker">Prompt 6 · Guardrails at the handoffs</div>
+    <h2>Failures happen between agents</h2>
+<pre class="prompt">Add guardrails in code, not only in prompts:
+- tools: each agent can call ONLY its own tools; anything else returns an error
+- state: reject a handoff whose fields don&#x27;t match the schema; never pass raw
+  customer text into another agent&#x27;s instructions, only as a data field
+- loops: max 7 steps across all agents; the same agent twice in a row with no
+  new state → stop and escalate
+- QA: the QA agent sees the draft and the policy, not the Resolution agent&#x27;s
+  reasoning, so it judges independently
+- HITL: escalate when <span class="ph">[QA score]</span> &lt; <span class="ph">[0.85]</span>, <span class="ph">[amount]</span> &gt; <span class="ph">[₹10,000]</span>, or legal
+  language appears; write what the reviewer sees to review_queue.json
+Show each guardrail firing on one sample input.</pre>
+    <div class="check"><b>✓ Before you move on:</b><span>one input and one output guardrail caught live, plus one bad handoff blocked. That covers capstone deliverables 4 and 5.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="7" role="region" aria-label="Slide 8 of 11">
+    <div class="kicker">Prompt 7 · Evals: per agent and end to end</div>
+    <h2>Know which agent broke</h2>
+<pre class="prompt">Build evals/:
+1. golden.csv: input, expected final output, why it&#x27;s in the set (10+ rows);
+   every row must validate against schemas/
+2. end-to-end: run every row through the whole system; a judge scores the
+   final output on <span class="ph">[criterion 1..4]</span>, using a different model from the agents
+3. per agent: for each row, compare each agent&#x27;s state fields with the
+   expected ones (e.g. Triage&#x27;s classification) and report which agent was
+   first to go wrong
+4. consistency: run each row 3 times; list rows whose final decision flips
+Print a table, the pass rate, and failures grouped by agent.</pre>
+    <p class="tip">No API key? Ask the coding agent to run each row and fill the table. Slower, same learning.</p>
+    <div class="check"><b>✓ Before you move on:</b><span>compare the judge with your own labels on 5 rows. If one agent causes most failures, fix that agent, not the whole system.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="8" role="region" aria-label="Slide 9 of 11">
+    <div class="kicker">Prompt 8 · Red-team the system</div>
+    <h2>Attack the seams, not just the inputs</h2>
+<pre class="prompt">Act as a red-teamer for our multi-agent system. Write 10 inputs most likely
+to break it, including:
+- instructions hidden in a tool result that one agent passes to the next
+- two agents that disagree (Triage says routine, QA says risky)
+- a handoff with a missing state field
+- a case that makes the supervisor bounce between the same two agents
+- <span class="ph">[an edge case only our domain has]</span>
+Run them. For each failure: name the spec line it breaks, add it to
+golden.csv, propose the smallest fix. Don&#x27;t apply any fix yet.</pre>
+    <div class="check"><b>✓ Before you move on:</b><span>fix one, re-run the evals, and keep the before and after. <i>“The failure we fixed because of our evals”</i> is a slide in your presentation.</span></div>
+  </div>
+  <div class="slide" data-layout="code" data-index="9" role="region" aria-label="Slide 10 of 11">
+    <div class="kicker">Prompt 9 · Cost and demo</div>
+    <h2>Every agent is a bill</h2>
+<pre class="prompt">From traces/, compute average input and output tokens per agent per task,
+and how many handoffs a typical task takes. Price it with <span class="ph">[model per agent]</span>
+on the course price card, add ×3 overhead for retries, reflection and
+guardrails, and give the monthly cost at <span class="ph">[volume]</span>/day.
+Then write DEMO.md: run order (happy path → hard input → guardrail catch),
+the exact inputs, how to show the handoff trace on screen, how to reset.</pre>
+    <div class="check"><b>✓ Before you move on:</b><span>record a 2–4 minute backup video. Show the trace during the demo: the audience should see which agent did what.</span></div>
+  </div>
+  <div class="slide" data-layout="two-column" data-index="10" role="region" aria-label="Slide 11 of 11">
+    <div class="kicker">When the coding agent goes wrong</div>
+    <h2>Six habits that save a weekend</h2>
+    <div class="cols">
+      <div class="card"><ul>
+        <li><b>Paste the error verbatim.</b> Not “it doesn't work”.</li>
+        <li><b>“Explain which agent failed, and why, before changing anything.”</b> Stops random rewrites.</li>
+        <li><b>“Run the evals and show me the output.”</b> Make it prove the fix.</li></ul></div>
+      <div class="card"><ul>
+        <li><b>Commit after every green step.</b> Undo is one command.</li>
+        <li><b>The collapse test:</b> “Merge [agent X] into the supervisor and re-run the evals.” If quality holds, keep it merged.</li>
+        <li><b>No real customer data, no keys in files.</b> Mock data only; keys in .env, never committed.</li></ul></div>
+    </div>
+    <p class="sub">Read every diff before you accept it. You're the PM on this build, and the reviewer.</p>
+  </div>
+
+</div>
+
+<div id="nav">
+  <button onclick="goTo(current-1)" aria-label="Previous slide">&#8592;</button>
+  <button onclick="goTo(current+1)" aria-label="Next slide">&#8594;</button>
+</div>
+<div id="counter">1 / 11</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  slides[current].removeAttribute('aria-current');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  slides[current].setAttribute('aria-current', 'true');
+  counter.textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+document.getElementById('deck').addEventListener('click', e => {
+  const mid = window.innerWidth / 2;
+  if (e.clientX > mid) goTo(current + 1);
+  else goTo(current - 1);
+});
+</script>
+</body>
+</html>
