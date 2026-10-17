@@ -20,7 +20,7 @@
 | 8:45 – 8:57 | [7. Update your capstone canvas](#7-update-your-capstone-canvas-845--857) |
 | 8:57 – 9:00 | [8. Close](#8-close-857--900) |
 
-**No homework tonight.** Bring your team's capstone canvas (Homework 1) and your Agent Teardown (Homework 2).
+**Bring:** your team's capstone canvas (Homework 1) and your Agent Teardown (Homework 2). **Homework 3** (team, Capstone Canvas v2) is set at the close, due Thu 22 Oct.
 
 **Agentic AI Lab:** https://agentic-ai-lab-rho.vercel.app (no login). Look for **In the Agentic AI Lab**.
 
@@ -483,7 +483,18 @@ Save the six rows as `golden_mine.csv` (IDs T011–T016): the same columns as `g
 
 **You built tonight:** an agent acting on a (simulated) ticket system over MCP, a planning spec, a multi-agent design with a Mermaid diagram, your six golden-set labels, and a sharper capstone canvas.
 
-**Before Session 3 (Sat 24 Oct):** **no homework.** Bring `golden_mine.csv` and your team's capstone canvas; the last block of Session 3 is a team working session where the instructor reviews it.
+### Homework 3 — Capstone Canvas v2 (team, due Thu 22 Oct, 11:59 PM IST; about 2 hours)
+This is capstone work brought forward, not extra work: everything here goes straight into what you present on 31 Oct. It targets the gaps from Homework 1.
+
+1. **List your team members** at the top. No canvas did this in Homework 1.
+2. **One measured baseline number.** Time the task three times, pull a week of data, or ask the person who does it today, and say where the number came from. "How we'll find out" only counts with a date attached.
+3. **The three-sentence test on every agent** (§4). Any agent that fails becomes a tool call. Redraw box 10 as a Mermaid sketch.
+4. **10 golden examples for your own capstone,** in the same columns as `golden_mine.csv`: input, expected output, why it's in the set. At least one adversarial and one high-stakes example.
+5. **Rewrite boxes 13 and 14 with one spec line each:** a number, why that number, and what a miss costs. No "≥95% of 100 prompts" without a reason.
+
+**Submit** the updated canvas (Markdown is fine) through the usual homework form by **Thursday 22 October, 11:59 PM IST**, one submission per team. Thursday, not Friday, so the instructor can review every team's canvas before Session 3.
+
+**Also bring to Session 3 (Sat 24 Oct):** `golden_mine.csv` (individual, from §6 tonight). The last block of Session 3 is a team working session on your canvas v2.
 
 ---
 

@@ -11,7 +11,7 @@ Prof. Shameek Chakravarty
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
 
-**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **Two pieces of homework, only in the two-week gap after Session 1** (see below); everything else happens in the session, and the capstone is the only other take-home work.
+**How you'll work:** every session runs on one case, Wren CX, and you work on your own. The capstone is different: your team picks its own problem, from a sample list you'll receive or, better, one of your own. **Three pieces of homework:** two in the gap after Session 1, and one team checkpoint after Session 2 that feeds straight into the capstone (see below). Everything else happens in the session; the capstone is the only other take-home work.
 
 ## Start Here
 
@@ -58,6 +58,12 @@ Pull this repo, then take 5 minutes before class:
 
 If it won't connect, don't worry: the handbook has simulated tool outputs so you can follow along.
 
+## Homework 3 — Capstone Canvas v2 (team), due Thu 22 Oct, 11:59 PM IST
+
+Capstone work brought forward, about 2 hours: list your team members, add one measured baseline with its source, run the three-sentence test on every agent (redraw box 10), write 10 golden examples for your own capstone, and rewrite boxes 13–14 as spec lines with a number, its reason, and the cost of a miss. One submission per team through the usual form.
+
+Details: Homework 3 in [the Session 2 handbook](session2/Session2_Student_Handbook.md#homework-3--capstone-canvas-v2-team-due-thu-22-oct-1159-pm-ist-about-2-hours).
+
 ## Before Session 3 (Sat 24 Oct)
 
-No homework. Bring `golden_mine.csv` (the six rows you label in Session 2) and your team's capstone canvas.
+Bring `golden_mine.csv` (the six rows you label in Session 2) and your team's canvas v2.
