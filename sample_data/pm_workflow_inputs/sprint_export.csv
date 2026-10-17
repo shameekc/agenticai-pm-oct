@@ -1,0 +1,9 @@
+ticket,title,owner,status,estimate_days,days_in_progress,blocker
+WREN-201,Ordered routing rules (missing-ID before confidence gate),Aditi,Done,2,2,
+WREN-202,Hinglish golden set (50 labelled tickets),Rohan,In Progress,3,5,Waiting on brand B to share sample tickets
+WREN-203,Output guardrail: block refund/timeline promises,Aditi,In Progress,2,1,
+WREN-204,Escalation summary v2 (include prior ticket count),Sameer,In Progress,2,4,
+WREN-205,CRM timeout fallback,Sameer,To Do,1,0,Needs PM decision: use last known data or ask customer?
+WREN-206,Ops dashboard: daily AI actions,Neha,To Do,3,0,
+WREN-207,Safety keyword fast-path to human queue,Rohan,Blocked,1,2,Legal to confirm list of safety terms
+WREN-208,Context caching for system prompt,Neha,Done,1,1,

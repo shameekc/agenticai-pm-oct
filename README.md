@@ -5,7 +5,7 @@ Prof. Shameek Chakravarty
 | Session | Date (Saturdays, 6:00–9:00 PM IST) | Theme | Materials |
 |---|---|---|---|
 | 1 | 3 Oct | Foundations, the AI-native PRD, first agent builds | [`session1/`](session1/) |
-| 2 | 17 Oct | MCP, planning, multi-agent systems, the eval problem | Added before the session |
+| 2 | 17 Oct | MCP, planning, multi-agent systems, the eval problem | [`session2/`](session2/) |
 | 3 | 24 Oct | Eval harness, guardrails, token economics, HITL, capstone scoping | Added before the session |
 | 4 | 31 Oct | Capstone presentations | Added before Session 3 |
 
@@ -17,16 +17,18 @@ New materials are added to this repo before each session. Pull (or re-download) 
 
 1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for Sessions 1–3.
 2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around. Not needed for any session.
-3. **Open the session handbook:** [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md). There are no slides: we work through the handbook together in class, and every prompt is in it, ready to paste.
+3. **Open tonight's handbook:** [`session2/Session2_Student_Handbook.md`](session2/Session2_Student_Handbook.md) (Session 1: [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md)). There are no slides: we work through the handbook together in class, and every prompt is in it, ready to paste.
 
 ## What's Here
 
 | Folder | Contents |
 |---|---|
 | `case-study/` | The Wren CX case + optional industry variant cards |
-| `sample_data/` | Support tickets (`wren_tickets.json`) and the simulated CRM (`crm_orders.json`) used in the builds |
+| `sample_data/` | Support tickets (`wren_tickets.json`), the simulated CRM (`crm_orders.json`), the golden dataset (`golden_dataset.csv`) and inputs for the PM workflows (`pm_workflow_inputs/`) |
+| `mcp-server/` | The Wren mock MCP server (ticket inbox + CRM) for Session 2. Python 3 standard library, nothing to install |
 | `templates/` | The Agent Opportunity Canvas (blank) and a filled example for Wren CX |
 | `session1/` | The Session 1 handbook |
+| `session2/` | The Session 2 handbook |
 
 ## Tools
 
@@ -46,6 +48,16 @@ Test one live AI assistant or agent five ways (happy path, missing information, 
 
 Details for both: section 10 of the Session 1 handbook.
 
-## Before Session 2 (Sat 17 Oct)
+## Before Session 2 (Sat 17 Oct, 6:00 PM) — connect MCP
 
-One 5-minute setup check: make sure Google Antigravity opens and you can open its terminal. Session 2 connects it to a simulated ticket system over MCP.
+Pull this repo, then take 5 minutes before class:
+
+1. Open Google Antigravity and its terminal; `python3 --version` should work.
+2. Register the Wren MCP server: follow [`mcp-server/README.md`](mcp-server/README.md).
+3. Ask the agent: *"List the tools on the wren MCP server."* You should see 4 tools.
+
+If it won't connect, don't worry: the handbook has simulated tool outputs so you can follow along.
+
+## Before Session 3 (Sat 24 Oct)
+
+No homework. Bring `golden_mine.csv` (the six rows you label in Session 2) and your team's capstone canvas.
