@@ -15,7 +15,13 @@ Updates persist in `mcp-server/state/tickets_state.json`. **Delete that file to 
 
 ## Connect it
 
-You need `python3` on your PATH (`python3 --version`). Replace `<FULL_PATH>` with where you cloned the course folder.
+You need Python 3.9 or newer. New to Python? Step-by-step setup for Mac and Windows: https://agentic-ai-lab-rho.vercel.app/setup
+
+First check the server runs (from the course folder):
+- **Mac:** `python3 mcp-server/wren_mcp_server.py --check`
+- **Windows:** `py mcp-server\wren_mcp_server.py --check`
+
+You should see `OK: ... 20 tickets, 13 orders`. Replace `<FULL_PATH>` below with where you cloned or unzipped the course folder.
 
 **Antigravity:** Agent panel → `…` menu → **MCP Servers** → **Manage MCP Servers** → **View raw config**, and add:
 
@@ -29,6 +35,8 @@ You need `python3` on your PATH (`python3 --version`). Replace `<FULL_PATH>` wit
   }
 }
 ```
+
+**Windows:** use `"command": "py"` instead of `"python3"`, and write the path with forward slashes, e.g. `"C:/Users/you/agenticai-pm-oct/mcp-server/wren_mcp_server.py"`.
 
 **Claude Code:** `claude mcp add wren -- python3 <FULL_PATH>/mcp-server/wren_mcp_server.py`
 

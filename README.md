@@ -52,7 +52,7 @@ Details for both: section 10 of the Session 1 handbook.
 
 Pull this repo, then take 5 minutes before class:
 
-1. Open Google Antigravity and its terminal; `python3 --version` should work.
+1. Install Python 3 if you don't have it. Step-by-step for Mac and Windows: https://agentic-ai-lab-rho.vercel.app/setup
 2. Register the Wren MCP server: follow [`mcp-server/README.md`](mcp-server/README.md).
 3. Ask the agent: *"List the tools on the wren MCP server."* You should see 4 tools.
 

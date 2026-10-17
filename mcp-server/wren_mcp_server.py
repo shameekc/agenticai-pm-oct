@@ -25,16 +25,16 @@ VALID_CLASS = {"ORDER_ISSUE", "PRODUCT_QUERY", "RETURNS", "COMPLAINT", "BILLING"
 
 def load_tickets():
     if STATE.exists():
-        return json.loads(STATE.read_text())
-    return json.loads((DATA / "wren_tickets.json").read_text())
+        return json.loads(STATE.read_text(encoding="utf-8"))
+    return json.loads((DATA / "wren_tickets.json").read_text(encoding="utf-8"))
 
 
 def save_tickets(tickets):
     STATE.parent.mkdir(exist_ok=True)
-    STATE.write_text(json.dumps(tickets, indent=2, ensure_ascii=False))
+    STATE.write_text(json.dumps(tickets, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-CRM = json.loads((DATA / "crm_orders.json").read_text())
+CRM = json.loads((DATA / "crm_orders.json").read_text(encoding="utf-8"))
 
 TOOLS = [
     {
@@ -149,6 +149,13 @@ def handle(msg):
 
 
 def main():
+    # Windows defaults to a non-UTF-8 code page; the data has ₹ and the protocol is UTF-8
+    sys.stdin.reconfigure(encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8")
+    if "--check" in sys.argv:  # setup check for students: data loads, then exit
+        print(f"OK: Python {sys.version.split()[0]}, {len(load_tickets())} tickets, "
+              f"{len(CRM['orders'])} orders. The Wren MCP server is ready.")
+        return
     for line in sys.stdin:
         line = line.strip()
         if not line:
