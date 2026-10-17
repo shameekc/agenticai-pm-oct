@@ -28,7 +28,7 @@ New materials are added to this repo before each session. Pull (or re-download) 
 | `mcp-server/` | The Wren mock MCP server (ticket inbox + CRM) for Session 2. Python 3 standard library, nothing to install |
 | `templates/` | The Agent Opportunity Canvas (blank) and a filled example for Wren CX |
 | `session1/` | The Session 1 handbook |
-| `session2/` | The Session 2 handbook |
+| `session2/` | The Session 2 handbook, and the homework review deck (`Homework_Review_Deck.html`: download and open in a browser) |
 
 ## Tools
 
