@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evals · Session 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f7f9; --fg: #111111; --fg2: #555555;
+  --accent: #2563eb; --accent-soft: #eaf1fe; --warn: #b45309; --warn-soft: #fef3e2;
+  --good: #047857; --good-soft: #e7f6f0; --line: #e4e6ea;
+  --font-body: 'Inter', system-ui, sans-serif; --font-heading: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+#deck { height: 100vh; width: 100vw; overflow: hidden; cursor: pointer; }
+.slide {
+  display: none; height: 100vh; width: 100vw; padding: 7vh 8vw;
+  flex-direction: column; justify-content: center; gap: 3vh;
+  animation: fadein 0.25s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.kicker { font-size: clamp(12px, 1.3vw, 18px); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(36px, 5.6vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+p.lead { font-size: clamp(18px, 1.9vw, 28px); color: var(--fg2); line-height: 1.45; max-width: 60ch; }
+.sub { font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); }
+
+/* Title */
+.slide[data-layout="title"] { background: var(--bg2); align-items: flex-start; }
+.slide[data-layout="title"] h1 span { color: var(--accent); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; }
+.stat { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; }
+.stat .n { font-size: clamp(40px, 6vw, 92px); font-weight: 800; line-height: 1; color: var(--accent); }
+.stat .l { margin-top: 1.2vh; font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); line-height: 1.35; }
+.stat.warn .n { color: var(--warn); }
+
+/* Code */
+pre { font-family: var(--mono); font-size: clamp(13px, 1.35vw, 20px); line-height: 1.6; background: #0f1117; color: #e8eaf0; padding: 3vh 2.4vw; border-radius: 14px; white-space: pre-wrap; }
+pre .comment { color: #8892a4; }
+pre .err { color: #fca5a5; }
+pre .key { color: #93c5fd; }
+
+/* Two column */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; align-items: stretch; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 3vh 2vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.card h3 { font-size: clamp(18px, 2vw, 30px); font-weight: 700; }
+.card p, .card li { font-size: clamp(15px, 1.55vw, 23px); color: var(--fg2); line-height: 1.45; }
+.card ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 1vh; }
+.card.good { background: var(--good-soft); border-color: transparent; }
+.card.good h3 { color: var(--good); }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card.warn h3 { color: var(--warn); }
+.tag { display: inline-block; font-size: clamp(11px, 1.1vw, 15px); font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); align-self: flex-start; }
+
+/* Flow (chat transcript) */
+.flow { display: flex; flex-direction: column; gap: 1.6vh; max-width: 70ch; }
+.msg { font-size: clamp(16px, 1.7vw, 25px); line-height: 1.4; padding: 1.4vh 1.4vw; border-radius: 12px; max-width: 85%; }
+.msg.user { background: var(--accent); color: #fff; align-self: flex-end; }
+.msg.bot { background: var(--bg2); color: var(--fg); align-self: flex-start; }
+.msg.bad { border-left: 4px solid var(--warn); }
+
+/* Quote */
+.slide[data-layout="quote"] blockquote { font-size: clamp(26px, 3.4vw, 50px); font-weight: 700; line-height: 1.2; max-width: 26ch; letter-spacing: -0.01em; }
+.slide[data-layout="quote"] blockquote::before { content: "“"; color: var(--accent); }
+.slide[data-layout="quote"] blockquote::after { content: "”"; color: var(--accent); }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+.q { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.q .t { font-size: clamp(16px, 1.75vw, 26px); font-weight: 600; line-height: 1.35; }
+.q .w { font-size: clamp(13px, 1.25vw, 18px); color: var(--fg2); }
+.q .w b { color: var(--accent); }
+
+.shot { margin:0; display:flex; flex-direction:column; gap:1vh; }
+.shot img { max-height: 60vh; max-width: 38vw; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.shot figcaption { font-size: clamp(12px,1.1vw,15px); color: var(--fg2); }
+.venn-row { display:grid; grid-template-columns: 1.35fr 1fr; gap: 3vw; align-items:center; }
+.venn-wrap { display:flex; flex-direction:column; gap:1vh; }
+.venn { width:100%; max-height:58vh; }
+.venn .c1 { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; }
+.venn .c2 { fill: rgba(217,119,6,.12); stroke: #d97706; stroke-width: 2; }
+.venn .vn { font: 500 20px var(--font-body); fill: var(--fg); }
+.venn .vh { font: 700 18px var(--font-body); fill: var(--fg2); letter-spacing: .02em; }
+.venn .vh1 { fill: var(--accent); } .venn .vh2 { fill: #b45309; }
+.venn .vc { font: 800 30px var(--font-body); fill: var(--fg2); opacity: .55; }
+.stats2 { grid-template-columns: 1fr 1fr; gap: 1.2vw; }
+.stats2 .stat { padding: 2vh 1.2vw; }
+.stats2 .stat .n { font-size: clamp(30px, 3.6vw, 56px); }
+.stats2 .stat .l { font-size: clamp(12px, 1.1vw, 16px); }
+@media (max-width: 800px) { .venn-row { grid-template-columns: 1fr; } }
+/* Bullets */
+ol.big, ul.big { font-size: clamp(20px, 2.3vw, 34px); line-height: 1.4; padding-left: 1.3em; display: flex; flex-direction: column; gap: 2vh; }
+ol.big li::marker { color: var(--accent); font-weight: 800; }
+
+.presenter { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(14px, 1.4vw, 20px); font-weight: 600; background: var(--accent-soft); color: var(--accent); padding: 8px 16px; border-radius: 999px; align-self: flex-start; }
+.presenter::before { content: "🎤"; }
+
+#counter { position: fixed; bottom: 18px; right: 24px; font-size: 13px; color: var(--fg2); opacity: .6; font-variant-numeric: tabular-nums; }
+#nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; opacity: .25; transition: opacity .2s; }
+#nav:hover { opacity: 1; }
+#nav button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 40px; height: 32px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .stats, .quotes { grid-template-columns: 1fr 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .slide { padding: 5vh 6vw; overflow-y: auto; justify-content: flex-start; }
+}
+
+.golden { font-family: var(--mono); font-size: clamp(12px,1.2vw,17px); border-collapse: collapse; width:100%; }
+.golden th { text-align:left; color: var(--fg2); font-weight:600; padding: 8px 10px; border-bottom: 2px solid var(--line); font-family: var(--font-body); font-size: clamp(11px,1vw,14px); text-transform: uppercase; letter-spacing:.06em; }
+.golden td { padding: 10px; border-bottom: 1px solid var(--line); }
+.four { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4vw; }
+.four .card { padding: 2.4vh 1.4vw; }
+.four .card h3 { font-size: clamp(16px,1.7vw,24px); }
+.four .card p { font-size: clamp(13px,1.3vw,19px); }
+.math { font-family: var(--mono); font-size: clamp(13px,1.35vw,20px); line-height:1.7; background: var(--bg2); border-radius: 14px; padding: 2.4vh 2vw; }
+.math b { color: var(--warn); }
+@media (max-width: 800px) { .four { grid-template-columns: 1fr 1fr; } }
+.omr { width: 100%; max-height: 54vh; }
+.omr .paper { fill: #fff; stroke: #d6d9de; stroke-width: 1.5; }
+.omr .ph { font: 600 12px var(--mono); fill: var(--fg2); letter-spacing: .04em; }
+.omr .ql { font: 700 15px var(--font-body); fill: var(--fg); }
+.omr .bub { fill: #fff; stroke: #9aa1ab; stroke-width: 1.4; }
+.omr .bl { font: 600 11px var(--font-body); fill: #9aa1ab; text-anchor: middle; }
+.omr .fill { fill: #1f2937; }
+.omr .overlay { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.omr .fold { fill: rgba(37,99,235,.28); }
+.omr .ring { fill: none; stroke: #dc2626; stroke-width: 3; }
+.omr .ok { font: 800 20px var(--font-body); fill: var(--good); }
+.omr .no { font: 800 20px var(--font-body); fill: #dc2626; }
+.omr .sc { font: 700 14px var(--font-body); fill: var(--fg); }
+.omr .ol { font: 600 13px var(--font-body); fill: var(--accent); }
+.map { display:flex; flex-direction:column; gap: 1.6vh; }
+.map .row { display:grid; grid-template-columns: 1fr 1.25fr; gap: 1vw; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 1.2vh; }
+.map .k { font-size: clamp(14px,1.4vw,20px); color: var(--fg2); }
+.map .v { font-size: clamp(16px,1.6vw,23px); font-weight: 700; color: var(--fg); }
+.dim { border-collapse: collapse; width:100%; font-size: clamp(12px,1.15vw,17px); }
+.dim th { text-align:left; font-size: clamp(10px,.95vw,13px); text-transform: uppercase; letter-spacing:.06em; color: var(--fg2); padding: .8vh .7vw; border-bottom: 2px solid var(--line); }
+.dim td { padding: .9vh .7vw; border-bottom: 1px solid var(--line); color: var(--fg2); line-height: 1.35; }
+.dim td:first-child { color: var(--fg); font-weight: 700; white-space: nowrap; }
+.how { display:inline-block; font-size: .85em; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 4px; white-space: nowrap; }
+.how.code { background: var(--good-soft); color: var(--good); }
+.how.judge { background: var(--accent-soft); color: var(--accent); }
+.how.human { background: var(--warn-soft); color: var(--warn); }
+.three3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 1.6vw; }
+.card .ex { font-family: var(--mono); font-size: clamp(11px,1.05vw,15px); background: var(--bg2); border-radius: 8px; padding: 1vh .8vw; color: var(--fg); }
+@media (max-width: 800px) { .three3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="deck" aria-live="polite">
+
+  <!-- 1 -->
+  <div class="slide active" data-layout="title" data-index="0" role="region" aria-label="Slide 1 of 8" aria-current="true">
+    <div class="kicker">Session 2 · The eval problem</div>
+    <h1>You shipped Wren's agent<br><span>three weeks ago.</span></h1>
+    <p class="lead">Is it getting better or worse? How do you know?</p>
+    <div class="cols" style="width:100%">
+      <div class="card" style="background:var(--bg)"><h3>Normal software fails loudly</h3><p>The button breaks. The API returns a 500. You know.</p></div>
+      <div class="card warn"><h3>An agent fails silently</h3><p>A model update drops accuracy from 91% to 83%. Every reply still looks right, with a confidence score. You find out when CSAT falls, three weeks later.</p></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="slide" data-layout="two-column" data-index="1" role="region" aria-label="Slide 2 of 8">
+    <div class="kicker">What an eval actually is</div>
+    <h2>An eval is an answer key, not “it looked good”</h2>
+    <div class="cols" style="align-items:center">
+      <div><svg viewBox="0 0 380 410" class="omr" role="img" aria-label="A student's multiple-choice answer sheet with a transparent answer-key overlay placed on top. Holes in the overlay mark the correct answers; 4 of 6 filled bubbles fall inside them.">
+  <rect x="24" y="24" width="276" height="340" rx="6" class="paper"/>
+  <text x="40" y="54" class="ph">ANSWER SHEET · Roll no. ████</text>
+  <text x="52" y="97" class="ql">Q1</text><circle cx="120" cy="92" r="13" class="bub"/><text x="120" y="96" class="bl">A</text><circle cx="168" cy="92" r="13" class="fill"/><circle cx="216" cy="92" r="13" class="bub"/><text x="216" y="96" class="bl">C</text><circle cx="264" cy="92" r="13" class="bub"/><text x="264" y="96" class="bl">D</text><text x="52" y="141" class="ql">Q2</text><circle cx="120" cy="136" r="13" class="bub"/><text x="120" y="140" class="bl">A</text><circle cx="168" cy="136" r="13" class="bub"/><text x="168" y="140" class="bl">B</text><circle cx="216" cy="136" r="13" class="bub"/><text x="216" y="140" class="bl">C</text><circle cx="264" cy="136" r="13" class="fill"/><text x="52" y="185" class="ql">Q3</text><circle cx="120" cy="180" r="13" class="fill"/><circle cx="168" cy="180" r="13" class="bub"/><text x="168" y="184" class="bl">B</text><circle cx="216" cy="180" r="13" class="bub"/><text x="216" y="184" class="bl">C</text><circle cx="264" cy="180" r="13" class="bub"/><text x="264" y="184" class="bl">D</text><text x="52" y="229" class="ql">Q4</text><circle cx="120" cy="224" r="13" class="bub"/><text x="120" y="228" class="bl">A</text><circle cx="168" cy="224" r="13" class="bub"/><text x="168" y="228" class="bl">B</text><circle cx="216" cy="224" r="13" class="fill"/><circle cx="264" cy="224" r="13" class="bub"/><text x="264" y="228" class="bl">D</text><text x="52" y="273" class="ql">Q5</text><circle cx="120" cy="268" r="13" class="bub"/><text x="120" y="272" class="bl">A</text><circle cx="168" cy="268" r="13" class="bub"/><text x="168" y="272" class="bl">B</text><circle cx="216" cy="268" r="13" class="fill"/><circle cx="264" cy="268" r="13" class="bub"/><text x="264" y="272" class="bl">D</text><text x="52" y="317" class="ql">Q6</text><circle cx="120" cy="312" r="13" class="fill"/><circle cx="168" cy="312" r="13" class="bub"/><text x="168" y="316" class="bl">B</text><circle cx="216" cy="312" r="13" class="bub"/><text x="216" y="316" class="bl">C</text><circle cx="264" cy="312" r="13" class="bub"/><text x="264" y="316" class="bl">D</text>
+  <rect x="16" y="16" width="292" height="356" rx="8" class="overlay"/>
+  <path d="M262 16 L308 16 L308 62 Z" class="fold"/>
+  <text x="34" y="390" class="ol">transparent answer key, laid on top</text>
+  <circle cx="168" cy="92" r="18" class="ring"/><circle cx="264" cy="136" r="18" class="ring"/><circle cx="168" cy="180" r="18" class="ring"/><circle cx="216" cy="224" r="18" class="ring"/><circle cx="120" cy="268" r="18" class="ring"/><circle cx="120" cy="312" r="18" class="ring"/>
+  <text x="318" y="99" class="ok">✓</text><text x="318" y="143" class="ok">✓</text><text x="318" y="187" class="no">✗</text><text x="318" y="231" class="ok">✓</text><text x="318" y="275" class="no">✗</text><text x="318" y="319" class="ok">✓</text>
+  <text x="34" y="352" class="sc">Score 4 / 6 · pass mark 4 → PASS</text>
+</svg></div>
+      <div class="map">
+        <div class="row"><span class="k">The question paper</span><span class="v">Test inputs: your golden set</span></div>
+        <div class="row"><span class="k">The answer key, written before grading</span><span class="v">Expected outputs</span></div>
+        <div class="row"><span class="k">The pass mark</span><span class="v">Your threshold, with a reason</span></div>
+        <div class="row"><span class="k">The same overlay on every paper</span><span class="v">A runner that works without you</span></div>
+        <p class="sub">TKT-B's key says GATHER_INFO before the agent ever runs. Engineering applies the key; <b>the PM writes it.</b></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="slide" data-layout="two-column" data-index="2" role="region" aria-label="Slide 3 of 8">
+    <div class="kicker">Four questions, four kinds of eval</div>
+    <h2>Pass today is not pass next month</h2>
+    <div class="four">
+      <div class="card"><span class="tag">Unit · build time</span><h3>Right on this input?</h3><p>TKT-A → ORDER_ISSUE, ≥ 0.80, AUTO_RESOLVE.</p></div>
+      <div class="card"><span class="tag">Regression · every change</span><h3>Still right after a change?</h3><p>Rerun the golden set after any model or prompt change. Alert on a 2-point drop.</p></div>
+      <div class="card"><span class="tag">A/B · before a switch</span><h3>Is B actually better?</h3><p>Same tickets through both. Read the disagreements, not the averages.</p></div>
+      <div class="card warn"><span class="tag">Consistency · often skipped</span><h3>Same answer twice?</h3><p>Run each ticket 3 times. If the decision flips, every other score is noise.</p></div>
+    </div>
+    <p class="sub">A cheaper model can win on average and still miss the one injection. That's why the golden set has an adversarial row.</p>
+  </div>
+
+  <!-- 4a -->
+  <div class="slide" data-layout="two-column" data-index="3" role="region" aria-label="Slide 4 of 8">
+    <div class="kicker">Where you evaluate</div>
+    <h2>Offline before you ship. Online after.</h2>
+    <div class="cols">
+      <div class="card"><span class="tag">Offline · on a fixed test set</span><h3>Did we build it right?</h3><ul>
+        <li>Golden set, run before every release</li><li>Regression after any model or prompt change</li><li>A/B: same tickets through old and new</li></ul>
+        <p><b>Safe, repeatable, cheap.</b> But it only tests what you thought of.</p></div>
+      <div class="card"><span class="tag">Online · on live traffic</span><h3>Is it working for real customers?</h3><ul>
+        <li>Sample 2% of live replies for review</li><li>Signals: CSAT, agent edits, human overrides of AUTO_RESOLVE, reopened tickets</li><li>Drift alerts: accuracy, escalation rate, confidence mix</li></ul>
+        <p><b>Catches the real world:</b> Hinglish at 2 AM, Diwali volumes. But it's slower, and customers feel the misses.</p></div>
+    </div>
+    <p class="sub">You need both. Every online failure becomes a new offline golden row, so it can't come back unnoticed.</p>
+  </div>
+
+  <!-- 4b -->
+  <div class="slide" data-layout="two-column" data-index="4" role="region" aria-label="Slide 5 of 8">
+    <div class="kicker">How you score</div>
+    <h2>Code first. A judge where code can't.</h2>
+    <div class="three3">
+      <div class="card good"><span class="tag">Code-based</span><h3>Deterministic checks</h3>
+        <div class="ex">classification == "ORDER_ISSUE"<br>len(draft.split()) &lt;= 75<br>output matches JSON schema<br>no "refund" promise in draft</div>
+        <p><b>Fast, free, never disagrees with itself.</b> Only for things you can check exactly.</p></div>
+      <div class="card"><span class="tag">LLM-as-judge</span><h3>A rubric, scored by a model</h3>
+        <div class="ex">“Is the tone empathetic?”<br>“Does every fact in the draft appear in the CRM record?” → PASS / FAIL + reason</div>
+        <p><b>Scales the fuzzy qualities.</b> Use a different model from the agent, and test it against human labels first.</p></div>
+      <div class="card warn"><span class="tag">Human</span><h3>Labels and spot checks</h3>
+        <div class="ex">You label the golden set.<br>A CX lead reviews 20 live replies a week.</div>
+        <p><b>The ground truth for the other two.</b> Slow and costly, so use it to calibrate, not to grade everything.</p></div>
+    </div>
+    <p class="sub">An untested judge is just another unvalidated model in your critical path. Session 3 builds one and checks it against your labels.</p>
+  </div>
+
+  <!-- 4c -->
+  <div class="slide" data-layout="two-column" data-index="5" role="region" aria-label="Slide 6 of 8">
+    <div class="kicker">Dimensions of quality</div>
+    <h2>“Is it good?” is ten questions</h2>
+    <table class="dim">
+      <tr><th>Dimension</th><th>Wren example of a check</th><th>How you measure it</th></tr>
+      <tr><td>Task accuracy</td><td>TKT-A is classified ORDER_ISSUE</td><td><span class="how code">Code</span></td></tr>
+      <tr><td>Right action</td><td>TKT-B → GATHER_INFO, never a guessed order</td><td><span class="how code">Code</span></td></tr>
+      <tr><td>Groundedness</td><td>The draft's ETA matches the CRM (6 Oct), nothing invented</td><td><span class="how judge">Judge</span><span class="how code">Code</span> for fields</td></tr>
+      <tr><td>Safety</td><td>TKT-D rejected; no refund or discount promised</td><td><span class="how code">Code</span><span class="how judge">Judge</span></td></tr>
+      <tr><td>Policy &amp; format</td><td>Valid JSON; draft ≤ 75 words; phone number not echoed back</td><td><span class="how code">Code</span></td></tr>
+      <tr><td>Tone</td><td>Empathetic to a parent whose order is 10 days late, no blame</td><td><span class="how judge">Judge</span><span class="how human">Human</span> to calibrate</td></tr>
+      <tr><td>Escalation recall</td><td>≥ 95% of complaints reach a human</td><td><span class="how code">Code</span></td></tr>
+      <tr><td>Consistency</td><td>Same decision on 3 runs of the same ticket</td><td><span class="how code">Code</span></td></tr>
+      <tr><td>Fairness</td><td>Hinglish accuracy within 2 points of English</td><td><span class="how code">Code</span>, sliced by language</td></tr>
+      <tr><td>Latency &amp; cost</td><td>e.g. p95 under 5 s; ~1,900 tokens per ticket</td><td><span class="how code">Code</span> from traces</td></tr>
+    </table>
+    <p class="sub">Pick the 3–4 dimensions that block launch for <i>your</i> product. Each gets a number, a reason, and a method.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="slide" data-layout="two-column" data-index="6" role="region" aria-label="Slide 7 of 8">
+    <div class="kicker">Every number needs a reason</div>
+    <h2>Where does your threshold come from?</h2>
+    <div class="cols">
+      <div class="card"><h3>A clean run proves less than you think</h3>
+        <p>0 misses in 40 tests means the miss rate is <b>probably under 7.5%</b>, not zero (the rule of three: 3 ÷ 40).</p>
+        <p>To claim under 1%, you need about 300 clean cases.</p>
+      </div>
+      <div class="card"><h3>A threshold is a staffing decision</h3>
+        <div class="math">2,000 tickets × 20% × 4 min<br>= <b>27 hrs/day</b> ≈ 3–4 reviewers<br><br>Gate 0.80 → 0.90 “to be safe”<br>2,000 × 35% × 4 min<br>= <b>47 hrs/day</b> ≈ 6 reviewers</div>
+        <p class="sub" style="margin-top:1vh">Shares going to humans are illustrative. Safer on paper, slower in the queue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="slide" data-layout="bullets" data-index="7" role="region" aria-label="Slide 8 of 8">
+    <div class="kicker">Next 18 minutes</div>
+    <h2>Build your golden set. You're the labeller, not the model.</h2>
+    <ol class="big">
+      <li>Label 5 of the 10 unlabelled Wren tickets</li>
+      <li>Check the CRM first: one customer hasn't consented to AI processing</li>
+      <li>Invent 1 ticket that would break the agent</li>
+      <li>Save as <code style="font-family:var(--mono)">golden_mine.csv</code>, rows T011–T016</li>
+    </ol>
+    <p class="sub">Session 3's eval harness runs on your rows. Day-1 question for your capstone: what's the score before any tuning, and how will you know if day 30 is better?</p>
+  </div>
+
+</div>
+
+<div id="nav">
+  <button onclick="goTo(current-1)" aria-label="Previous slide">&#8592;</button>
+  <button onclick="goTo(current+1)" aria-label="Next slide">&#8594;</button>
+</div>
+<div id="counter">1 / 8</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  slides[current].removeAttribute('aria-current');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  slides[current].setAttribute('aria-current', 'true');
+  counter.textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+document.getElementById('deck').addEventListener('click', e => {
+  const mid = window.innerWidth / 2;
+  if (e.clientX > mid) goTo(current + 1);
+  else goTo(current - 1);
+});
+</script>
+</body>
+</html>
