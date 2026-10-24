@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capstone Brief · Session 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f7f9; --fg: #111111; --fg2: #555555;
+  --accent: #2563eb; --accent-soft: #eaf1fe; --warn: #b45309; --warn-soft: #fef3e2;
+  --good: #047857; --good-soft: #e7f6f0; --line: #e4e6ea;
+  --font-body: 'Inter', system-ui, sans-serif; --font-heading: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+#deck { height: 100vh; width: 100vw; overflow: hidden; cursor: pointer; }
+.slide {
+  display: none; height: 100vh; width: 100vw; padding: 7vh 8vw;
+  flex-direction: column; justify-content: center; gap: 3vh;
+  animation: fadein 0.25s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.kicker { font-size: clamp(12px, 1.3vw, 18px); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(36px, 5.6vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+p.lead { font-size: clamp(18px, 1.9vw, 28px); color: var(--fg2); line-height: 1.45; max-width: 60ch; }
+.sub { font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); }
+
+/* Title */
+.slide[data-layout="title"] { background: var(--bg2); align-items: flex-start; }
+.slide[data-layout="title"] h1 span { color: var(--accent); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; }
+.stat { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; }
+.stat .n { font-size: clamp(40px, 6vw, 92px); font-weight: 800; line-height: 1; color: var(--accent); }
+.stat .l { margin-top: 1.2vh; font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); line-height: 1.35; }
+.stat.warn .n { color: var(--warn); }
+
+/* Code */
+pre { font-family: var(--mono); font-size: clamp(13px, 1.35vw, 20px); line-height: 1.6; background: #0f1117; color: #e8eaf0; padding: 3vh 2.4vw; border-radius: 14px; white-space: pre-wrap; }
+pre .comment { color: #8892a4; }
+pre .err { color: #fca5a5; }
+pre .key { color: #93c5fd; }
+
+/* Two column */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; align-items: stretch; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 3vh 2vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.card h3 { font-size: clamp(18px, 2vw, 30px); font-weight: 700; }
+.card p, .card li { font-size: clamp(15px, 1.55vw, 23px); color: var(--fg2); line-height: 1.45; }
+.card ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 1vh; }
+.card.good { background: var(--good-soft); border-color: transparent; }
+.card.good h3 { color: var(--good); }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card.warn h3 { color: var(--warn); }
+.tag { display: inline-block; font-size: clamp(11px, 1.1vw, 15px); font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); align-self: flex-start; }
+
+/* Flow (chat transcript) */
+.flow { display: flex; flex-direction: column; gap: 1.6vh; max-width: 70ch; }
+.msg { font-size: clamp(16px, 1.7vw, 25px); line-height: 1.4; padding: 1.4vh 1.4vw; border-radius: 12px; max-width: 85%; }
+.msg.user { background: var(--accent); color: #fff; align-self: flex-end; }
+.msg.bot { background: var(--bg2); color: var(--fg); align-self: flex-start; }
+.msg.bad { border-left: 4px solid var(--warn); }
+
+/* Quote */
+.slide[data-layout="quote"] blockquote { font-size: clamp(26px, 3.4vw, 50px); font-weight: 700; line-height: 1.2; max-width: 26ch; letter-spacing: -0.01em; }
+.slide[data-layout="quote"] blockquote::before { content: "“"; color: var(--accent); }
+.slide[data-layout="quote"] blockquote::after { content: "”"; color: var(--accent); }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+.q { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.q .t { font-size: clamp(16px, 1.75vw, 26px); font-weight: 600; line-height: 1.35; }
+.q .w { font-size: clamp(13px, 1.25vw, 18px); color: var(--fg2); }
+.q .w b { color: var(--accent); }
+
+.shot { margin:0; display:flex; flex-direction:column; gap:1vh; }
+.shot img { max-height: 60vh; max-width: 38vw; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.shot figcaption { font-size: clamp(12px,1.1vw,15px); color: var(--fg2); }
+.venn-row { display:grid; grid-template-columns: 1.35fr 1fr; gap: 3vw; align-items:center; }
+.venn-wrap { display:flex; flex-direction:column; gap:1vh; }
+.venn { width:100%; max-height:58vh; }
+.venn .c1 { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; }
+.venn .c2 { fill: rgba(217,119,6,.12); stroke: #d97706; stroke-width: 2; }
+.venn .vn { font: 500 20px var(--font-body); fill: var(--fg); }
+.venn .vh { font: 700 18px var(--font-body); fill: var(--fg2); letter-spacing: .02em; }
+.venn .vh1 { fill: var(--accent); } .venn .vh2 { fill: #b45309; }
+.venn .vc { font: 800 30px var(--font-body); fill: var(--fg2); opacity: .55; }
+.stats2 { grid-template-columns: 1fr 1fr; gap: 1.2vw; }
+.stats2 .stat { padding: 2vh 1.2vw; }
+.stats2 .stat .n { font-size: clamp(30px, 3.6vw, 56px); }
+.stats2 .stat .l { font-size: clamp(12px, 1.1vw, 16px); }
+@media (max-width: 800px) { .venn-row { grid-template-columns: 1fr; } }
+/* Bullets */
+ol.big, ul.big { font-size: clamp(20px, 2.3vw, 34px); line-height: 1.4; padding-left: 1.3em; display: flex; flex-direction: column; gap: 2vh; }
+ol.big li::marker { color: var(--accent); font-weight: 800; }
+
+.presenter { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(14px, 1.4vw, 20px); font-weight: 600; background: var(--accent-soft); color: var(--accent); padding: 8px 16px; border-radius: 999px; align-self: flex-start; }
+.presenter::before { content: "🎤"; }
+
+#counter { position: fixed; bottom: 18px; right: 24px; font-size: 13px; color: var(--fg2); opacity: .6; font-variant-numeric: tabular-nums; }
+#nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; opacity: .25; transition: opacity .2s; }
+#nav:hover { opacity: 1; }
+#nav button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 40px; height: 32px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .stats, .quotes { grid-template-columns: 1fr 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .slide { padding: 5vh 6vw; overflow-y: auto; justify-content: flex-start; }
+}
+
+.golden { font-family: var(--mono); font-size: clamp(12px,1.2vw,17px); border-collapse: collapse; width:100%; }
+.golden th { text-align:left; color: var(--fg2); font-weight:600; padding: 8px 10px; border-bottom: 2px solid var(--line); font-family: var(--font-body); font-size: clamp(11px,1vw,14px); text-transform: uppercase; letter-spacing:.06em; }
+.golden td { padding: 10px; border-bottom: 1px solid var(--line); }
+.four { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4vw; }
+.four .card { padding: 2.4vh 1.4vw; }
+.four .card h3 { font-size: clamp(16px,1.7vw,24px); }
+.four .card p { font-size: clamp(13px,1.3vw,19px); }
+.math { font-family: var(--mono); font-size: clamp(13px,1.35vw,20px); line-height:1.7; background: var(--bg2); border-radius: 14px; padding: 2.4vh 2vw; }
+.math b { color: var(--warn); }
+@media (max-width: 800px) { .four { grid-template-columns: 1fr 1fr; } }
+.omr { width: 100%; max-height: 54vh; }
+.omr .paper { fill: #fff; stroke: #d6d9de; stroke-width: 1.5; }
+.omr .ph { font: 600 12px var(--mono); fill: var(--fg2); letter-spacing: .04em; }
+.omr .ql { font: 700 15px var(--font-body); fill: var(--fg); }
+.omr .bub { fill: #fff; stroke: #9aa1ab; stroke-width: 1.4; }
+.omr .bl { font: 600 11px var(--font-body); fill: #9aa1ab; text-anchor: middle; }
+.omr .fill { fill: #1f2937; }
+.omr .overlay { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.omr .fold { fill: rgba(37,99,235,.28); }
+.omr .ring { fill: none; stroke: #dc2626; stroke-width: 3; }
+.omr .ok { font: 800 20px var(--font-body); fill: var(--good); }
+.omr .no { font: 800 20px var(--font-body); fill: #dc2626; }
+.omr .sc { font: 700 14px var(--font-body); fill: var(--fg); }
+.omr .ol { font: 600 13px var(--font-body); fill: var(--accent); }
+.map { display:flex; flex-direction:column; gap: 1.6vh; }
+.map .row { display:grid; grid-template-columns: 1fr 1.25fr; gap: 1vw; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 1.2vh; }
+.map .k { font-size: clamp(14px,1.4vw,20px); color: var(--fg2); }
+.map .v { font-size: clamp(16px,1.6vw,23px); font-weight: 700; color: var(--fg); }
+.dim { border-collapse: collapse; width:100%; font-size: clamp(12px,1.15vw,17px); }
+.dim th { text-align:left; font-size: clamp(10px,.95vw,13px); text-transform: uppercase; letter-spacing:.06em; color: var(--fg2); padding: .8vh .7vw; border-bottom: 2px solid var(--line); }
+.dim td { padding: .9vh .7vw; border-bottom: 1px solid var(--line); color: var(--fg2); line-height: 1.35; }
+.dim td:first-child { color: var(--fg); font-weight: 700; white-space: nowrap; }
+.how { display:inline-block; font-size: .85em; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 4px; white-space: nowrap; }
+.how.code { background: var(--good-soft); color: var(--good); }
+.how.judge { background: var(--accent-soft); color: var(--accent); }
+.how.human { background: var(--warn-soft); color: var(--warn); }
+.three3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 1.6vw; }
+.card .ex { font-family: var(--mono); font-size: clamp(11px,1.05vw,15px); background: var(--bg2); border-radius: 8px; padding: 1vh .8vw; color: var(--fg); }
+@media (max-width: 800px) { .three3 { grid-template-columns: 1fr; } }
+
+ol.big.big3, ul.big.big3 { font-size: clamp(15px,1.6vw,23px); gap: 1.4vh; }
+.compact .card { padding: 2vh 1.4vw; gap: 1vh; }
+.compact .card p { font-size: clamp(13px,1.35vw,20px); }
+.dim td.n { font-weight: 800; color: var(--accent); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="deck" aria-live="polite">
+
+  <!-- 1 -->
+  <div class="slide active" data-layout="title" data-index="0" role="region" aria-label="Slide 1 of 7" aria-current="true">
+    <div class="kicker">Session 3 · Capstone brief · presentations Sat 31 Oct, 6:00 PM</div>
+    <h1>Wren was practice.<br><span>Now your problem.</span></h1>
+    <p class="lead">A working agent for your team's problem, backed by the PM artefacts that would let an engineering team ship it safely.</p>
+    <div class="cols" style="width:100%">
+      <div class="card" style="background:var(--bg)"><h3>You already have</h3><p>Canvas v2: team, baseline, the three-sentence test on every agent, 10 golden examples, spec lines for boxes 13–14.</p></div>
+      <div class="card good"><h3>Tonight adds</h3><p>A runnable judge, a threshold with a price, named guardrails, a HITL design and a monthly cost.</p></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="slide" data-layout="two-column" data-index="1" role="region" aria-label="Slide 2 of 7">
+<div class="kicker">What you present</div>
+    <h2>Six deliverables, each with a minimum bar</h2>
+    <div class="three3 compact">
+      <div class="card"><span class="tag">1 · AI-native PRD</span><p>I/O contract · quality criteria with numbers and reasons · top 3 failure modes with fallbacks · eval plan</p></div>
+      <div class="card"><span class="tag">2 · Working agent</span><p>Runs live in Antigravity (or deployed) on realistic inputs for your problem</p></div>
+      <div class="card"><span class="tag">3 · Eval harness</span><p>Golden set (≥ 5 required, 10+ recommended) · LLM-as-judge with explicit criteria · pass rate</p></div>
+      <div class="card"><span class="tag">4 · Guardrails</span><p>≥ 1 input and ≥ 1 output, shown catching something live</p></div>
+      <div class="card"><span class="tag">5 · HITL design</span><p>Pattern, triggers, what the reviewer sees, the SLA</p></div>
+      <div class="card"><span class="tag">6 · Cost model</span><p>Tokens per action, model per step, monthly cost at production volume, × 3</p></div>
+    </div>
+    <p class="sub"><b>Not required:</b> a perfect system, 100% automation, a polished UI, production deployment.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="slide" data-layout="two-column" data-index="2" role="region" aria-label="Slide 3 of 7">
+<div class="kicker">Grading · 90 marks + 10 for attendance</div>
+    <h2>Where the marks are, and where they leak</h2>
+    <table class="dim">
+      <tr><th>Criterion</th><th>Marks</th><th>Full marks</th><th>Common miss</th></tr>
+      <tr><td>Problem + AI-native PRD</td><td class="n">15</td><td>Measurable quality bar; failure modes with fallbacks</td><td>"Responses should be helpful"; fallbacks TBD</td></tr>
+      <tr><td>Architecture + patterns</td><td class="n">15</td><td>Every agent and tool justified; single vs. multi argued</td><td>Multi-agent because it sounds advanced</td></tr>
+      <tr><td>Working demo</td><td class="n">20</td><td>Runs live on realistic inputs, including a hard one</td><td>Only the happy path, or only slides</td></tr>
+      <tr><td>Eval design + results</td><td class="n">15</td><td>Representative golden set; threshold from FP/FN costs</td><td>Five easy cases that always pass</td></tr>
+      <tr><td>Governance</td><td class="n">15</td><td>A violation caught live; HITL scoped to the domain's risk</td><td>Generic guardrails; regulation ignored</td></tr>
+      <tr><td>Cost + presentation</td><td class="n">10</td><td>Defensible monthly cost; clear story on time</td><td>Missing, or Opus at every step</td></tr>
+    </table>
+  </div>
+
+  <!-- 4 -->
+  <div class="slide" data-layout="two-column" data-index="3" role="region" aria-label="Slide 4 of 7">
+<div class="kicker">What Homework 3 showed</div>
+    <h2>Five gaps to close before 31 Oct</h2>
+    <ol class="big big3">
+      <li><b>Run your golden set.</b> 6 of 6 teams wrote one; none reports a pass rate yet.</li>
+      <li><b>Measure the baseline.</b> 1 of 6 timed it. Three timed runs, with a date, is enough.</li>
+      <li><b>One answer per golden row,</b> checked against your own data.</li>
+      <li><b>Cost and SLA.</b> 0 of 6 priced from a price card; 2 of 6 have no review SLA.</li>
+      <li><b>Agents that earn the box.</b> If it barely uses a model, it's a tool or a rules engine. Say so.</li>
+    </ol>
+  </div>
+
+  <!-- 5 -->
+  <div class="slide" data-layout="two-column" data-index="4" role="region" aria-label="Slide 5 of 7">
+<div class="kicker">Do now · 12 min · with your team</div>
+    <h2>Canvas v2 → something you can run</h2>
+    <div class="four">
+      <div class="card"><span class="tag">Box 14 · Evaluation</span><h3>Make it runnable</h3><p>Turn your 10 golden examples into a judge prompt with numbered criteria. Price one FP and one FN. Set the threshold.</p></div>
+      <div class="card"><span class="tag">Box 13 · Guardrails</span><h3>Name them</h3><p>One input, one output, one sentence each, and the regulation behind each. Which golden example does each catch?</p></div>
+      <div class="card warn"><span class="tag">Box 12 · HITL · new</span><h3>Where's the human?</h3><p>Pattern, triggers, what the reviewer sees, review load at your volume.</p></div>
+      <div class="card warn"><span class="tag">Box 15 · Cost · new</span><h3>Get to a number</h3><p>Volume × tokens per run × model per step, × 3. Rough is fine.</p></div>
+    </div>
+    <p class="sub">Then 1–2 minutes per team with the instructor: one approval, one revision. Teams not reached get written feedback by Sunday.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="slide" data-layout="two-column" data-index="5" role="region" aria-label="Slide 6 of 7">
+<div class="kicker">Take-home · due Sat 31 Oct, 6:00 PM</div>
+    <h2>The only take-home work in the course</h2>
+    <ol class="big big3">
+      <li><b>Build</b> the agent, eval harness and guardrails. Session 2's <code style="font-family:var(--mono)">Build_With_A_Coding_Agent_Deck.html</code> has the nine prompts.</li>
+      <li><b>Write the eval plan:</b> test types and when · golden set size, source, labeller · judge criteria · regression cadence and alert trigger · threshold rationale.</li>
+      <li><b>Run your evals.</b> Bring the pass rate, and the failure you fixed because of it.</li>
+      <li><b>Prepare</b> the presentation in the IPL capstone template.</li>
+      <li><b>Rehearse the live demo</b> with at least one hard input. Record a backup.</li>
+    </ol>
+  </div>
+
+  <!-- 7 -->
+  <div class="slide" data-layout="two-column" data-index="6" role="region" aria-label="Slide 7 of 7">
+<div class="kicker">On the day</div>
+    <h2>Three rules, and the questions you'll get</h2>
+    <div class="three3">
+      <div class="card"><span class="tag">Rule 1</span><h3>Demo live with a hard input</h3><p>Injection, high stakes, missing information, or an edge case from your domain.</p></div>
+      <div class="card"><span class="tag">Rule 2</span><h3>Show a guardrail catch something</h3><p>On screen, not described.</p></div>
+      <div class="card"><span class="tag">Rule 3</span><h3>Own every number</h3><p>Every threshold and cost has a reason you can say out loud.</p></div>
+    </div>
+    <ul class="big big3">
+      <li>"Where does that threshold come from? What does a false negative cost you?"</li>
+      <li>"What breaks if you remove one of your agents?"</li>
+      <li>"What did your judge get wrong? How do you know it agrees with a human?"</li>
+      <li>"What happens to your monthly cost at 10× volume?"</li>
+    </ul>
+  </div>
+
+</div>
+
+<div id="nav">
+  <button onclick="goTo(current-1)" aria-label="Previous slide">&#8592;</button>
+  <button onclick="goTo(current+1)" aria-label="Next slide">&#8594;</button>
+</div>
+<div id="counter">1 / 7</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  slides[current].removeAttribute('aria-current');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  slides[current].setAttribute('aria-current', 'true');
+  counter.textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+document.getElementById('deck').addEventListener('click', e => {
+  const mid = window.innerWidth / 2;
+  if (e.clientX > mid) goTo(current + 1);
+  else goTo(current - 1);
+});
+</script>
+</body>
+</html>

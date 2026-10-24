@@ -6,7 +6,7 @@ Prof. Shameek Chakravarty
 |---|---|---|---|
 | 1 | 3 Oct | Foundations, the AI-native PRD, first agent builds | [`session1/`](session1/) |
 | 2 | 17 Oct | MCP, planning, multi-agent systems, the eval problem | [`session2/`](session2/) |
-| 3 | 24 Oct | Eval harness, guardrails, token economics, HITL, capstone scoping | Added before the session |
+| 3 | 24 Oct | Eval harness, guardrails, token economics, HITL, capstone scoping | [`session3/`](session3/) |
 | 4 | 31 Oct | Capstone presentations | Added before Session 3 |
 
 New materials are added to this repo before each session. Pull (or re-download) before every class.
@@ -17,7 +17,7 @@ New materials are added to this repo before each session. Pull (or re-download) 
 
 1. **Read the case:** [`case-study/wren-cx-case-study.md`](case-study/wren-cx-case-study.md). Wren CX is the running case for Sessions 1–3.
 2. **Optional:** [`case-study/industry-variant-cards.md`](case-study/industry-variant-cards.md) shows the same case in five other industries, if you want to play around. Not needed for any session.
-3. **Open tonight's handbook:** [`session2/Session2_Student_Handbook.md`](session2/Session2_Student_Handbook.md) (Session 1: [`session1/Session1_Student_Handbook.md`](session1/Session1_Student_Handbook.md)). There are no slides: we work through the handbook together in class, and every prompt is in it, ready to paste.
+3. **Open tonight's handbook:** [`session3/Session3_Student_Handbook.md`](session3/Session3_Student_Handbook.md) (earlier: [Session 1](session1/Session1_Student_Handbook.md), [Session 2](session2/Session2_Student_Handbook.md)). We work through the handbook together in class, and every prompt is in it, ready to paste. Short decks sit alongside some sessions.
 
 ## What's Here
 
@@ -29,6 +29,7 @@ New materials are added to this repo before each session. Pull (or re-download) 
 | `templates/` | The Agent Opportunity Canvas (blank) and a filled example for Wren CX |
 | `session1/` | The Session 1 handbook |
 | `session2/` | The Session 2 handbook, and the homework review deck (`Homework_Review_Deck.html`: download and open in a browser) |
+| `session3/` | The Session 3 handbook, the Homework 3 review deck (`Homework3_Review_Deck.html`) and two teaching decks (`Measure_And_Ship_Deck.html`, `Capstone_Brief_Deck.html`): download and open in a browser |
 
 ## Tools
 
@@ -67,3 +68,7 @@ Details: Homework 3 in [the Session 2 handbook](session2/Session2_Student_Handbo
 ## Before Session 3 (Sat 24 Oct)
 
 Bring `golden_mine.csv` (the six rows you label in Session 2) and your team's canvas v2.
+
+## Capstone — due Sat 31 Oct, 6:00 PM IST (team)
+
+The only take-home work left: build your agent, eval harness and guardrails, run your evals, and present live on 31 Oct. Details: §7–§8 of [the Session 3 handbook](session3/Session3_Student_Handbook.md#7-capstone-briefing--your-teams-canvas-835--900).

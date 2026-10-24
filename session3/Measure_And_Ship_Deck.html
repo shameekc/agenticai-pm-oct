@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Measure and Ship · Session 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f7f9; --fg: #111111; --fg2: #555555;
+  --accent: #2563eb; --accent-soft: #eaf1fe; --warn: #b45309; --warn-soft: #fef3e2;
+  --good: #047857; --good-soft: #e7f6f0; --line: #e4e6ea;
+  --font-body: 'Inter', system-ui, sans-serif; --font-heading: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+#deck { height: 100vh; width: 100vw; overflow: hidden; cursor: pointer; }
+.slide {
+  display: none; height: 100vh; width: 100vw; padding: 7vh 8vw;
+  flex-direction: column; justify-content: center; gap: 3vh;
+  animation: fadein 0.25s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.kicker { font-size: clamp(12px, 1.3vw, 18px); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(36px, 5.6vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: clamp(28px, 3.8vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -0.015em; }
+p.lead { font-size: clamp(18px, 1.9vw, 28px); color: var(--fg2); line-height: 1.45; max-width: 60ch; }
+.sub { font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); }
+
+/* Title */
+.slide[data-layout="title"] { background: var(--bg2); align-items: flex-start; }
+.slide[data-layout="title"] h1 span { color: var(--accent); }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2vw; }
+.stat { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; }
+.stat .n { font-size: clamp(40px, 6vw, 92px); font-weight: 800; line-height: 1; color: var(--accent); }
+.stat .l { margin-top: 1.2vh; font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); line-height: 1.35; }
+.stat.warn .n { color: var(--warn); }
+
+/* Code */
+pre { font-family: var(--mono); font-size: clamp(13px, 1.35vw, 20px); line-height: 1.6; background: #0f1117; color: #e8eaf0; padding: 3vh 2.4vw; border-radius: 14px; white-space: pre-wrap; }
+pre .comment { color: #8892a4; }
+pre .err { color: #fca5a5; }
+pre .key { color: #93c5fd; }
+
+/* Two column */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; align-items: stretch; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 3vh 2vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.card h3 { font-size: clamp(18px, 2vw, 30px); font-weight: 700; }
+.card p, .card li { font-size: clamp(15px, 1.55vw, 23px); color: var(--fg2); line-height: 1.45; }
+.card ul { padding-left: 1.2em; display: flex; flex-direction: column; gap: 1vh; }
+.card.good { background: var(--good-soft); border-color: transparent; }
+.card.good h3 { color: var(--good); }
+.card.warn { background: var(--warn-soft); border-color: transparent; }
+.card.warn h3 { color: var(--warn); }
+.tag { display: inline-block; font-size: clamp(11px, 1.1vw, 15px); font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); align-self: flex-start; }
+
+/* Flow (chat transcript) */
+.flow { display: flex; flex-direction: column; gap: 1.6vh; max-width: 70ch; }
+.msg { font-size: clamp(16px, 1.7vw, 25px); line-height: 1.4; padding: 1.4vh 1.4vw; border-radius: 12px; max-width: 85%; }
+.msg.user { background: var(--accent); color: #fff; align-self: flex-end; }
+.msg.bot { background: var(--bg2); color: var(--fg); align-self: flex-start; }
+.msg.bad { border-left: 4px solid var(--warn); }
+
+/* Quote */
+.slide[data-layout="quote"] blockquote { font-size: clamp(26px, 3.4vw, 50px); font-weight: 700; line-height: 1.2; max-width: 26ch; letter-spacing: -0.01em; }
+.slide[data-layout="quote"] blockquote::before { content: "“"; color: var(--accent); }
+.slide[data-layout="quote"] blockquote::after { content: "”"; color: var(--accent); }
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
+.q { background: var(--bg2); border-radius: 16px; padding: 3vh 1.6vw; display: flex; flex-direction: column; gap: 1.6vh; }
+.q .t { font-size: clamp(16px, 1.75vw, 26px); font-weight: 600; line-height: 1.35; }
+.q .w { font-size: clamp(13px, 1.25vw, 18px); color: var(--fg2); }
+.q .w b { color: var(--accent); }
+
+.shot { margin:0; display:flex; flex-direction:column; gap:1vh; }
+.shot img { max-height: 60vh; max-width: 38vw; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 6px 24px rgba(0,0,0,.12); }
+.shot figcaption { font-size: clamp(12px,1.1vw,15px); color: var(--fg2); }
+.venn-row { display:grid; grid-template-columns: 1.35fr 1fr; gap: 3vw; align-items:center; }
+.venn-wrap { display:flex; flex-direction:column; gap:1vh; }
+.venn { width:100%; max-height:58vh; }
+.venn .c1 { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; }
+.venn .c2 { fill: rgba(217,119,6,.12); stroke: #d97706; stroke-width: 2; }
+.venn .vn { font: 500 20px var(--font-body); fill: var(--fg); }
+.venn .vh { font: 700 18px var(--font-body); fill: var(--fg2); letter-spacing: .02em; }
+.venn .vh1 { fill: var(--accent); } .venn .vh2 { fill: #b45309; }
+.venn .vc { font: 800 30px var(--font-body); fill: var(--fg2); opacity: .55; }
+.stats2 { grid-template-columns: 1fr 1fr; gap: 1.2vw; }
+.stats2 .stat { padding: 2vh 1.2vw; }
+.stats2 .stat .n { font-size: clamp(30px, 3.6vw, 56px); }
+.stats2 .stat .l { font-size: clamp(12px, 1.1vw, 16px); }
+@media (max-width: 800px) { .venn-row { grid-template-columns: 1fr; } }
+/* Bullets */
+ol.big, ul.big { font-size: clamp(20px, 2.3vw, 34px); line-height: 1.4; padding-left: 1.3em; display: flex; flex-direction: column; gap: 2vh; }
+ol.big li::marker { color: var(--accent); font-weight: 800; }
+
+.presenter { display: inline-flex; align-items: center; gap: 10px; font-size: clamp(14px, 1.4vw, 20px); font-weight: 600; background: var(--accent-soft); color: var(--accent); padding: 8px 16px; border-radius: 999px; align-self: flex-start; }
+.presenter::before { content: "🎤"; }
+
+#counter { position: fixed; bottom: 18px; right: 24px; font-size: 13px; color: var(--fg2); opacity: .6; font-variant-numeric: tabular-nums; }
+#nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; opacity: .25; transition: opacity .2s; }
+#nav:hover { opacity: 1; }
+#nav button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); width: 40px; height: 32px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+
+@media (max-width: 800px) {
+  .stats, .quotes { grid-template-columns: 1fr 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .slide { padding: 5vh 6vw; overflow-y: auto; justify-content: flex-start; }
+}
+
+.golden { font-family: var(--mono); font-size: clamp(12px,1.2vw,17px); border-collapse: collapse; width:100%; }
+.golden th { text-align:left; color: var(--fg2); font-weight:600; padding: 8px 10px; border-bottom: 2px solid var(--line); font-family: var(--font-body); font-size: clamp(11px,1vw,14px); text-transform: uppercase; letter-spacing:.06em; }
+.golden td { padding: 10px; border-bottom: 1px solid var(--line); }
+.four { display:grid; grid-template-columns: repeat(4,1fr); gap: 1.4vw; }
+.four .card { padding: 2.4vh 1.4vw; }
+.four .card h3 { font-size: clamp(16px,1.7vw,24px); }
+.four .card p { font-size: clamp(13px,1.3vw,19px); }
+.math { font-family: var(--mono); font-size: clamp(13px,1.35vw,20px); line-height:1.7; background: var(--bg2); border-radius: 14px; padding: 2.4vh 2vw; }
+.math b { color: var(--warn); }
+@media (max-width: 800px) { .four { grid-template-columns: 1fr 1fr; } }
+.omr { width: 100%; max-height: 54vh; }
+.omr .paper { fill: #fff; stroke: #d6d9de; stroke-width: 1.5; }
+.omr .ph { font: 600 12px var(--mono); fill: var(--fg2); letter-spacing: .04em; }
+.omr .ql { font: 700 15px var(--font-body); fill: var(--fg); }
+.omr .bub { fill: #fff; stroke: #9aa1ab; stroke-width: 1.4; }
+.omr .bl { font: 600 11px var(--font-body); fill: #9aa1ab; text-anchor: middle; }
+.omr .fill { fill: #1f2937; }
+.omr .overlay { fill: rgba(37,99,235,.10); stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 4; }
+.omr .fold { fill: rgba(37,99,235,.28); }
+.omr .ring { fill: none; stroke: #dc2626; stroke-width: 3; }
+.omr .ok { font: 800 20px var(--font-body); fill: var(--good); }
+.omr .no { font: 800 20px var(--font-body); fill: #dc2626; }
+.omr .sc { font: 700 14px var(--font-body); fill: var(--fg); }
+.omr .ol { font: 600 13px var(--font-body); fill: var(--accent); }
+.map { display:flex; flex-direction:column; gap: 1.6vh; }
+.map .row { display:grid; grid-template-columns: 1fr 1.25fr; gap: 1vw; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 1.2vh; }
+.map .k { font-size: clamp(14px,1.4vw,20px); color: var(--fg2); }
+.map .v { font-size: clamp(16px,1.6vw,23px); font-weight: 700; color: var(--fg); }
+.dim { border-collapse: collapse; width:100%; font-size: clamp(12px,1.15vw,17px); }
+.dim th { text-align:left; font-size: clamp(10px,.95vw,13px); text-transform: uppercase; letter-spacing:.06em; color: var(--fg2); padding: .8vh .7vw; border-bottom: 2px solid var(--line); }
+.dim td { padding: .9vh .7vw; border-bottom: 1px solid var(--line); color: var(--fg2); line-height: 1.35; }
+.dim td:first-child { color: var(--fg); font-weight: 700; white-space: nowrap; }
+.how { display:inline-block; font-size: .85em; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 4px; white-space: nowrap; }
+.how.code { background: var(--good-soft); color: var(--good); }
+.how.judge { background: var(--accent-soft); color: var(--accent); }
+.how.human { background: var(--warn-soft); color: var(--warn); }
+.three3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 1.6vw; }
+.card .ex { font-family: var(--mono); font-size: clamp(11px,1.05vw,15px); background: var(--bg2); border-radius: 8px; padding: 1vh .8vw; color: var(--fg); }
+@media (max-width: 800px) { .three3 { grid-template-columns: 1fr; } }
+
+ol.big.big3, ul.big.big3 { font-size: clamp(15px,1.6vw,23px); gap: 1.4vh; }
+.compact .card { padding: 2vh 1.4vw; gap: 1vh; }
+.compact .card p { font-size: clamp(13px,1.35vw,20px); }
+.dim td.n { font-weight: 800; color: var(--accent); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="deck" aria-live="polite">
+
+  <!-- 1 -->
+  <div class="slide active" data-layout="title" data-index="0" role="region" aria-label="Slide 1 of 11" aria-current="true">
+    <div class="kicker">Session 3 · Measure and ship</div>
+    <h1>Building the agent is<br><span>the easy part.</span></h1>
+    <p class="lead">Knowing whether it works, stopping it from doing harm, and knowing what it costs: that's the PM's job.</p>
+    <div class="stats">
+      <div class="stat"><div class="n">95%</div><div class="l">ESCALATE recall Wren needs, and why it's not 80</div></div>
+      <div class="stat warn"><div class="n">4</div><div class="l">guardrail types, one of which stops a legally binding promise</div></div>
+      <div class="stat"><div class="n">₹0.62</div><div class="l">model cost per ticket, against ₹85 by hand</div></div>
+      <div class="stat warn"><div class="n">30K</div><div class="l">human reviews a month: the reviewer screen is a product</div></div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="slide" data-layout="two-column" data-index="1" role="region" aria-label="Slide 2 of 11">
+<div class="kicker">§2 · Judging the judge</div>
+    <h2>Who evaluates the evaluator?</h2>
+    <div class="four">
+      <div class="card"><span class="tag">1</span><h3>Specific criteria</h3><p>"Was it good?" isn't a criterion. "Classification is one of exactly six values" is.</p></div>
+      <div class="card"><span class="tag">2</span><h3>A score and a reason</h3><p>The score says pass or fail. The reason says what to fix. Without it, a fail is noise.</p></div>
+      <div class="card"><span class="tag">3</span><h3>A different model</h3><p>A judge from the same model shares the agent's blind spots, and tends to agree with it.</p></div>
+      <div class="card warn"><span class="tag">4</span><h3>Test the judge</h3><p>Run it on 20 cases you've labelled. Below 85% agreement with you, the judge is the problem.</p></div>
+    </div>
+    <p class="sub">Code checks first (class, length, schema). A judge only where code can't decide. Lab 8: watch agreement collapse with the Miscalibrated judge.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="slide" data-layout="two-column" data-index="2" role="region" aria-label="Slide 3 of 11">
+<div class="kicker">§2 · Where does 0.80 come from?</div>
+    <h2>A threshold is a price, not a feeling</h2>
+    <div class="cols">
+      <div class="card"><span class="tag">False positive</span><h3>Escalate when it wasn't needed</h3><p>A human handles it: ~₹85 and a slightly slower reply.</p></div>
+      <div class="card warn"><span class="tag">False negative</span><h3>Miss the ₹45K laptop complaint</h3><p>An automated reply to a customer about to go to the consumer commission. CSAT, churn, legal exposure.</p></div>
+    </div>
+    <div class="math">FN costs 10–50× more than FP<br>→ ESCALATE <b>recall ≥ 95%</b>, precision ≥ 70%<br>Pick the threshold that minimises: FP cost × FP count + FN cost × FN count</div>
+    <p class="sub">Calibration: label 100+ cases → run at 0.60 / 0.70 / 0.80 / 0.90 → precision, recall, review rate at each → cheapest total wins. Lab 9.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="slide" data-layout="two-column" data-index="3" role="region" aria-label="Slide 4 of 11">
+<div class="kicker">§3 · Evals vs. guardrails</div>
+    <h2>One looks back. One stops it now.</h2>
+    <table class="dim">
+      <tr><th></th><th>Evals</th><th>Guardrails</th></tr>
+      <tr><td>Question</td><td>Is the agent performing well?</td><td>Can it be stopped from doing something it shouldn't?</td></tr>
+      <tr><td>Timing</td><td>Retrospective, against a benchmark</td><td>Before the output is sent or acted on</td></tr>
+      <tr><td>Runs on</td><td>Golden set, staging, sampled live traffic</td><td>Every single call, in production</td></tr>
+      <tr><td>Wren example</td><td>Judge score, classification accuracy</td><td>Injection check, no-promise filter, 0.80 gate</td></tr>
+      <tr><td>Without the other</td><td>You know it's bad but can't stop it</td><td>You block some harm but don't know if it's any good</td></tr>
+    </table>
+  </div>
+
+  <!-- 5 -->
+  <div class="slide" data-layout="two-column" data-index="4" role="region" aria-label="Slide 5 of 11">
+<div class="kicker">§3 · India's regulatory layer</div>
+    <h2>Regulation turns into product requirements</h2>
+    <table class="dim">
+      <tr><th>Regulation</th><th>Requires</th><th>PM decision</th></tr>
+      <tr><td>DPDP Act 2023</td><td>Consent for AI processing; data minimisation; explainability</td><td>Consent flow · no unneeded PII to the model · log the reasoning</td></tr>
+      <tr><td>Consumer Protection Act 2019</td><td>Automated commitments are binding</td><td>Output guardrail: no refund, replacement or date promises without a human</td></tr>
+      <tr><td>RBI guidelines (fintech)</td><td>AI in credit and payments must be auditable</td><td>Model cards · log every AI-influenced decision · version the prompt</td></tr>
+    </table>
+    <p class="sub"><b>Five questions before engineering starts:</b> what data and what consent · which decisions are legally significant · who is accountable when it's wrong · what is logged, for how long · what it does when it doesn't know.</p>
+  </div>
+
+  <!-- 6 -->
+  <div class="slide" data-layout="two-column" data-index="5" role="region" aria-label="Slide 6 of 11">
+<div class="kicker">§4 · Build 5</div>
+    <h2>Four guardrails, four doors</h2>
+    <div class="four">
+      <div class="card"><span class="tag">Input validator</span><h3>What comes in</h3><p>Injection, spam, missing order ID or email, tickets over 5,000 characters.</p></div>
+      <div class="card"><span class="tag">Output filter</span><h3>What goes out</h3><p>No refund amount, date or replacement promise. No PII beyond the order number. ≤ 75 words.</p></div>
+      <div class="card"><span class="tag">Topic boundary</span><h3>What it may discuss</h3><p>No competitors, internal information or legal proceedings.</p></div>
+      <div class="card warn"><span class="tag">Confidence gate</span><h3>When to hand over</h3><p>Below 0.80 → a human. Claim over ₹10,000 or safety → a human, whatever the score.</p></div>
+    </div>
+    <p class="sub">Test in this order: Ticket D (naive injection) → TKT-016 (injection hidden in a product name) → TKT-012 (spam) → Ticket B (no order ID). Then try to sneak "₹18,500 by Friday" past the output filter.</p>
+  </div>
+
+  <!-- 7 -->
+  <div class="slide" data-layout="two-column" data-index="6" role="region" aria-label="Slide 7 of 11">
+<div class="kicker">§4 · Discuss</div>
+    <h2>Guardrails fail in both directions</h2>
+    <div class="three3">
+      <div class="card"><span class="tag">Ownership</span><h3>PM or legal?</h3><p>The PM drafts, legal reviews, the PM owns the final spec in the PRD. "Legal writes it" means it never ships.</p></div>
+      <div class="card warn"><span class="tag">False positive</span><h3>It blocks a real customer</h3><p>A ₹400 refund question; the filter blocks any reply with an amount. What does the customer see? What's the fallback?</p></div>
+      <div class="card good"><span class="tag">Measure it</span><h3>Too strict?</h3><p>Run the golden set with guardrails on and off. The drop in pass rate is the guardrail's own false-positive rate.</p></div>
+    </div>
+    <p class="sub">CUST-8456 (TKT-015) has <code style="font-family:var(--mono)">consent_ai_processing: false</code>. Should the agent have touched that ticket at all?</p>
+  </div>
+
+  <!-- 8 -->
+  <div class="slide" data-layout="two-column" data-index="7" role="region" aria-label="Slide 8 of 11">
+<div class="kicker">§5 · Token economics</div>
+    <h2>The model is not the expensive part</h2>
+    <div class="math">cost per call = input tokens × input price + output tokens × output price<br><br>Wren, one run on Sonnet 5.5: 1,500 in × $2/M + 400 out × $10/M = <b>$0.007 ≈ ₹0.62</b><br>× 200,000 tickets/month = <b>≈ $1,400 ≈ ₹1.23 lakh/month</b><br>Same volume by hand at ₹85 = <b>≈ ₹1.7 crore/month</b></div>
+    <table class="dim">
+      <tr><th>Per million tokens</th><th>Input</th><th>Output</th><th>Cache read</th><th>Use it for</th></tr>
+      <tr><td>Haiku 5.5</td><td>$0.10</td><td>$0.50</td><td>$0.01</td><td>Classify, route, extract</td></tr>
+      <tr><td>Sonnet 5.5</td><td>$2</td><td>$10</td><td>$0.10</td><td>Drafting, reasoning, tool use</td></tr>
+      <tr><td>Opus 5.5</td><td>$4</td><td>$20</td><td>$0.20</td><td>Hardest reasoning; justify it in a live path</td></tr>
+    </table>
+    <p class="sub">Anthropic list prices as of 24 Oct 2026; check before you quote them. ₹88 = $1. The real bill is retries, reflection, guardrail calls and humans, so multiply your estimate by 3.</p>
+  </div>
+
+  <!-- 9 -->
+  <div class="slide" data-layout="two-column" data-index="8" role="region" aria-label="Slide 9 of 11">
+<div class="kicker">§5 · Four levers</div>
+    <h2>Know where the money goes first</h2>
+    <div class="four">
+      <div class="card"><span class="tag">Model per step</span><h3>$1,400 → $1,200</h3><p>Haiku for classify and route. Smaller than you'd think: the draft's output tokens are most of the bill.</p></div>
+      <div class="card good"><span class="tag">Prompt caching</span><h3>−$300 / month</h3><p>The 800-token system prompt is identical on every ticket. Cached reads: $0.10/M instead of $2/M.</p></div>
+      <div class="card"><span class="tag">Prompt length</span><h3>Paid on every ticket</h3><p>Every word in the system prompt is billed 200,000 times a month. Count tokens in prompt reviews.</p></div>
+      <div class="card warn"><span class="tag">Output cap</span><h3>$1,400 → $3,800</h3><p>Drop "≤ 75 words" and the draft runs 4× longer. A bigger swing than any model choice.</p></div>
+    </div>
+    <p class="sub">Do now (5 min): a smaller Wren brand at 2,000 tickets/day. Tokens per ticket, model per step, caching on or off, monthly cost, × 3. Lab 14 to check it.</p>
+  </div>
+
+  <!-- 10 -->
+  <div class="slide" data-layout="two-column" data-index="9" role="region" aria-label="Slide 10 of 11">
+<div class="kicker">§6 · Human in the loop</div>
+    <h2>Three ways to put a human in</h2>
+    <div class="three3">
+      <div class="card warn"><span class="tag">Review before output</span><h3>Human approves first</h3><p>High-stakes escalations.</p><div class="ex">Spec: what the reviewer sees · decision SLA</div></div>
+      <div class="card"><span class="tag">Review after output</span><h3>AI acts, humans audit a sample</h3><p>Standard auto-resolutions.</p><div class="ex">Spec: sampling rate · audit log format</div></div>
+      <div class="card good"><span class="tag">Review on exception</span><h3>A rule pulls a human in</h3><p>Confidence &lt; 0.80, claim &gt; ₹10,000, safety.</p><div class="ex">Spec: exception rules · alert path · queue</div></div>
+    </div>
+    <p class="sub"><b>The bottleneck:</b> 200,000 tickets a month × 15% needing review = 30,000 human reviews. The reviewer's screen is a product. Spec it.</p>
+  </div>
+
+  <!-- 11 -->
+  <div class="slide" data-layout="two-column" data-index="10" role="region" aria-label="Slide 11 of 11">
+<div class="kicker">§6 · The AI control plane</div>
+    <h2>Engineering builds it. You set the numbers.</h2>
+    <div class="four">
+      <div class="card"><span class="tag">Monitoring</span><p>Accuracy, escalation rate, confidence mix, response time, CSAT</p></div>
+      <div class="card"><span class="tag">Alerting</span><p>Accuracy −5% in 24 h · escalations +30% · CSAT &lt; 3.5</p></div>
+      <div class="card"><span class="tag">Rollback</span><p>Fall back to the human queue, tell customers the SLA, name who decides</p></div>
+      <div class="card warn"><span class="tag">Circuit breaker</span><p>Injection in &gt; 5% of tickets in an hour → auto-disable, page the PM</p></div>
+    </div>
+    <div class="cols">
+      <div class="card good"><h3>The PM owns</h3><p>Alert thresholds · review-queue SLAs · exception criteria · the rollback call · recovery criteria · customer comms during an outage</p></div>
+      <div class="card"><h3>Engineering owns</h3><p>Instrumentation · alert delivery · the circuit breaker · the rollback button · logs · dashboards</p></div>
+    </div>
+    <p class="sub">The failure mode: "engineering will pick the thresholds." They pick numbers that feel right, and nobody notices the bad agent for three days.</p>
+  </div>
+
+</div>
+
+<div id="nav">
+  <button onclick="goTo(current-1)" aria-label="Previous slide">&#8592;</button>
+  <button onclick="goTo(current+1)" aria-label="Next slide">&#8594;</button>
+</div>
+<div id="counter">1 / 11</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  slides[current].removeAttribute('aria-current');
+  current = Math.max(0, Math.min(n, slides.length - 1));
+  slides[current].classList.add('active');
+  slides[current].setAttribute('aria-current', 'true');
+  counter.textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+document.getElementById('deck').addEventListener('click', e => {
+  const mid = window.innerWidth / 2;
+  if (e.clientX > mid) goTo(current + 1);
+  else goTo(current - 1);
+});
+</script>
+</body>
+</html>
