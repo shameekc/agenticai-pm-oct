@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Review Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f6f7f9; --fg: #111111; --fg2: #555555;
+  --accent: #2563eb; --accent-soft: #eaf1fe; --warn: #b45309; --warn-soft: #fef3e2;
+  --good: #047857; --good-soft: #e7f6f0; --line: #e4e6ea;
+  --font-body: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: var(--font-body); }
+#deck { height: 100vh; width: 100vw; overflow: hidden; cursor: pointer; }
+.slide {
+  display: none; height: 100vh; width: 100vw; padding: 7vh 8vw;
+  flex-direction: column; justify-content: center; gap: 3vh;
+  animation: fadein 0.25s ease;
+}
+.slide.active { display: flex; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.kicker { font-size: clamp(12px, 1.3vw, 18px); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-size: clamp(36px, 5.6vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: clamp(24px, 3.1vw, 48px); font-weight: 800; line-height: 1.15; letter-spacing: -0.015em; max-width: 34ch; }
+p.lead { font-size: clamp(18px, 1.9vw, 28px); color: var(--fg2); line-height: 1.45; max-width: 60ch; }
+.sub { font-size: clamp(14px, 1.4vw, 20px); color: var(--fg2); }
+.slide[data-layout="title"] { background: var(--bg2); align-items: flex-start; }
+.slide[data-layout="title"] h1 span { color: var(--accent); }
+
+ol.big { font-size: clamp(18px, 2vw, 30px); line-height: 1.4; padding-left: 1.3em; display: flex; flex-direction: column; gap: 1.6vh; }
+ol.big li::marker { color: var(--accent); font-weight: 800; }
+
+/* Question */
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6vw; }
+.opt { display: flex; gap: 1vw; align-items: baseline; border: 1px solid var(--line); border-radius: 14px; padding: 2.2vh 1.6vw; font-size: clamp(16px, 1.7vw, 25px); line-height: 1.35; transition: opacity .2s, background .2s; }
+.opt b { color: var(--accent); font-weight: 800; }
+.revealed .opt { opacity: .35; }
+.revealed .opt.correct { opacity: 1; background: var(--good-soft); border-color: var(--good); }
+.revealed .opt.correct b { color: var(--good); }
+.why { display: none; background: var(--bg2); border-left: 4px solid var(--good); border-radius: 10px; padding: 2vh 1.6vw; font-size: clamp(15px, 1.5vw, 22px); line-height: 1.45; color: var(--fg2); }
+.why strong { color: var(--fg); }
+.revealed .why { display: block; }
+.src { font-size: clamp(11px, 1vw, 14px); color: var(--fg2); font-family: var(--mono); margin-top: .8vh; }
+
+
+.tag { display: inline-block; font-size: clamp(11px, 1.1vw, 15px); font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.head { display: flex; justify-content: space-between; align-items: center; }
+
+#counter { position: fixed; bottom: 18px; right: 24px; font-size: 13px; color: var(--fg2); opacity: .6; font-variant-numeric: tabular-nums; }
+#nav { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; opacity: .25; transition: opacity .2s; }
+#nav:hover { opacity: 1; }
+#nav button { border: 1px solid var(--line); background: var(--bg); color: var(--fg); min-width: 40px; height: 32px; border-radius: 8px; font-size: 14px; cursor: pointer; padding: 0 10px; }
+
+@media (max-width: 800px) {
+  .opts { grid-template-columns: 1fr; }
+  .slide { padding: 5vh 6vw; overflow-y: auto; justify-content: flex-start; }
+}
+</style>
+</head>
+<body>
+<div id="deck" aria-live="polite">
+
+  <div class="slide active" data-layout="title">
+    <div class="kicker">Session 3 · Course review quiz · 15 minutes</div>
+    <h1>Three sessions.<br><span>Twelve questions.</span></h1>
+    <p class="lead">Type your letter in the chat. Then we reveal it and take one line on why.</p>
+    <p class="sub">Sessions 1–3 · Wren CX throughout · no notes needed, but no one's checking</p>
+  </div>
+
+  <!-- Session 1 -->
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q1 · Session 1 · Agentic vs. assistive</span></div>
+    <h2>GitHub Copilot suggests code. A bot reads your repo, writes changes, opens PRs and merges them. Same model underneath. What makes the bot agentic?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>A larger, more capable model</span></div>
+      <div class="opt"><b>B</b><span>It answers in natural language</span></div>
+      <div class="opt correct"><b>C</b><span>It owns the outcome: autonomy, tool access and a feedback loop</span></div>
+      <div class="opt"><b>D</b><span>It retrieves context from a knowledge base</span></div>
+    </div>
+    <div class="why"><strong>The loop closes without you.</strong> Copilot amplifies the developer's judgment. The bot substitutes for it. And once a system owns outcomes, the PM has to spec its failure modes.<div class="src">Session 1 · §1 The Agentic Moment</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q2 · Session 1 · Routing order</span></div>
+    <h2>Ticket B: "Wrong product, don't have my order number." The classifier returns ORDER_ISSUE at 0.82 confidence. Where does it route?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>AUTO_RESOLVE</span></div>
+      <div class="opt correct"><b>B</b><span>GATHER_INFO</span></div>
+      <div class="opt"><b>C</b><span>HUMAN_REVIEW</span></div>
+      <div class="opt"><b>D</b><span>ESCALATE</span></div>
+    </div>
+    <div class="why"><strong>The missing-ID check runs before the confidence gate.</strong> Swap the order and B clears 0.80, so it auto-resolves on order data that doesn't exist. Partially observable: the spec has to say what the agent does when it can't see what it needs.<div class="src">Session 1 · §6 Build 1, Step 2</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q3 · Session 1 · The AI-native PRD</span></div>
+    <h2>Which line belongs in the quality-criteria section of an AI-native PRD?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>"The agent responds helpfully and accurately"</span></div>
+      <div class="opt"><b>B</b><span>"Classification quality is industry-leading"</span></div>
+      <div class="opt"><b>C</b><span>"CSAT improves after launch"</span></div>
+      <div class="opt correct"><b>D</b><span>"ESCALATE recall ≥ 95% on the validation set"</span></div>
+    </div>
+    <div class="why"><strong>A number plus a test set, or it's an aspiration.</strong> Aspirations don't gate launches. And the PM owns that number, because quality is a promise to the customer.<div class="src">Session 1 · §4 What "measurable" means</div></div>
+  </div>
+
+  <!-- Session 2 -->
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q4 · Session 2 · MCP</span></div>
+    <h2>Ticket D's "IGNORE ALL PREVIOUS INSTRUCTIONS…" arrives inside a <code>get_pending_tickets</code> result from your own MCP server. What's the rule?</h2>
+    <div class="opts">
+      <div class="opt correct"><b>A</b><span>Every tool result is untrusted input</span></div>
+      <div class="opt"><b>B</b><span>Your own server is trusted, so skip the check</span></div>
+      <div class="opt"><b>C</b><span>MCP's standard envelope strips injections</span></div>
+      <div class="opt"><b>D</b><span>Only text a user pastes in needs checking</span></div>
+    </div>
+    <div class="why"><strong>MCP solves connectivity, not trust.</strong> It's the USB-C of agents. One cable for every tool, but the cable doesn't care what comes down it. Guardrails, approvals and audit logs are separate decisions.<div class="src">Session 2 · §1 Build 3</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q5 · Session 2 · Multi-agent state</span></div>
+    <h2>Wren splits into Triage, Resolution, QA and Escalation agents. What does the PM specify as the contract between them?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>The system prompt inside each agent</span></div>
+      <div class="opt"><b>B</b><span>The model each agent runs on</span></div>
+      <div class="opt"><b>C</b><span>The Mermaid architecture diagram</span></div>
+      <div class="opt correct"><b>D</b><span>The shared state object</span></div>
+    </div>
+    <div class="why"><strong>The state object is the contract between agents.</strong> Every field is named, typed and owned: who writes it, who reads it. A missing field fails silently between agents, not with an error. And thresholds like <code>qa_score</code> belong in the spec, not in a prompt.<div class="src">Session 2 · §4 How agents share state</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q6 · Session 2 · Planning</span></div>
+    <h2>A planning-agent spec has a goal, tools and constraints, but no "done when" and no max steps. What's the most likely failure?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>Context saturation</span></div>
+      <div class="opt"><b>B</b><span>Hallucinated tool calls</span></div>
+      <div class="opt correct"><b>C</b><span>Infinite loop</span></div>
+      <div class="opt"><b>D</b><span>Scope creep</span></div>
+    </div>
+    <div class="why"><strong>That's a spec bug, not an engineering bug.</strong> Termination criteria and a step limit work as the circuit breaker. In a multi-agent system, <code>step_count</code> has to live in the state object or you can't enforce the limit.<div class="src">Session 2 · §2 Planning · §4 The 6 failure modes</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q7 · Session 2 · The eval problem</span></div>
+    <h2>A model update you didn't ask for drops classification accuracy from 91% to 83%. You find out three weeks later, when CSAT falls. Which eval should have caught it?</h2>
+    <div class="opts">
+      <div class="opt correct"><b>A</b><span>Regression</span></div>
+      <div class="opt"><b>B</b><span>Unit</span></div>
+      <div class="opt"><b>C</b><span>A/B</span></div>
+      <div class="opt"><b>D</b><span>None: CSAT is the right signal</span></div>
+    </div>
+    <div class="why"><strong>Silent regression.</strong> Run the golden set again after every model or prompt change, and alert on a drop of more than 2%. A pass today isn't a pass next month. Engineering runs the tests, and the PM owns the criteria they measure against.<div class="src">Session 2 · §5 Three kinds of eval</div></div>
+  </div>
+
+  <!-- Session 3 -->
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q8 · Session 3 · Thresholds</span></div>
+    <h2>For Wren's ESCALATE decision, missing a complaint that needed a human costs far more than escalating one that didn't. How should you set the threshold?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>Favour precision: only escalate when you're sure it's needed</span></div>
+      <div class="opt"><b>B</b><span>Maximise overall accuracy: both errors count the same</span></div>
+      <div class="opt correct"><b>C</b><span>Favour recall: catch nearly every case, accept some unnecessary escalations</span></div>
+      <div class="opt"><b>D</b><span>Keep the default 0.80 confidence gate</span></div>
+    </div>
+    <div class="why"><strong>Thresholds come from what each error costs.</strong> An unnecessary escalation costs a human about ₹85. A missed one means an automated reply to someone heading for the consumer commission. So Wren targets high recall and accepts lower precision. The PM defines the cost function and engineering runs the sweep.<div class="src">Session 3 · §2 Where does 0.80 come from?</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q9 · Session 3 · Judging the judge</span></div>
+    <h2>You run your LLM judge on 20 tickets where you already know the human answer. It agrees with the humans 70% of the time. What now?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>Fix the agent, since it's failing</span></div>
+      <div class="opt correct"><b>B</b><span>Fix the judge before you trust any pass rate</span></div>
+      <div class="opt"><b>C</b><span>Switch the judge to the same model as the agent</span></div>
+      <div class="opt"><b>D</b><span>Lower the pass threshold to 70%</span></div>
+    </div>
+    <div class="why"><strong>Below 85% agreement, the judge is the problem.</strong> Who evaluates the evaluator? A human-labelled golden set does. And use a different model, because a same-model judge has the same blind spots.<div class="src">Session 3 · §2 Four rules for a judge that works</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q10 · Session 3 · Evals vs. guardrails</span></div>
+    <h2>A draft reads: "Your ₹18,500 refund will reach you by Friday." What stops it from reaching the customer?</h2>
+    <div class="opts">
+      <div class="opt correct"><b>A</b><span>An output guardrail</span></div>
+      <div class="opt"><b>B</b><span>A regression eval</span></div>
+      <div class="opt"><b>C</b><span>A monitoring alert</span></div>
+      <div class="opt"><b>D</b><span>The golden dataset</span></div>
+    </div>
+    <div class="why"><strong>Evals look back. Guardrails act before the output goes out, on every call.</strong> Under the Consumer Protection Act 2019, automated commitments are binding, so this check is a product requirement, not a nice-to-have.<div class="src">Session 3 · §3 Evals vs. guardrails · §4 Output guardrail</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q11 · Session 3 · Token economics</span></div>
+    <h2>For Wren, the model call itself costs well under ₹1 a ticket. So where does an agent's cost actually pile up?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>The per-token price of the model you pick</span></div>
+      <div class="opt"><b>B</b><span>Storing logs for audit</span></div>
+      <div class="opt correct"><b>C</b><span>Retries, reflection loops, multi-agent chatter and human review</span></div>
+      <div class="opt"><b>D</b><span>Hosting the MCP servers</span></div>
+    </div>
+    <div class="why"><strong>The model is rarely the expensive part.</strong> Every retry, reflection pass and guardrail call is another paid model call. Humans reviewing escalations cost more than all of them put together. That's why you multiply your estimate by 3, and why a word cap on drafts is a cost rule as well as a quality rule.<div class="src">Session 3 · §5 Token economics</div></div>
+  </div>
+
+  <div class="slide" data-q>
+    <div class="head"><span class="tag">Q12 · Session 3 · The control plane</span></div>
+    <h2>The agent starts misbehaving in production. Who owns the decision to roll back?</h2>
+    <div class="opts">
+      <div class="opt"><b>A</b><span>Engineering, because they built the button</span></div>
+      <div class="opt"><b>B</b><span>The model provider</span></div>
+      <div class="opt"><b>C</b><span>Whoever is on call</span></div>
+      <div class="opt correct"><b>D</b><span>The PM</span></div>
+    </div>
+    <div class="why"><strong>Engineering owns the mechanism, and the PM owns the decision.</strong> The PM also owns the alert thresholds, review SLAs and recovery criteria. The usual failure is a PM saying "engineering will figure out the thresholds", and then nobody notices the problem for three days.<div class="src">Session 3 · §6 Who owns the control plane</div></div>
+  </div>
+
+  <div class="slide" data-layout="title">
+    <div class="kicker">The thread through all three sessions</div>
+    <h1>Building the agent<br><span>is the easy part.</span></h1>
+    <ol class="big">
+      <li><b>Spec it:</b> numbers, failure modes, where the human sits</li>
+      <li><b>Measure it:</b> golden set, a judge you've tested, thresholds with a price</li>
+      <li><b>Stop the harm:</b> guardrails on every call, every tool result treated as untrusted</li>
+      <li><b>Know the cost:</b> output tokens, loops and human review</li>
+    </ol>
+    <p class="sub">Your capstone on 31 Oct gets graded on all four.</p>
+  </div>
+
+</div>
+
+<div id="counter"></div>
+<div id="nav">
+  <button id="prev" aria-label="Previous slide">←</button>
+  <button id="reveal" aria-label="Reveal answer">Reveal</button>
+  <button id="next" aria-label="Next slide">→</button>
+</div>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const counter = document.getElementById('counter');
+let i = 0;
+function show(n) {
+  slides[i].classList.remove('active');
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  slides[i].classList.add('active');
+  const q = slides.filter(s => s.hasAttribute('data-q'));
+  const qi = q.indexOf(slides[i]);
+  counter.textContent = qi >= 0 ? `Question ${qi + 1} of ${q.length}` : `${i + 1} / ${slides.length}`;
+}
+function reveal() {
+  const s = slides[i];
+  if (!s.hasAttribute('data-q')) return false;
+  if (s.classList.contains('revealed')) return false;
+  s.classList.add('revealed');
+  return true;
+}
+// Click / Space / → reveal the answer first, then advance.
+function forward() { if (!reveal()) show(i + 1); }
+
+document.getElementById('deck').addEventListener('click', forward);
+document.getElementById('next').addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
+document.getElementById('prev').addEventListener('click', e => { e.stopPropagation(); show(i - 1); });
+document.getElementById('reveal').addEventListener('click', e => { e.stopPropagation(); reveal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); forward(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  else if (e.key === 'r' || e.key === 'R') reveal();
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(slides.length - 1);
+});
+show(0);
+</script>
+</body>
+</html>
